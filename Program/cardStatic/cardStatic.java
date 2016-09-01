@@ -21,21 +21,7 @@ public class cardStatic {
 
     }
 
-    public static final Dictionary<String, Integer> dCardType;
-    static {
-        Hashtable<String, Integer> tempHashTable = new Hashtable<String, Integer>();
-        tempHashTable.put("ultratrace", 0);
-        tempHashTable.put("trace", 1);
-        tempHashTable.put("low", 2);
-        tempHashTable.put("moderate", 3);
-        tempHashTable.put("high", 4);
-        tempHashTable.put("veryhigh", 5);
-        dCardType = tempHashTable;
-
-    }
-
-    public enum eCrystalSystem {
-    }
+    //TODO: create Dictionary for Occurrence...
 
     public static final Dictionary<String, Integer> dCrustalAbundance;
     static {
