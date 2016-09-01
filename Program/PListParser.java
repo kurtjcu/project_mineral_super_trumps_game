@@ -59,7 +59,9 @@ public class PListParser {
 
                         NodeList nStringNodes = eNormalCard.getElementsByTagName("string");
                         for (int j = 0; j < nStringNodes.getLength(); j++) {
-                            aStringItems.add(nStringNodes.item(j).getTextContent());
+                            if(!nStringNodes.item(j).getParentNode().getNodeName().equals("array")) {
+                                aStringItems.add(nStringNodes.item(j).getTextContent());
+                            }
                         }
                         NodeList nArrayNodes = eNormalCard.getElementsByTagName("array");
                         if (nArrayNodes.item(0).getNodeType() == Node.ELEMENT_NODE) {
@@ -71,7 +73,9 @@ public class PListParser {
 
                         }
 
-                        //TODO: print out for sanity check
+                        //TODO: create card and store in collection
+
+                        //print to console for testing
                         aWhatIWillMakeCardFrom.add(aStringItems.get(0));
                         aWhatIWillMakeCardFrom.add(aStringItems.get(1));
                         aWhatIWillMakeCardFrom.add(aKeyItems.get(3));
@@ -85,7 +89,6 @@ public class PListParser {
                         aWhatIWillMakeCardFrom.add(aStringItems.get(8));
                         aWhatIWillMakeCardFrom.add(aStringItems.get(9));
                         aWhatIWillMakeCardFrom.add(aStringItems.get(10));
-
                         for (Object item : aWhatIWillMakeCardFrom) {
                             System.out.println(item);
                         }
