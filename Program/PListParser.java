@@ -22,15 +22,9 @@ public class PListParser {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element :"
-                    + doc.getDocumentElement().getNodeName());
 
-
+            //get each card back from the plist
             NodeList nList = doc.getElementsByTagName("dict");
-            System.out.println("----------------------------");
-            //System.out.println("\nCurrent Element :"
-            //        + doc.getDocumentElement().getAttribute("plist") );
-
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 System.out.println("\nDict Element :"
@@ -46,23 +40,28 @@ public class PListParser {
 
                 ArrayList<Object> aWhatIWillMakeCardFrom = new ArrayList<>();
 
-                //check for playing card
-                if (nChildNodes.getLength() == 53) {
-                    System.out.println("its a normal card");
-                    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element eNormalCard = (Element) nNode;
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eNormalCard = (Element) nNode;
 
-                        NodeList nKeyNodes = eNormalCard.getElementsByTagName("key");
-                        for (int j = 0; j < nKeyNodes.getLength(); j++) {
-                            aKeyItems.add(nKeyNodes.item(j).getTextContent());
-                        }
+                    //get all the keys
+                    NodeList nKeyNodes = eNormalCard.getElementsByTagName("key");
+                    for (int j = 0; j < nKeyNodes.getLength(); j++) {
+                        aKeyItems.add(nKeyNodes.item(j).getTextContent());
+                    }
 
-                        NodeList nStringNodes = eNormalCard.getElementsByTagName("string");
-                        for (int j = 0; j < nStringNodes.getLength(); j++) {
-                            if(!nStringNodes.item(j).getParentNode().getNodeName().equals("array")) {
-                                aStringItems.add(nStringNodes.item(j).getTextContent());
-                            }
+                    //get all the strings
+                    NodeList nStringNodes = eNormalCard.getElementsByTagName("string");
+                    for (int j = 0; j < nStringNodes.getLength(); j++) {
+                        if (!nStringNodes.item(j).getParentNode().getNodeName().equals("array")) {  ///make sure it is not the strings in the array
+                            aStringItems.add(nStringNodes.item(j).getTextContent());
                         }
+                    }
+
+
+                    //check for playing card
+                    if (nChildNodes.getLength() == 53) {
+                        System.out.println("its a normal card");
+
                         NodeList nArrayNodes = eNormalCard.getElementsByTagName("array");
                         if (nArrayNodes.item(0).getNodeType() == Node.ELEMENT_NODE) {
                             Element eOccurrence = (Element) nArrayNodes.item(0);
@@ -72,7 +71,6 @@ public class PListParser {
                             }
 
                         }
-
                         //TODO: create card and store in collection
 
                         //print to console for testing
@@ -91,6 +89,17 @@ public class PListParser {
                         aWhatIWillMakeCardFrom.add(aStringItems.get(10));
                         for (Object item : aWhatIWillMakeCardFrom) {
                             System.out.println(item);
+                        }
+                    }
+
+                    if (nChildNodes.getLength() == 21) {
+                        //System.out.println("its a trump or rules card");
+                        if (aKeyItems.get(3).toLowerCase().contains("trump")) {
+                            System.out.println("its a trump card");
+
+
+                        } else if (aKeyItems.get(3).toLowerCase().contains("rule")){
+                            System.out.println("its a rules card");
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-package cardStatic;
+package cardsPackage;
 
 import java.util.ArrayList;
 import java.util.Dictionary;

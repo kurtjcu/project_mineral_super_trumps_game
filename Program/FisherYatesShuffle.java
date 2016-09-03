@@ -1,4 +1,4 @@
-
+import cardsPackage.mineralCard;
 
 /**
  * Created by kurt on 26/08/2016.
@@ -18,13 +18,13 @@ public class FisherYatesShuffle
         }
     }
 
-    static void FisherYatesShuffle(Card[] array) {
+    static void FisherYatesShuffle(mineralCard[] array) {
         int n = array.length;
         for (int i = 0; i < array.length; i++) {
             // Get a random index of the array past i.
             int random = i + (int) (Math.random() * (n - i));
             // Swap the random element with the present element.
-            Card randomElement = array[random];
+            mineralCard randomElement = array[random];
             array[random] = array[i];
             array[i] = randomElement;
         }
