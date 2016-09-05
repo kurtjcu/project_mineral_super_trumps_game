@@ -19,17 +19,26 @@ public class FisherYatesShuffle
         }
     }
 
-    //TODO: store cardstack as array to do the shuffel and return a cardstack???
 
-    static Stack<BaseCard> FisherYatesShuffle(Stack<BaseCard> cardStack) {
+    public static Stack<BaseCard> FisherYatesShuffle(Stack<BaseCard> cardStack) {
         int n = cardStack.size();
-        for (int i = 0; i < cardStack.size(); i++) {
+        BaseCard[] aCards = new BaseCard[n];
+        cardStack.toArray(aCards);
+
+        // do the shuffle....
+        for (int i = 0; i < n; i++) {
             // Get a random index of the array past i.
             int random = i + (int) (Math.random() * (n - i));
             // Swap the random element with the present element.
-            BaseCard randomElement = cardStack[random];
-            cardStack[random] = cardStack[i];
-            cardStack[i] = randomElement;
+            BaseCard randomElement = aCards[random];
+            aCards[random] = aCards[i];
+            aCards[i] = randomElement;
+        }
+
+        // clear stack and add cards
+        cardStack = new Stack<BaseCard>();
+        for (BaseCard card : aCards){
+            cardStack.push(card);
         }
         return cardStack;
     }

@@ -12,24 +12,34 @@ public class Game {
     private Stack<BaseCard> deck;
     private ArrayList<BaseCard> rulesCards;
 
-    Game(){
+    public Game(){
         deck = new Stack<BaseCard>();
         rulesCards = new ArrayList<BaseCard>();
         ArrayList<BaseCard> aDeck = PListParser.getCardsList();
 
-        for (BaseCard card : aDeck){
-            if(card.getCardType().contains("play") || card.getCardType().contains("trump")){
+        //sort rule cards from file and create deck
+        for (BaseCard card : aDeck) {
+            if (card.getCardType().contains("play") || card.getCardType().contains("trump")) {
                 deck.push(card);
-            } else if(card.getCardType().contains("rule")){
+            } else if (card.getCardType().contains("rule")) {
                 rulesCards.add(card);
             }
         }
     }
 
 
+    public void doShuffle(){
+        deck = FisherYatesShuffle.FisherYatesShuffle(deck);
+    }
+
     public static void main(String[] args) {
 
-         Game myGame = new Game();
+        Game myGame = new Game();
+        myGame.doShuffle();
+        for(BaseCard card : myGame.deck){
+            System.out.println("Name of Card: " + card.getTitle());
+        }
+
 
 
 

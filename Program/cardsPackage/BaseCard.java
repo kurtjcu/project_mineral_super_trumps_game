@@ -17,7 +17,7 @@ public class BaseCard {
         this.imageName = imageName;
         this.title = title;
 
-        if (cardStatic.alCardType.contains(cardType)) {
+        if (CardStatic.alCardType.contains(cardType)) {
             this.cardType = cardType;
         } else {
             errorLoadingCard("CardType not supported " + cardType);

@@ -37,21 +37,21 @@ public class MineralCard extends BaseCard {
         this.specificGravity = specificGravity;
 
 
-        if (cardStatic.dCleavage.get(cleavage) != null) {
+        if (CardStatic.dCleavage.get(cleavage) != null) {
             this.cleavage = cleavage;
         } else {
             errorLoadingCard("Cleavage not supported " + cleavage);
             error = error + 1;
         }
 
-        if (cardStatic.dCrustalAbundance.get(crustalAbundance.replaceAll("\\s","")) != null) {
+        if (CardStatic.dCrustalAbundance.get(crustalAbundance.replaceAll("\\s","")) != null) {
             this.crustalAbundance = crustalAbundance.trim();
         } else {
             errorLoadingCard("crustalAbundance not supported " + crustalAbundance);
             error = error + 1;
         }
 
-        if (cardStatic.dEconomicValue.get(economicValue) != null) {
+        if (CardStatic.dEconomicValue.get(economicValue) != null) {
             this.economicValue = economicValue;
         } else {
             errorLoadingCard("economicValue not supported " + economicValue);
