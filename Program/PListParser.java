@@ -2,6 +2,8 @@
  * Created by kurt on 1/09/2016.
  */
 
+import cardsPackage.*;
+
 import java.io.File;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,7 +16,11 @@ import org.w3c.dom.Element;
 
 public class PListParser {
 
+
     public static void main(String[] args) {
+
+        ArrayList<BaseCard> cardList = new ArrayList<>();
+
         try {
             File inputFile = new File("MstCards_151021.plist");
             DocumentBuilderFactory dbFactory
@@ -90,6 +96,43 @@ public class PListParser {
                         for (Object item : aWhatIWillMakeCardFrom) {
                             System.out.println(item);
                         }
+
+                        String[] aOccurrence = new String[aOccurrenceArrayItems.size()];
+                        for(int i = 0; i <= aOccurrenceArrayItems.size()-1; i++ ) {
+                            aOccurrence[i] = aOccurrenceArrayItems.get(i);
+                        }
+
+                        String[] sHardness = aStringItems.get(6).split("-");
+                        if (sHardness.length < 2 ){
+                            sHardness = aStringItems.get(6).split(" ");
+                        }
+
+                        Double[] dHardness = new Double[sHardness.length];
+                        for(int i = 0; i <= sHardness.length-1; i++ ) {
+                            dHardness[i] = Double.parseDouble(sHardness[i]);
+                        }
+
+                        String[] sSpecificGravity = aStringItems.get(7).split("-");
+                        Double[] dSpecificGravity = new Double[sSpecificGravity.length];
+                        for(int i = 0; i <= sSpecificGravity.length-1; i++ ) {
+                            dSpecificGravity[i] = Double.parseDouble(sSpecificGravity[i]);
+                        }
+
+                        MineralCard newMineralCard = new MineralCard(aStringItems.get(0),
+                                aStringItems.get(1),
+                                aKeyItems.get(3),
+                                aStringItems.get(2),
+                                aStringItems.get(3),
+                                aStringItems.get(4),
+                                aStringItems.get(5),
+                                aOccurrence,
+                                dHardness,
+                                dSpecificGravity,
+                                aStringItems.get(8),
+                                aStringItems.get(9).trim(),
+                                aStringItems.get(10) );
+
+                        cardList.add(newMineralCard);
                     }
 
                     if (nChildNodes.getLength() == 21) {
@@ -97,11 +140,53 @@ public class PListParser {
                         if (aKeyItems.get(3).toLowerCase().contains("trump")) {
                             System.out.println("its a trump card");
 
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(0));
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(1));
+                            aWhatIWillMakeCardFrom.add(aKeyItems.get(3));
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(2));
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(3));
+                            for (Object item : aWhatIWillMakeCardFrom) {
+                                System.out.println(item);
+                            }
+
+                            TrumpCard trumpCard = new TrumpCard(aStringItems.get(0),
+                                    aStringItems.get(1),
+                                    aKeyItems.get(3),
+                                    aStringItems.get(2),
+                                    aStringItems.get(3));
+
+                            cardList.add(trumpCard);
+
 
                         } else if (aKeyItems.get(3).toLowerCase().contains("rule")){
                             System.out.println("its a rules card");
+
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(0));
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(1));
+                            aWhatIWillMakeCardFrom.add(aKeyItems.get(3));
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(2));
+                            aWhatIWillMakeCardFrom.add(aStringItems.get(3));
+                            for (Object item : aWhatIWillMakeCardFrom) {
+                                System.out.println(item);
+                            }
+
+                            RuleCard ruleCard = new RuleCard(aStringItems.get(0),
+                                    aStringItems.get(1),
+                                    aKeyItems.get(3),
+                                    aStringItems.get(2),
+                                    aStringItems.get(3));
+
+                            cardList.add(ruleCard);
                         }
                     }
+                }
+            }
+
+            for(BaseCard card : cardList) {
+
+                System.out.println("Card Title is " + card.getTitle());
+                if(card.getError() > 0){
+                    System.out.println("There was at least one error with this card: " + card.getTitle() + " \n ErrorCount = " +card.getError());
                 }
             }
 

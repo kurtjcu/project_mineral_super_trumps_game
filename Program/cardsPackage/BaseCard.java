@@ -8,6 +8,8 @@ public class BaseCard {
     protected String imageName;            // name of image
     protected String cardType;            // normal or trump?? (dont forget there is also an instructions type)
     protected String title;                // name of card
+    protected Integer error = 0;           // Error if not 0
+
 
 
     public BaseCard(String fileName, String imageName, String cardType, String title) {
@@ -19,6 +21,7 @@ public class BaseCard {
             this.cardType = cardType;
         } else {
             errorLoadingCard("CardType not supported " + cardType);
+            error = error + 1;
         }
     }
 
@@ -37,6 +40,10 @@ public class BaseCard {
 
     public String getTitle() {
         return title;
+    }
+
+    public Integer getError(){
+        return error;
     }
 
     // Lets user know of error loading card

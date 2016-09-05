@@ -3,7 +3,7 @@ package cardsPackage;
 /**
  * Created by kurt on 16/08/2016.
  */
-public class mineralCard extends BaseCard {
+public class MineralCard extends BaseCard {
 
 
 
@@ -12,7 +12,7 @@ public class mineralCard extends BaseCard {
     private String crystalSystem;        //enum? is this used??
     private String[] occurrence;            // need to contain types of rock it can be found in?? (Dictionary??)
     private Double[] hardness;            // can this be an int??
-    private Double specificGravity;        // how heavy is it?
+    private Double[] specificGravity;        // how heavy is it?
     private String cleavage;            // need to separate this into its components...
     private String crustalAbundance;    //change to enum??
     private String economicValue;        //change to enum??
@@ -21,9 +21,9 @@ public class mineralCard extends BaseCard {
 
     /*** Constructors ***/
     //
-    public mineralCard(String fileName, String imageName, String cardType, String title,
+    public MineralCard(String fileName, String imageName, String cardType, String title,
                        String chemistry, String classification, String crystalSystem,
-                       String[] occurrence, Double[] hardness, Double specificGravity,
+                       String[] occurrence, Double[] hardness, Double[] specificGravity,
                        String cleavage, String crystalAbundance, String economicValue) {
 
         super(fileName, imageName, cardType, title);
@@ -44,18 +44,21 @@ public class mineralCard extends BaseCard {
             this.cleavage = cleavage;
         } else {
             errorLoadingCard("Cleavage not supported " + cleavage);
+            error = error + 1;
         }
 
         if (cardStatic.dCrustalAbundance.get(crystalAbundance) != null) {
             this.crustalAbundance = crystalAbundance;
         } else {
             errorLoadingCard("crystalAbundance not supported " + crystalAbundance);
+            error = error + 1;
         }
 
         if (cardStatic.dEconomicValue.get(economicValue) != null) {
             this.economicValue = economicValue;
         } else {
             errorLoadingCard("economicValue not supported " + economicValue);
+            error = error + 1;
         }
 
 
@@ -91,7 +94,7 @@ public class mineralCard extends BaseCard {
         return hardness;
     }
 
-    public Double getSpecificGravity() {
+    public Double[] getSpecificGravity() {
         return specificGravity;
     }
 
