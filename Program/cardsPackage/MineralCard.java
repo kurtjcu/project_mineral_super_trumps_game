@@ -6,7 +6,6 @@ package cardsPackage;
 public class MineralCard extends BaseCard {
 
 
-
     private String chemistry;            // chemistry of mineral
     private String classification;        // classification of mineral??
     private String crystalSystem;        //enum? is this used??
@@ -18,13 +17,12 @@ public class MineralCard extends BaseCard {
     private String economicValue;        //change to enum??
 
 
-
     /*** Constructors ***/
     //
     public MineralCard(String fileName, String imageName, String cardType, String title,
                        String chemistry, String classification, String crystalSystem,
                        String[] occurrence, Double[] hardness, Double[] specificGravity,
-                       String cleavage, String crystalAbundance, String economicValue) {
+                       String cleavage, String crustalAbundance, String economicValue) {
 
         super(fileName, imageName, cardType, title);
 
@@ -39,7 +37,6 @@ public class MineralCard extends BaseCard {
         this.specificGravity = specificGravity;
 
 
-
         if (cardStatic.dCleavage.get(cleavage) != null) {
             this.cleavage = cleavage;
         } else {
@@ -47,10 +44,10 @@ public class MineralCard extends BaseCard {
             error = error + 1;
         }
 
-        if (cardStatic.dCrustalAbundance.get(crystalAbundance) != null) {
-            this.crustalAbundance = crystalAbundance;
+        if (cardStatic.dCrustalAbundance.get(crustalAbundance.replaceAll("\\s","")) != null) {
+            this.crustalAbundance = crustalAbundance.trim();
         } else {
-            errorLoadingCard("crystalAbundance not supported " + crystalAbundance);
+            errorLoadingCard("crustalAbundance not supported " + crustalAbundance);
             error = error + 1;
         }
 
@@ -114,7 +111,5 @@ public class MineralCard extends BaseCard {
 /*** ways to compare two or more cards?? **/
     //should this be overrides tha
 
-    /*** Errors ***/
-
-
+    /*** Errors  ***/
 }
