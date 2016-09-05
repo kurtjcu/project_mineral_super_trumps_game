@@ -7,7 +7,8 @@ import java.util.Hashtable;
 /**
  * Created by kurt on 30/08/2016.
  */
-public class cardStatic {
+public class CardStatic {
+
 
 
     public static final ArrayList alCardType;

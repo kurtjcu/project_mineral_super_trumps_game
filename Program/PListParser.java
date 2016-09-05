@@ -17,8 +17,7 @@ import org.w3c.dom.Element;
 public class PListParser {
 
 
-    public static void main(String[] args) {
-
+    public static ArrayList getCardsList(){
         ArrayList<BaseCard> cardList = new ArrayList<>();
 
         try {
@@ -77,25 +76,6 @@ public class PListParser {
                             }
 
                         }
-                        //TODO: create card and store in collection
-
-                        //print to console for testing
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(0));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(1));
-                        aWhatIWillMakeCardFrom.add(aKeyItems.get(3));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(2));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(3));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(4));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(5));
-                        aWhatIWillMakeCardFrom.add(aOccurrenceArrayItems);
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(6));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(7));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(8));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(9));
-                        aWhatIWillMakeCardFrom.add(aStringItems.get(10));
-                        for (Object item : aWhatIWillMakeCardFrom) {
-                            System.out.println(item);
-                        }
 
                         String[] aOccurrence = new String[aOccurrenceArrayItems.size()];
                         for(int i = 0; i <= aOccurrenceArrayItems.size()-1; i++ ) {
@@ -140,15 +120,6 @@ public class PListParser {
                         if (aKeyItems.get(3).toLowerCase().contains("trump")) {
                             System.out.println("its a trump card");
 
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(0));
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(1));
-                            aWhatIWillMakeCardFrom.add(aKeyItems.get(3));
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(2));
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(3));
-                            for (Object item : aWhatIWillMakeCardFrom) {
-                                System.out.println(item);
-                            }
-
                             TrumpCard trumpCard = new TrumpCard(aStringItems.get(0),
                                     aStringItems.get(1),
                                     aKeyItems.get(3),
@@ -161,15 +132,6 @@ public class PListParser {
                         } else if (aKeyItems.get(3).toLowerCase().contains("rule")){
                             System.out.println("its a rules card");
 
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(0));
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(1));
-                            aWhatIWillMakeCardFrom.add(aKeyItems.get(3));
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(2));
-                            aWhatIWillMakeCardFrom.add(aStringItems.get(3));
-                            for (Object item : aWhatIWillMakeCardFrom) {
-                                System.out.println(item);
-                            }
-
                             RuleCard ruleCard = new RuleCard(aStringItems.get(0),
                                     aStringItems.get(1),
                                     aKeyItems.get(3),
@@ -181,6 +143,20 @@ public class PListParser {
                     }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  cardList;
+    }
+
+    public static void main(String[] args) {
+
+
+
+        try {
+
+
+            ArrayList<BaseCard> cardList = PListParser.getCardsList();
 
             for(BaseCard card : cardList) {
 
