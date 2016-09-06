@@ -13,6 +13,7 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
+        hand = new ArrayList<>();
     }
 
     /** setters **/
@@ -27,7 +28,7 @@ public class Player {
         return name;
     }
 
-    public ArrayList getHand(){
+    public ArrayList<BaseCard> getHand(){
         return hand;
     }
 }

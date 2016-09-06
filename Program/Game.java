@@ -6,6 +6,8 @@ import java.util.*;
 
 import cardsPackage.*;
 
+import javax.smartcardio.Card;
+
 
 public class Game {
 
@@ -57,11 +59,27 @@ public class Game {
 
     public boolean setDealer(){
         if(players.size() > 0){
-            dealer = players.get((int)(Math.random() * (players.size() - 1)));
+            dealer = players.get((int)(Math.random() * (players.size())));
             return true;
         } else {
             return false;
         }
+
+    }
+
+    public void dealCards(){
+        Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));
+        System.out.println("Index of Dealer " + players.indexOf(dealer));
+
+
+        for (int j = 1; j < 8; j++) {
+            // deal a card to each player
+            for(int i = 0; i < players.size(); i++){
+
+                players.get(playerCounter.increment()).addToHand(deck.pop());  //give card to next player
+            }
+        }
+
 
     }
 
@@ -96,6 +114,8 @@ public class Game {
         //
         // the above should be a function i.e. getNextPlayer as it will be reused then playing the game...
 
+
+
         //TODO: display hands to each player
 
         //TODO: playGame Loop..
@@ -104,6 +124,17 @@ public class Game {
             System.out.println("Name of Card: " + card.getTitle());
         }
 
+
+        myGame.dealCards();
+
+        for(Player player : myGame.players){
+            ArrayList<BaseCard> hand = player.getHand();
+            System.out.println(player.getName());
+
+            for(BaseCard card : hand){
+                System.out.println(card.getTitle());
+            }
+        }
 
 
 
