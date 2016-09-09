@@ -13,22 +13,30 @@ public class Game {
 
     private Stack<BaseCard> deck;
     private ArrayList<BaseCard> rulesCards;
+    private ArrayList<TrumpCard> trumpCards;
     private ArrayList<Player> players;
     private Player dealer;
+    private ArrayList<BaseCard> playedCards;
 
     public Game(){
         deck = new Stack<BaseCard>();
         rulesCards = new ArrayList<BaseCard>();
+        trumpCards = new ArrayList<TrumpCard>();
         players = new ArrayList<Player>();
+        playedCards = new ArrayList<BaseCard>();
 
         ArrayList<BaseCard> aDeck = PListParser.getCardsList();
 
         //sort rule cards from file and create deck
         for (BaseCard card : aDeck) {
-            if (card.getCardType().contains("play") || card.getCardType().contains("trump")) {
+            if (card.getCardType().contains("play")) {
                 deck.push(card);
-            } else if (card.getCardType().contains("rule")) {
+            } else if (card.getCardType().contains("trump")) {
+                trumpCards.add((TrumpCard) card);
+                deck.push(card);
+            } else if(card.getCardType().contains("rule")) {
                 rulesCards.add(card);
+
             }
         }
     }
@@ -48,7 +56,7 @@ public class Game {
     public  Boolean setPlayers(String[] aPlayers) {
 
         for(String player : aPlayers){
-            players.add(new Player(player));
+            players.add(new Player(player, trumpCards, playedCards));
         }
         if(players.size() > 2 && players.size() < 6){
             return true;
@@ -80,8 +88,9 @@ public class Game {
             }
         }
 
-
     }
+
+
 
     public static void main(String[] args) {
 
@@ -106,26 +115,16 @@ public class Game {
 
         myGame.doShuffle();
 
-        //TODO: Deal Cards to players (cycle through each player).
-        // get index of dealer
-        // for 1 to 8
-        //      for  1 to numPlayers
-        //          give card to dealerindex+i until i = playercount - 1 then set i to 0
-        //
-        // the above should be a function i.e. getNextPlayer as it will be reused then playing the game...
-
-
-
-        //TODO: display hands to each player
-
-        //TODO: playGame Loop..
-
         for(BaseCard card : myGame.deck){
             System.out.println("Name of Card: " + card.getTitle());
         }
 
 
         myGame.dealCards();
+
+
+
+        //TODO: display hands to each player
 
         for(Player player : myGame.players){
             ArrayList<BaseCard> hand = player.getHand();
@@ -135,6 +134,40 @@ public class Game {
                 System.out.println(card.getTitle());
             }
         }
+
+
+
+        //TODO: playGame Loop..
+
+        //while (true) {
+            BaseCard trump;
+            Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
+            myGame.players.get(playerCounter.increment()).playCard();  //player to play card
+
+        /*
+            while(myGame.deck.size() > 1){
+
+                myGame.players.get(playerCounter.increment()).playCard();  //player to play card
+            }
+            */
+        //}
+
+        /****Playgame Loop
+         *
+         * while(not quit && everyone still has a card)
+         * {
+         *      while(still cards in deck)
+         *      {
+         *          Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));   //create counter
+         *          players.get(playerCounter.increment()).playCard();  //player to play card
+         *      }
+         * }
+         *
+         */
+
+
+
+
 
 
 

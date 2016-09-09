@@ -3,7 +3,7 @@ package cardsPackage;
 /**
  * Created by kurt on 4/09/2016.
  */
-public class BaseCard {
+public abstract class BaseCard {
     protected String fileName;            // name of image file
     protected String imageName;            // name of image
     protected String cardType;            // normal or trump?? (dont forget there is also an instructions type)
@@ -49,6 +49,11 @@ public class BaseCard {
     // Lets user know of error loading card
    protected static void errorLoadingCard(String error) {
         System.out.println("There was an error constructing card! \n it was:" + error);
+    }
+
+    @Override
+    public String toString(){
+        return title;
     }
 
 }
