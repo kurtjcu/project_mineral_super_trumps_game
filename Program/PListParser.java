@@ -118,7 +118,7 @@ public class PListParser {
                     if (nChildNodes.getLength() == 21) {
                         //System.out.println("its a trump or rules card");
                         if (aKeyItems.get(3).toLowerCase().contains("trump")) {
-                            System.out.println("its a trump card");
+                            //System.out.println("its a trump card");
 
                             TrumpCard trumpCard = new TrumpCard(aStringItems.get(0),
                                     aStringItems.get(1),
@@ -130,7 +130,7 @@ public class PListParser {
 
 
                         } else if (aKeyItems.get(3).toLowerCase().contains("rule")){
-                            System.out.println("its a rules card");
+                            //System.out.println("its a rules card");
 
                             RuleCard ruleCard = new RuleCard(aStringItems.get(0),
                                     aStringItems.get(1),

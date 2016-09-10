@@ -6,23 +6,15 @@ import cardsPackage.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Player {
 
     private String name;
     private ArrayList<BaseCard> hand;
-    private static ArrayList<TrumpCard> trumps;
-    private static ArrayList<BaseCard> playedCards;
-    private BaseCard currentTrump;
-    private static Stack<BaseCard> deck;
 
-    public Player(String name, ArrayList<TrumpCard> trumps, TrumpCard currentTrump, Stack<BaseCard> deck, ArrayList<BaseCard> playedCards) {
+
+    public Player(String name) {
         this.name = name;
-        Player.trumps = trumps;
-        this.currentTrump = currentTrump;
-        Player.deck = deck;
-        Player.playedCards = playedCards;
         hand = new ArrayList<>();
     }
 
@@ -43,12 +35,13 @@ public class Player {
     }
 
     private BaseCard takeCardFromHandAndPlay(Integer cardIndex){
-        //TODO: Check for trump card
+        //Check for trump card
         if(hand.get(cardIndex).getCardType().contains("trump")){
-            while(hand.get(cardIndex).getTitle().toLowerCase().contains("geologist")){
-                selectTrump();
+            if(hand.get(cardIndex).getTitle().toLowerCase().contains("geologist")){
+                Game.currentTrump = selectTrump();
+            } else {
+                Game.currentTrump = (TrumpCard) hand.get(cardIndex);
             }
-            currentTrump = hand.get(cardIndex);
         }
         BaseCard card = hand.get(cardIndex);
         hand.remove(card);
@@ -64,9 +57,9 @@ public class Player {
         System.out.println("Current player is: " + getName());
         System.out.println("Press enter to continue");
         String temp = scanner.nextLine();
-        System.out.println("Current Trump is is: " + currentTrump.getDetails());
-        if (playedCards.size() > 0) {
-            System.out.println("Last Played Card was: " + playedCards.get(playedCards.size()-1));
+        System.out.println("Current Trump is is: " + Game.currentTrump.getDetails());
+        if (Game.playedCards.size() > 0) {
+            System.out.println("Last Played Card was: " + Game.playedCards.get(Game.playedCards.size()-1));
         }
 
 
@@ -80,10 +73,10 @@ public class Player {
         //TODO: Exception check user input
         //add this card to played cards ArrayList.
         Integer cardToPlay = scanner.nextInt() - 1;
-        if (cardToPlay.equals(0)){
-            hand.add(deck.pop());
+        if (cardToPlay.equals(-1)){
+            hand.add(Game.deck.pop());
         } else {
-            playedCards.add(takeCardFromHandAndPlay(cardToPlay));
+            Game.playedCards.add(takeCardFromHandAndPlay(cardToPlay));
         }
     }
 
@@ -91,13 +84,13 @@ public class Player {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please Select a playing category ");
-        for(int i = 0; i < trumps.size(); i++){
-            System.out.println(i + ": " + trumps.get(i).getDetails());
+        for(int i = 0; i < Game.trumpCards.size(); i++){
+            System.out.println(i + ": " + Game.trumpCards.get(i).getDetails());
         }
         //TODO: Exception check user input
         Integer newTrump = scanner.nextInt();   //set the trump
 
-        return trumps.get(newTrump);
+        return Game.trumpCards.get(newTrump);
     }
 
     // only used for starting a game
@@ -112,7 +105,6 @@ public class Player {
     // use during the round
     public void playCard(BaseCard trump){
         System.out.println("Current trump is: " + trump);
-        currentTrump = trump;
         selectCard();
 
     }

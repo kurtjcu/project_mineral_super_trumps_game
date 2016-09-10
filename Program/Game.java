@@ -11,13 +11,13 @@ import javax.smartcardio.Card;
 
 public class Game {
 
-    private Stack<BaseCard> deck;
-    private ArrayList<BaseCard> rulesCards;
-    private ArrayList<TrumpCard> trumpCards;
+    public static Stack<BaseCard> deck;
+    public static ArrayList<BaseCard> rulesCards;
+    public static ArrayList<TrumpCard> trumpCards;
     private ArrayList<Player> players;
     private Player dealer;
-    private ArrayList<BaseCard> playedCards;
-    private TrumpCard currentTrump;
+    public static ArrayList<BaseCard> playedCards;
+    public static TrumpCard currentTrump;
 
     public Game(){
         deck = new Stack<BaseCard>();
@@ -42,6 +42,7 @@ public class Game {
 
             }
         }
+        System.out.println("Full Deck size = " + deck.size());
     }
 
     /** Getters **/
@@ -59,7 +60,7 @@ public class Game {
     public  Boolean setPlayers(String[] aPlayers) {
 
         for(String player : aPlayers){
-            players.add(new Player(player, trumpCards, currentTrump, deck, playedCards));
+            players.add(new Player(player));
         }
         if(players.size() > 2 && players.size() < 6){
             return true;
@@ -149,8 +150,8 @@ public class Game {
         System.out.println("firstTrump = " + myGame.currentTrump);
 
 
-            while(myGame.deck.size() > 1){
-                System.out.println("deck size = " + myGame.deck.size());
+            while(deck.size() > 1){
+                System.out.println("deck size = " + deck.size());
                 System.out.println("playedCard size = " + myGame.playedCards.size());
                 myGame.players.get(playerCounter.increment()).playCard(myGame.currentTrump);  //player to play card
             }
