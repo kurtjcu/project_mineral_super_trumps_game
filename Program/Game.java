@@ -3,23 +3,23 @@
  */
 
 import java.util.*;
-
 import cardsPackage.*;
 
-import javax.smartcardio.Card;
 
 
 public class Game {
 
-    public static Stack<BaseCard> deck;
-    public static ArrayList<BaseCard> rulesCards;
-    public static ArrayList<TrumpCard> trumpCards;
+    static Stack<BaseCard> deck;
+    static ArrayList<BaseCard> rulesCards;
+    static ArrayList<TrumpCard> trumpCards;
+    static ArrayList<BaseCard> playedCards;
+    static TrumpCard currentTrump;
+
     private ArrayList<Player> players;
     private Player dealer;
-    public static ArrayList<BaseCard> playedCards;
-    public static TrumpCard currentTrump;
 
-    public Game(){
+
+    private Game(){
         deck = new Stack<BaseCard>();
         rulesCards = new ArrayList<BaseCard>();
         trumpCards = new ArrayList<TrumpCard>();
@@ -47,17 +47,17 @@ public class Game {
 
     /** Getters **/
 
-    public String getDealer(){
+    private String getDealer(){
         return dealer.getName();
     }
 
     /** Setters **/
 
-    public void doShuffle(){
+    private void doShuffle(){
         deck = FisherYatesShuffle.FisherYatesShuffle(deck);
     }
 
-    public  Boolean setPlayers(String[] aPlayers) {
+    private Boolean setPlayers(String[] aPlayers) {
 
         for(String player : aPlayers){
             players.add(new Player(player));
@@ -69,7 +69,7 @@ public class Game {
         }
     }
 
-    public boolean setDealer(){
+    private boolean setDealer(){
         if(players.size() > 0){
             dealer = players.get((int)(Math.random() * (players.size())));
             return true;
@@ -79,7 +79,7 @@ public class Game {
 
     }
 
-    public void dealCards(){
+    private void dealCards(){
         Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));
         System.out.println("Index of Dealer " + players.indexOf(dealer));
 
@@ -119,25 +119,8 @@ public class Game {
 
         myGame.doShuffle();
 
-        for(BaseCard card : myGame.deck){
-            System.out.println("Name of Card: " + card.getTitle());
-        }
-
-
         myGame.dealCards();
 
-
-
-        //TODO: display hands to each player
-
-        for(Player player : myGame.players){
-            ArrayList<BaseCard> hand = player.getHand();
-            System.out.println(player.getName());
-
-            for(BaseCard card : hand){
-                System.out.println(card.getTitle());
-            }
-        }
 
 
 
@@ -146,14 +129,14 @@ public class Game {
         //while (true) {
         BaseCard trump;
         Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
-        myGame.currentTrump = myGame.players.get(playerCounter.increment()).playCard();  //player to play card
-        System.out.println("firstTrump = " + myGame.currentTrump);
+        currentTrump = myGame.players.get(playerCounter.increment()).playCard();  //player to play card
+        //System.out.println("firstTrump = " + currentTrump);
 
 
             while(deck.size() > 1){
                 System.out.println("deck size = " + deck.size());
-                System.out.println("playedCard size = " + myGame.playedCards.size());
-                myGame.players.get(playerCounter.increment()).playCard(myGame.currentTrump);  //player to play card
+                System.out.println("playedCard size = " + playedCards.size());
+                myGame.players.get(playerCounter.increment()).playCard(currentTrump);  //player to play card
             }
 
         //}

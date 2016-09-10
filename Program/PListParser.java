@@ -32,12 +32,12 @@ public class PListParser {
             NodeList nList = doc.getElementsByTagName("dict");
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                System.out.println("\nDict Element :"
-                        + nNode.getNodeName());
+                //System.out.println("\nDict Element :"
+                //+ nNode.getNodeName());
 
                 //get cards from root element
                 NodeList nChildNodes = nNode.getChildNodes();
-                System.out.println(nChildNodes.getLength());
+                //System.out.println(nChildNodes.getLength());
 
                 ArrayList<String> aKeyItems = new ArrayList<String>();
                 ArrayList<String> aStringItems = new ArrayList<String>();
@@ -65,7 +65,7 @@ public class PListParser {
 
                     //check for playing card
                     if (nChildNodes.getLength() == 53) {
-                        System.out.println("its a normal card");
+                        //System.out.println("its a normal card");
 
                         NodeList nArrayNodes = eNormalCard.getElementsByTagName("array");
                         if (nArrayNodes.item(0).getNodeType() == Node.ELEMENT_NODE) {

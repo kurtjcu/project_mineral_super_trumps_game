@@ -52,10 +52,8 @@ public abstract class BaseCard {
     }
 
 
-    //TODO: use string formatting to make tables
     public String getDetails(){
-        String string = String.format("| %-20s | %-11s |",getTitle(), getCardType());
-        return(string);
+        return(String.format("| %-20s | %-11s |",getTitle(), getCardType()));
     }
 
     @Override

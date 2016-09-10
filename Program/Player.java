@@ -13,20 +13,20 @@ public class Player {
     private ArrayList<BaseCard> hand;
 
 
-    public Player(String name) {
+    Player(String name) {
         this.name = name;
         hand = new ArrayList<>();
     }
 
     /** setters **/
 
-    public void addToHand(BaseCard card) {
+    void addToHand(BaseCard card) {
         hand.add(card);
     }
 
     /** Getters **/
 
-    public String getName(){
+    String getName(){
         return name;
     }
 
@@ -65,7 +65,9 @@ public class Player {
 
         System.out.println("Please Select a card ");
         System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavige", "Crustal Abun", "Value" );
-        System.out.printf(" %-3d : | %-113s |%n", i, "pass and pickup a card");
+        if(!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
+            System.out.printf(" %-3d : | %-113s |%n", i, "pass and pickup a card");
+        }
         i++;
         for(; i < hand.size(); i++){
             System.out.printf(" %-3d : %s%n",i, hand.get(i-1).getDetails());
@@ -83,9 +85,12 @@ public class Player {
     private TrumpCard selectTrump(){
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please Select a playing category ");
+        System.out.println("Please Select a Trump category ");
         for(int i = 0; i < Game.trumpCards.size(); i++){
-            System.out.println(i + ": " + Game.trumpCards.get(i).getDetails());
+            //hide geologist card when shoeing cards
+            if(!Game.trumpCards.get(i).getTitle().toLowerCase().contains("geologist")) {
+                System.out.println(i + ": " + Game.trumpCards.get(i).getDetails());
+            }
         }
         //TODO: Exception check user input
         Integer newTrump = scanner.nextInt();   //set the trump
@@ -94,16 +99,14 @@ public class Player {
     }
 
     // only used for starting a game
-    public TrumpCard playCard(){
+    TrumpCard playCard(){
         Scanner scanner = new Scanner(System.in);
-
         selectCard();
-
         return selectTrump();
     }
 
     // use during the round
-    public void playCard(BaseCard trump){
+    void playCard(BaseCard trump){
         System.out.println("Current trump is: " + trump);
         selectCard();
 

@@ -7,11 +7,11 @@ import java.util.Hashtable;
 /**
  * Created by kurt on 30/08/2016.
  */
-public class CardStatic {
+class CardStatic {
 
 
 
-    public static final ArrayList alCardType;
+    static final ArrayList alCardType;
     static {
         ArrayList<String> tempArrayList= new ArrayList<String>();
         tempArrayList.add("play");
@@ -24,7 +24,7 @@ public class CardStatic {
 
     //TODO: create Dictionary for Occurrence...
 
-    public static final Dictionary<String, Integer> dCrustalAbundance;
+    static final Dictionary<String, Integer> dCrustalAbundance;
     static {
         Hashtable<String, Integer> tempHashTable = new Hashtable<String, Integer>();
         tempHashTable.put("ultratrace", 0);
@@ -37,7 +37,7 @@ public class CardStatic {
 
     }
 
-    public static final Dictionary<String, Integer> dCleavage;
+    static final Dictionary<String, Integer> dCleavage;
     static {
         Hashtable<String, Integer> tempHashTable = new Hashtable<String, Integer>();
         tempHashTable.put("none", 0);
@@ -59,7 +59,7 @@ public class CardStatic {
 
     }
 
-    public static final Dictionary<String, Integer> dEconomicValue;
+    static final Dictionary<String, Integer> dEconomicValue;
     static {
         Hashtable<String, Integer> tempHashTable = new Hashtable<String, Integer>();
         tempHashTable.put("trivial", 0);
