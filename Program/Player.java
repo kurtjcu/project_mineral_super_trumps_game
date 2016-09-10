@@ -45,6 +45,7 @@ public class Player {
 
     public TrumpCard playCard(){
         Scanner scanner = new Scanner(System.in);
+        //TODO: there should be a way to lookup card details here.
         //show cards to player
         System.out.println("Please Select a card ");
         for(int i = 0; i < hand.size(); i++){
@@ -55,6 +56,7 @@ public class Player {
         Integer cardToPlay = scanner.nextInt();
         takeCardFromHandAndPlay(cardToPlay);
 
+        //TODO: there should be a way for the user to see what the details for the card are here.
         System.out.println("Please Select a playing category ");
         for(int i = 0; i < trumps.size(); i++){
             System.out.println(i + ": " + trumps.get(i));

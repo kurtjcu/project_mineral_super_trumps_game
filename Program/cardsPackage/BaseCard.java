@@ -51,6 +51,10 @@ public abstract class BaseCard {
         System.out.println("There was an error constructing card! \n it was:" + error);
     }
 
+    protected String getDetails(){
+        return(getTitle() + " " + getCardType());
+    }
+
     @Override
     public String toString(){
         return title;

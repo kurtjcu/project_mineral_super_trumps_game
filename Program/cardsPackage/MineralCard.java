@@ -1,5 +1,8 @@
 package cardsPackage;
 
+
+import java.util.Arrays;
+
 /**
  * Created by kurt on 16/08/2016.
  */
@@ -107,6 +110,16 @@ public class MineralCard extends BaseCard {
         return economicValue;
     }
     //endregion
+
+    @Override
+    public String getDetails() {
+    return(super.getDetails() + " "
+            + Arrays.toString( getHardness()) + " "
+            + Arrays.toString(getSpecificGravity()) + " "
+            + getCleavage() + " "
+            + getCrystalAbundance() + " "
+            + getEconomicValue());
+    }
 
 /*** ways to compare two or more cards?? **/
     //should this be overrides tha
