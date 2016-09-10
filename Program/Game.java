@@ -28,6 +28,8 @@ public class Game {
 
         ArrayList<BaseCard> aDeck = PListParser.getCardsList();
 
+        currentTrump = new TrumpCard("","","trump","None:"," its the first round");
+
         //sort rule cards from file and create deck
         for (BaseCard card : aDeck) {
             if (card.getCardType().contains("play")) {
@@ -57,7 +59,7 @@ public class Game {
     public  Boolean setPlayers(String[] aPlayers) {
 
         for(String player : aPlayers){
-            players.add(new Player(player, trumpCards, currentTrump, playedCards));
+            players.add(new Player(player, trumpCards, currentTrump, deck, playedCards));
         }
         if(players.size() > 2 && players.size() < 6){
             return true;
@@ -144,10 +146,12 @@ public class Game {
         BaseCard trump;
         Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
         myGame.currentTrump = myGame.players.get(playerCounter.increment()).playCard();  //player to play card
+        System.out.println("firstTrump = " + myGame.currentTrump);
 
 
             while(myGame.deck.size() > 1){
-
+                System.out.println("deck size = " + myGame.deck.size());
+                System.out.println("playedCard size = " + myGame.playedCards.size());
                 myGame.players.get(playerCounter.increment()).playCard(myGame.currentTrump);  //player to play card
             }
 
