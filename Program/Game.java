@@ -14,6 +14,7 @@ public class Game {
     static ArrayList<TrumpCard> trumpCards;
     static ArrayList<BaseCard> playedCards;
     static TrumpCard currentTrump;
+    static Player winner;
 
     private ArrayList<Player> players;
     private Player dealer;
@@ -62,11 +63,7 @@ public class Game {
         for(String player : aPlayers){
             players.add(new Player(player));
         }
-        if(players.size() > 2 && players.size() < 6){
-            return true;
-        } else {
-            return false;
-        }
+        return (players.size() > 2 && players.size() < 6);
     }
 
     private boolean setDealer(){
@@ -121,9 +118,6 @@ public class Game {
 
         myGame.dealCards();
 
-
-
-
         //TODO: playGame Loop..
 
         //while (true) {
@@ -133,11 +127,14 @@ public class Game {
         //System.out.println("firstTrump = " + currentTrump);
 
 
-            while(deck.size() > 1){
+            while(deck.size() > 1 && winner == null){
                 System.out.println("deck size = " + deck.size());
                 System.out.println("playedCard size = " + playedCards.size());
                 myGame.players.get(playerCounter.increment()).playCard(currentTrump);  //player to play card
             }
+
+        System.out.println("The Winner IS :" + winner);
+        winner = null;
 
         //}
 

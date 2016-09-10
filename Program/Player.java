@@ -51,34 +51,50 @@ public class Player {
     //private
 
     private void selectCard(){
-        int i = 0;
+
         Scanner scanner = new Scanner(System.in);
         //show cards to player
         System.out.println("Current player is: " + getName());
         System.out.println("Press enter to continue");
         String temp = scanner.nextLine();
-        System.out.println("Current Trump is is: " + Game.currentTrump.getDetails());
-        if (Game.playedCards.size() > 0) {
-            System.out.println("Last Played Card was: " + Game.playedCards.get(Game.playedCards.size()-1));
-        }
+        //scanner = new Scanner(System.in);
+
+        Integer number = -1;
+        do {
+            int i = 0;
+            System.out.println("Current Trump is is: " + Game.currentTrump.getDetails());
+            if (Game.playedCards.size() > 0) {
+                System.out.println("Last Played Card was: " + Game.playedCards.get(Game.playedCards.size()-1));
+            }
 
 
-        System.out.println("Please Select a card ");
-        System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavige", "Crustal Abun", "Value" );
-        if(!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
-            System.out.printf(" %-3d : | %-113s |%n", i, "pass and pickup a card");
-        }
-        i++;
-        for(; i < hand.size(); i++){
-            System.out.printf(" %-3d : %s%n",i, hand.get(i-1).getDetails());
-        }
-        //TODO: Exception check user input
-        //add this card to played cards ArrayList.
-        Integer cardToPlay = scanner.nextInt() - 1;
+            System.out.println("Please Select a card ");
+            System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavige", "Crustal Abun", "Value" );
+            if(!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
+                System.out.printf(" %-3d : | %-113s |%n", i, "pass and pickup a card");
+            }
+            i++;
+            for(; i < hand.size(); i++){
+                System.out.printf(" %-3d : %s%n",i, hand.get(i-1).getDetails());
+            }
+            while (!scanner.hasNextInt()){
+                System.out.println("Please enter a number");
+                scanner.next();
+            }
+            number = scanner.nextInt();
+
+        } while (number < 0 || number > hand.size());
+
+
+        Integer cardToPlay = number - 1;
+
         if (cardToPlay.equals(-1)){
             hand.add(Game.deck.pop());
         } else {
             Game.playedCards.add(takeCardFromHandAndPlay(cardToPlay));
+            if (hand.size() < 2){
+                Game.winner = this;
+            }
         }
     }
 
@@ -110,5 +126,10 @@ public class Player {
         System.out.println("Current trump is: " + trump);
         selectCard();
 
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }
