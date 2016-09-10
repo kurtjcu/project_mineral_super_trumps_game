@@ -3,8 +3,8 @@
  */
 
 import java.util.*;
-import cardsPackage.*;
 
+import cardsPackage.*;
 
 
 public class Game {
@@ -20,7 +20,7 @@ public class Game {
     private Player dealer;
 
 
-    private Game(){
+    private Game() {
         deck = new Stack<BaseCard>();
         rulesCards = new ArrayList<BaseCard>();
         trumpCards = new ArrayList<TrumpCard>();
@@ -29,7 +29,7 @@ public class Game {
 
         ArrayList<BaseCard> aDeck = PListParser.getCardsList();
 
-        currentTrump = new TrumpCard("","","trump","None:"," its the first round");
+        currentTrump = new TrumpCard("", "", "trump", "None:", " its the first round");
 
         //sort rule cards from file and create deck
         for (BaseCard card : aDeck) {
@@ -38,7 +38,7 @@ public class Game {
             } else if (card.getCardType().contains("trump")) {
                 trumpCards.add((TrumpCard) card);
                 deck.push(card);
-            } else if(card.getCardType().contains("rule")) {
+            } else if (card.getCardType().contains("rule")) {
                 rulesCards.add(card);
 
             }
@@ -46,68 +46,86 @@ public class Game {
         System.out.println("Full Deck size = " + deck.size());
     }
 
-    /** Getters **/
+    /**
+     * Getters
+     **/
 
-    private String getDealer(){
+    private String getDealer() {
         return dealer.getName();
     }
 
-    /** Setters **/
+    /**
+     * Setters
+     **/
 
-    private void doShuffle(){
+    private void doShuffle() {
         deck = FisherYatesShuffle.FisherYatesShuffle(deck);
     }
 
-    private Boolean setPlayers(String[] aPlayers) {
+    private Boolean setPlayers() {
+        Scanner scanner = new Scanner(System.in);
+        boolean keepGoing = true;
+        do {
+            System.out.println("Please Enter a player Name: ");
+            if (players.size() >= 3) {
+                System.out.println("Type \"stop\" to finish entering players");
+            }
 
-        for(String player : aPlayers){
-            players.add(new Player(player));
-        }
+            String playerName = scanner.next();
+            if (playerName.toLowerCase().trim().equals("stop") && players.size() > 2) {
+                keepGoing = false;
+            } else {
+                players.add(new Player(playerName));
+            }
+
+            if(players.size() == 5) {
+                keepGoing = false;
+            }
+            System.out.println("Number of current player: " + players.size());
+        } while (keepGoing || players.size() < 3);
+
+        System.out.println("Current players are: " + players.toString());
+
         return (players.size() > 2 && players.size() < 6);
+
     }
 
-    private boolean setDealer(){
-        if(players.size() > 0){
-            dealer = players.get((int)(Math.random() * (players.size())));
+    private boolean setDealer() {
+        if (players.size() > 0) {
+            dealer = players.get((int) (Math.random() * (players.size())));
             return true;
         } else {
             return false;
         }
-
     }
 
-    private void dealCards(){
+    private void dealCards() {
         Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));
-        System.out.println("Index of Dealer " + players.indexOf(dealer));
-
-
+        //System.out.println("Index of Dealer " + players.indexOf(dealer));
         for (int j = 1; j < 8; j++) {
             // deal a card to each player
-            for(int i = 0; i < players.size(); i++){
-
+            for (int i = 0; i < players.size(); i++) {
                 players.get(playerCounter.increment()).addToHand(deck.pop());  //give card to next player
             }
         }
-
     }
-
 
 
     public static void main(String[] args) {
 
         Game myGame = new Game();
 
-        String [] aTempPlayerNames = {"Bob", "Jack", "Me"};
+        String[] aTempPlayerNames = {"Bob", "Jack", "Me"};
 
         //TODO: change to while loop when getting players from command line
-        if(myGame.setPlayers(aTempPlayerNames)){
+        if (myGame.setPlayers()) {
             System.out.println("Correct number of players entered");
         } else {
             System.out.println("please enter the correct number of players ( 3 to 5)...");
             return;
         }
 
-        if(myGame.setDealer()){
+        if (myGame.setDealer()) {
             System.out.println("The Dealer is " + myGame.getDealer());
         } else {
             System.out.println("Cannot set dealer...");
@@ -127,11 +145,18 @@ public class Game {
         //System.out.println("firstTrump = " + currentTrump);
 
 
-            while(deck.size() > 1 && winner == null){
-                System.out.println("deck size = " + deck.size());
-                System.out.println("playedCard size = " + playedCards.size());
-                myGame.players.get(playerCounter.increment()).playCard(currentTrump);  //player to play card
+        while (winner == null) {
+            //check deck size and re shuffle if last card has been played
+            if (deck.size() > 1) {
+                for (BaseCard card : playedCards) {
+                    deck.push(card);
+                }
+                myGame.doShuffle();
             }
+            System.out.println("deck size = " + deck.size());
+            System.out.println("playedCard size = " + playedCards.size());
+            myGame.players.get(playerCounter.increment()).playCard(currentTrump);  //player to play card
+        }
 
         System.out.println("The Winner IS :" + winner);
         winner = null;
@@ -150,13 +175,6 @@ public class Game {
          * }
          *
          */
-
-
-
-
-
-
-
 
 
     }
