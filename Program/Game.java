@@ -17,6 +17,7 @@ public class Game {
     private ArrayList<Player> players;
     private Player dealer;
     private ArrayList<BaseCard> playedCards;
+    private TrumpCard currentTrump;
 
     public Game(){
         deck = new Stack<BaseCard>();
@@ -56,7 +57,7 @@ public class Game {
     public  Boolean setPlayers(String[] aPlayers) {
 
         for(String player : aPlayers){
-            players.add(new Player(player, trumpCards, playedCards));
+            players.add(new Player(player, trumpCards, currentTrump, playedCards));
         }
         if(players.size() > 2 && players.size() < 6){
             return true;
@@ -140,16 +141,16 @@ public class Game {
         //TODO: playGame Loop..
 
         //while (true) {
-            BaseCard trump;
-            Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
-            myGame.players.get(playerCounter.increment()).playCard();  //player to play card
+        BaseCard trump;
+        Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
+        myGame.currentTrump = myGame.players.get(playerCounter.increment()).playCard();  //player to play card
 
-        /*
+
             while(myGame.deck.size() > 1){
 
-                myGame.players.get(playerCounter.increment()).playCard();  //player to play card
+                myGame.players.get(playerCounter.increment()).playCard(myGame.currentTrump);  //player to play card
             }
-            */
+
         //}
 
         /****Playgame Loop
