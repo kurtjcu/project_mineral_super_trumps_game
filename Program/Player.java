@@ -48,8 +48,9 @@ public class Player {
         //TODO: there should be a way to lookup card details here.
         //show cards to player
         System.out.println("Please Select a card ");
+        System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavige", "Crustal Abun", "Value" );
         for(int i = 0; i < hand.size(); i++){
-            System.out.println(i + ": " + hand.get(i));
+            System.out.printf(" %-3d : %s%n",i, hand.get(i).getDetails());
         }
         //TODO: Exception check user input
         //add this card to played cards ArrayList.
@@ -59,7 +60,7 @@ public class Player {
         //TODO: there should be a way for the user to see what the details for the card are here.
         System.out.println("Please Select a playing category ");
         for(int i = 0; i < trumps.size(); i++){
-            System.out.println(i + ": " + trumps.get(i));
+            System.out.println(i + ": " + trumps.get(i).getDetails());
         }
 
         //TODO: Exception check user input

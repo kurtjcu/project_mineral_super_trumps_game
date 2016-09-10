@@ -102,7 +102,7 @@ public class MineralCard extends BaseCard {
         return cleavage;
     }
 
-    public String getCrystalAbundance() {
+    public String getCrustalAbundance() {
         return crustalAbundance;
     }
 
@@ -113,12 +113,16 @@ public class MineralCard extends BaseCard {
 
     @Override
     public String getDetails() {
-    return(super.getDetails() + " "
-            + Arrays.toString( getHardness()) + " "
-            + Arrays.toString(getSpecificGravity()) + " "
-            + getCleavage() + " "
-            + getCrystalAbundance() + " "
-            + getEconomicValue());
+        String string = String.format(" %-11s | %-11s | %-20s | %-12s | %-10s |",
+                Arrays.toString( getHardness()),
+                Arrays.toString(getSpecificGravity()),
+                getCleavage(),
+                getCrustalAbundance(),
+                getEconomicValue())
+        ;
+
+        return(super.getDetails() + string);
+
     }
 
 /*** ways to compare two or more cards?? **/

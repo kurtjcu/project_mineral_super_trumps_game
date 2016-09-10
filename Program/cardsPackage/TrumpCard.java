@@ -17,6 +17,9 @@ public class TrumpCard extends BaseCard {
 
     @Override
     public String getDetails() {
-        return (super.getDetails() + " " + getSubTitle());
+
+        String string = String.format(" %-76s |",getSubTitle());
+
+        return ("\u001B[31m" + super.getDetails() + string + "\u001B[0m");
     }
 }
