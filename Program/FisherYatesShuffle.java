@@ -38,7 +38,7 @@ public class FisherYatesShuffle
         }
 
         // clear stack and add cards
-        cardStack = new Stack<BaseCard>();
+        cardStack = new Stack<>();
         for (BaseCard card : aCards){
             cardStack.push(card);
         }

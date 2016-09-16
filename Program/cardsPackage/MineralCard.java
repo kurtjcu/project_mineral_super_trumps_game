@@ -36,25 +36,27 @@ public class MineralCard extends BaseCard {
         this.classification = classification;
         this.crystalSystem = crystalSystem;
         this.occurrence = occurrence;           //TODO: need to get possible values for this and run a check for each value...
+        Arrays.sort(hardness);
         this.hardness = hardness;
+        Arrays.sort(specificGravity);
         this.specificGravity = specificGravity;
 
 
-        if (CardStatic.dCleavage.get(cleavage) != null) {
+        if (CardStatic.cleavage.get(cleavage) != null) {
             this.cleavage = cleavage;
         } else {
             errorLoadingCard("Cleavage not supported " + cleavage);
             error = error + 1;
         }
 
-        if (CardStatic.dCrustalAbundance.get(crustalAbundance.replaceAll("\\s","")) != null) {
+        if (CardStatic.crustalAbundance.get(crustalAbundance.replaceAll("\\s","")) != null) {
             this.crustalAbundance = crustalAbundance.trim();
         } else {
             errorLoadingCard("crustalAbundance not supported " + crustalAbundance);
             error = error + 1;
         }
 
-        if (CardStatic.dEconomicValue.get(economicValue) != null) {
+        if (CardStatic.economicValue.get(economicValue) != null) {
             this.economicValue = economicValue;
         } else {
             errorLoadingCard("economicValue not supported " + economicValue);
@@ -94,6 +96,7 @@ public class MineralCard extends BaseCard {
         return hardness;
     }
 
+
     public Double[] getSpecificGravity() {
         return specificGravity;
     }
@@ -109,6 +112,50 @@ public class MineralCard extends BaseCard {
     public String getEconomicValue() {
         return economicValue;
     }
+    //endregion
+
+    //region Helpers
+
+    //used to see if it is a valid play
+    @Override
+    public boolean isThisCardGreaterThan(TrumpCard trump, MineralCard cardToCompare) {
+
+        boolean testIs = false;
+        switch(trump.getTitle()) {
+
+            case "Economic value":
+                testIs = (CardStatic.economicValue.get(this.getEconomicValue())  >
+                        CardStatic.economicValue.get(cardToCompare.getEconomicValue()) );
+                break;
+
+            case "The Petrologist":
+                testIs = (CardStatic.crustalAbundance.get(this.getEconomicValue())  >
+                        CardStatic.crustalAbundance.get(cardToCompare.getEconomicValue()) );
+                break;
+
+            case "The Gemmologist":
+                testIs = (hardness[hardness.length-1]  >
+                        cardToCompare.hardness[cardToCompare.hardness.length-1] );
+                break;
+
+            case "The Mineralogist":
+                testIs = (CardStatic.cleavage.get(this.getEconomicValue())  >
+                        CardStatic.cleavage.get(cardToCompare.getEconomicValue()) );
+                break;
+
+            case "The Geophysicist" :
+                testIs = (specificGravity[specificGravity.length-1]  >
+                        cardToCompare.specificGravity[cardToCompare.specificGravity.length-1] );
+                break;
+
+            default:
+                System.out.println("Could not find trump when comparing cards");
+                break;
+
+        }
+        return testIs;
+    }
+
     //endregion
 
 

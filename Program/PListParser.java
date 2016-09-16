@@ -100,7 +100,7 @@ public class PListParser {
                 aStringItems.get(10));
     }
 
-    public static ArrayList<BaseCard> getCardsList() {
+    static ArrayList<BaseCard> getCardsList() {
         ArrayList<BaseCard> cardList = new ArrayList<>();
 
         try {

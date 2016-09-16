@@ -11,35 +11,32 @@ class CardStatic {
 
 
 
-    static final ArrayList alCardType;
+    static final ArrayList cardType;
     static {
-        ArrayList<String> tempArrayList= new ArrayList<String>();
+        ArrayList<String> tempArrayList= new ArrayList<>();
         tempArrayList.add("play");
         tempArrayList.add("trump");
         tempArrayList.add("rule");
-        alCardType = tempArrayList;
-
-
+        cardType = tempArrayList;
     }
 
     //TODO: create Dictionary for Occurrence...
 
-    static final Dictionary<String, Integer> dCrustalAbundance;
+    static final Dictionary<String, Integer> crustalAbundance;
     static {
-        Hashtable<String, Integer> tempHashTable = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> tempHashTable = new Hashtable<>();
         tempHashTable.put("ultratrace", 0);
         tempHashTable.put("trace", 1);
         tempHashTable.put("low", 2);
         tempHashTable.put("moderate", 3);
         tempHashTable.put("high", 4);
         tempHashTable.put("veryhigh", 5);
-        dCrustalAbundance = tempHashTable;
-
+        crustalAbundance = tempHashTable;
     }
 
-    static final Dictionary<String, Integer> dCleavage;
+    static final Dictionary<String, Integer> cleavage;
     static {
-        Hashtable<String, Integer> tempHashTable = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> tempHashTable = new Hashtable<>();
         tempHashTable.put("none", 0);
         tempHashTable.put("poor/none", 1);
         tempHashTable.put("1 poor", 2);
@@ -55,21 +52,19 @@ class CardStatic {
         tempHashTable.put("3 perfect", 12);
         tempHashTable.put("4 perfect", 13);
         tempHashTable.put("6 perfect", 14);
-        dCleavage = tempHashTable;
-
+        cleavage = tempHashTable;
     }
 
-    static final Dictionary<String, Integer> dEconomicValue;
+    static final Dictionary<String, Integer> economicValue;
     static {
-        Hashtable<String, Integer> tempHashTable = new Hashtable<String, Integer>();
+        Hashtable<String, Integer> tempHashTable = new Hashtable<>();
         tempHashTable.put("trivial", 0);
         tempHashTable.put("low", 1);
         tempHashTable.put("moderate", 2);
         tempHashTable.put("high", 3);
         tempHashTable.put("very high", 4);
         tempHashTable.put("I'm rich!", 5);
-        dEconomicValue = tempHashTable;
-
+        economicValue = tempHashTable;
     }
 
 }

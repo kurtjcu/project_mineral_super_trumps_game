@@ -76,7 +76,7 @@ public class Game {
                 players.add(new Player(playerName));
             }
 
-            if(players.size() == 5) {
+            if (players.size() == 5) {
                 keepGoing = false;
             }
             System.out.println("Number of current player: " + players.size());
@@ -97,6 +97,8 @@ public class Game {
         }
     }
 
+    //region helper methods
+
     public void dealCards() {
         Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));
         //System.out.println("Index of Dealer " + players.indexOf(dealer));
@@ -110,7 +112,7 @@ public class Game {
 
     private static TrumpCard selectTrump() {
         Scanner scanner = new Scanner(System.in);
-        Integer number = -1;
+        Integer number;
         do {
             System.out.println("Please Select a Trump category ");
             for (int i = 0; i < trumpCards.size(); i++) {
@@ -135,13 +137,12 @@ public class Game {
     private void selectCard(Player currentPlayer) {
 
         Scanner scanner = new Scanner(System.in);
+        boolean cardPlayable = true;
         //show cards to player
         System.out.println("Current player is: " + currentPlayer.getName());
         System.out.println("Press enter to continue");
-        String temp = scanner.nextLine();
-        //scanner = new Scanner(System.in);
 
-        Integer number = -1;
+        Integer number;
         do {
             int i = 0;
             System.out.println("Current Trump is is: " + Game.currentTrump.getDetails());
@@ -152,7 +153,7 @@ public class Game {
 
             System.out.println("Please Select a card ");
             System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavage", "Crustal Abun", "Value");
-            //TODO: Why do i need to check this??
+            //Hide pass for first round
             if (!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
                 System.out.printf(" %-3d : | %-113s |%n", i, "pass and pickup a card");
             }
@@ -166,12 +167,16 @@ public class Game {
             }
             number = scanner.nextInt();
 
-        } while (number < 0 || number > currentPlayer.getHand().size());
+            if(playedCards.size() > 0){
+                cardPlayable = isCardPlayable(currentPlayer.showCardFromHand(number - 1));
+            }
+
+        }
+        while (number < 0 || number > currentPlayer.getHand().size() || !cardPlayable);
 
 
         Integer cardToPlay = number - 1;
 
-        //TODO: should i just return a card and let main do this?? shouldnt i just return an index? to make this more MVC compatible???
         if (cardToPlay.equals(-1)) {    //are we passing??
             currentPlayer.addToHand(Game.deck.pop());
         } else {
@@ -190,16 +195,32 @@ public class Game {
         }
     }
 
+    private boolean isCardPlayable(BaseCard card) {
+        //return (card.getCardType().toLowerCase().contains("trump") || card.isThisCardGreaterThan(currentTrump, (MineralCard) playedCards.get(playedCards.size() - 1)));
+        if(card.getCardType().toLowerCase().contains("trump")){
+            System.out.println("Its a trump = true");
+            return true;
+        } else if(card.isThisCardGreaterThan(currentTrump, (MineralCard) playedCards.get(playedCards.size() - 1))){
+            System.out.println("Its a higher value = true");
+            return true;
+        } else {
+            System.out.println("Its not a playable card = false");
+            return false;
+        }
+    }
 
+    //endregion
     //TODO: move this into another class for MVC
     public static void main(String[] args) {
 
         Game myGame = new Game();
 
+        //TODO:
         if (myGame.setPlayers()) {
             System.out.println("Correct number of players entered");
         } else {
-            System.out.println("please enter the correct number of players ( 3 to 5)...");
+            System.out.println("Error setting players");
+            //System.exit();
             return;
         }
 
@@ -216,11 +237,6 @@ public class Game {
 
         Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
 
-        //TODO:need to find a way to extract all the calls to sout from here inside player and find a spin in the MVC for it
-        //Pre MVC: currentTrump = myGame.players.get(playerCounter.increment()).playCard();  //player to play card
-
-
-
         // should be:
         //get player to the left of dealer
         Player currentPlayer = myGame.players.get(playerCounter.increment());
@@ -235,8 +251,6 @@ public class Game {
         //TODO: state the top value for that category from the card just played
 
 
-
-
         while (winner == null) {
             //check deck size and re shuffle if last card has been played
             if (deck.size() > 1) {
@@ -248,15 +262,14 @@ public class Game {
             System.out.println("deck size = " + deck.size());
             System.out.println("playedCard size = " + playedCards.size());
 
-            //TODO:need to find a way to extract all the calls to sout from here inside player and find a spin in the MVC for it
-            //myGame.players.get(playerCounter.increment()).playCard(currentTrump);  //player to play card
-            // should be:
             //get next player
             currentPlayer = myGame.players.get(playerCounter.increment());
 
             //get hand and display to player
             //get player to select card
             myGame.selectCard(currentPlayer);
+
+            //TODO: state the top value for that category from the card just played
 
         }
 
