@@ -17,7 +17,7 @@ import org.w3c.dom.Element;
 public class PListParser {
 
 
-    public static ArrayList getCardsList(){
+    public static ArrayList<BaseCard> getCardsList(){
         ArrayList<BaseCard> cardList = new ArrayList<>();
 
         try {

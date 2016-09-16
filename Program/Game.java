@@ -10,7 +10,7 @@ import cardsPackage.*;
 public class Game {
 
     static Stack<BaseCard> deck;
-    static ArrayList<BaseCard> rulesCards;
+    private static ArrayList<BaseCard> rulesCards;
     static ArrayList<TrumpCard> trumpCards;
     static ArrayList<BaseCard> playedCards;
     static TrumpCard currentTrump;
@@ -20,19 +20,17 @@ public class Game {
     private Player dealer;
 
 
-    private Game() {
+    public Game() {
         deck = new Stack<BaseCard>();
         rulesCards = new ArrayList<BaseCard>();
         trumpCards = new ArrayList<TrumpCard>();
         players = new ArrayList<Player>();
         playedCards = new ArrayList<BaseCard>();
 
-        ArrayList<BaseCard> aDeck = PListParser.getCardsList();
-
         currentTrump = new TrumpCard("", "", "trump", "None:", " its the first round");
 
         //sort rule cards from file and create deck
-        for (BaseCard card : aDeck) {
+        for (BaseCard card : PListParser.getCardsList()) {
             if (card.getCardType().contains("play")) {
                 deck.push(card);
             } else if (card.getCardType().contains("trump")) {
@@ -50,7 +48,7 @@ public class Game {
      * Getters
      **/
 
-    private String getDealer() {
+    public String getDealer() {
         return dealer.getName();
     }
 
@@ -58,11 +56,11 @@ public class Game {
      * Setters
      **/
 
-    private void doShuffle() {
-        deck = FisherYatesShuffle.FisherYatesShuffle(deck);
+    public void doShuffle() {
+        deck = FisherYatesShuffle.doFisherYatesShuffle(deck);
     }
 
-    private Boolean setPlayers() {
+    public Boolean setPlayers() {
         Scanner scanner = new Scanner(System.in);
         boolean keepGoing = true;
         do {
@@ -90,7 +88,7 @@ public class Game {
 
     }
 
-    private boolean setDealer() {
+    public boolean setDealer() {
         if (players.size() > 0) {
             dealer = players.get((int) (Math.random() * (players.size())));
             return true;
@@ -99,7 +97,7 @@ public class Game {
         }
     }
 
-    private void dealCards() {
+    public void dealCards() {
         Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));
         //System.out.println("Index of Dealer " + players.indexOf(dealer));
         for (int j = 1; j < 8; j++) {
@@ -111,13 +109,12 @@ public class Game {
     }
 
 
+
+    //TODO: move this into another class??
     public static void main(String[] args) {
 
         Game myGame = new Game();
 
-        String[] aTempPlayerNames = {"Bob", "Jack", "Me"};
-
-        //TODO: change to while loop when getting players from command line
         if (myGame.setPlayers()) {
             System.out.println("Correct number of players entered");
         } else {
@@ -136,11 +133,9 @@ public class Game {
 
         myGame.dealCards();
 
-        //TODO: playGame Loop..
-
-        //while (true) {
-        BaseCard trump;
         Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
+
+        //need to find a way to extract all the calls to sout from here inside player and find a spin in the MVC for it
         currentTrump = myGame.players.get(playerCounter.increment()).playCard();  //player to play card
         //System.out.println("firstTrump = " + currentTrump);
 
@@ -160,22 +155,5 @@ public class Game {
 
         System.out.println("The Winner IS :" + winner);
         winner = null;
-
-        //}
-
-        /****Playgame Loop
-         *
-         * while(not quit && everyone still has a card)
-         * {
-         *      while(still cards in deck)
-         *      {
-         *          Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));   //create counter
-         *          players.get(playerCounter.increment()).playCard();  //player to play card
-         *      }
-         * }
-         *
-         */
-
-
     }
 }

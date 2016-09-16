@@ -4,10 +4,12 @@ import java.util.*;
 /**
  * Created by kurt on 26/08/2016.
  */
+
+//
 public class FisherYatesShuffle
 {
 
-    static void FisherYatesShuffle(int[] array) {
+    public static void doFisherYatesShuffle(int[] array) {
         int n = array.length;
         for (int i = 0; i < array.length; i++) {
             // Get a random index of the array past i.
@@ -20,7 +22,7 @@ public class FisherYatesShuffle
     }
 
 
-    public static Stack<BaseCard> FisherYatesShuffle(Stack<BaseCard> cardStack) {
+    public static Stack<BaseCard> doFisherYatesShuffle(Stack<BaseCard> cardStack) {
         int n = cardStack.size();
         BaseCard[] aCards = new BaseCard[n];
         cardStack.toArray(aCards);
@@ -47,7 +49,7 @@ public class FisherYatesShuffle
 
         int[] values = { 100, 200, 10, 20, 30, 1, 2, 3 };
         // Shuffle integer array.
-        FisherYatesShuffle(values);
+        doFisherYatesShuffle(values);
 
         // Display elements in array.
         for (int value : values) {

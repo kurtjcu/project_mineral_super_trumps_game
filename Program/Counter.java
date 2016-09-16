@@ -16,11 +16,11 @@ public class Counter {
         this.count = seed;
     }
 
-    public synchronized int getCount() {
+    public int getCount() {
         return count;
     }
 
-    public synchronized int increment() {
+    public int increment() {
         count = (count + 1) % max;
         return count;
     }
