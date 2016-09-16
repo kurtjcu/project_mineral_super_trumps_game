@@ -52,6 +52,7 @@ public abstract class BaseCard {
     }
 
 
+    //TODO: this code smells, refactor for MVC
     public String getDetails(){
         return(String.format("| %-20s | %-11s |",getTitle(), getCardType()));
     }

@@ -15,6 +15,8 @@ public class TrumpCard extends BaseCard {
         return subTitle;
     }
 
+
+    //TODO: this code smells, refactor for MVC
     @Override
     public String getDetails() {
 

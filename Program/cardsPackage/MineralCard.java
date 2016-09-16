@@ -111,6 +111,8 @@ public class MineralCard extends BaseCard {
     }
     //endregion
 
+
+    //TODO: this code smells, refactor for MVC
     @Override
     public String getDetails() {
         String string = String.format(" %-11s | %-11s | %-20s | %-12s | %-10s |",

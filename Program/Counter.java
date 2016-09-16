@@ -1,6 +1,8 @@
 /**
  * Created by kurt on 6/09/2016.
  */
+
+//TODO: add reference for where i got this from
 public class Counter {
     private final int max;
     private int count;

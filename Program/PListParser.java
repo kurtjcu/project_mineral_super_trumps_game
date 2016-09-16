@@ -14,6 +14,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
+
+//TODO: try to look for code that is reused and methodise it
 public class PListParser {
 
 
@@ -49,12 +51,14 @@ public class PListParser {
                     Element eNormalCard = (Element) nNode;
 
                     //get all the keys
+                    //TODO: getKeys()
                     NodeList nKeyNodes = eNormalCard.getElementsByTagName("key");
                     for (int j = 0; j < nKeyNodes.getLength(); j++) {
                         aKeyItems.add(nKeyNodes.item(j).getTextContent());
                     }
 
                     //get all the strings
+                    //TODO: getStrings()
                     NodeList nStringNodes = eNormalCard.getElementsByTagName("string");
                     for (int j = 0; j < nStringNodes.getLength(); j++) {
                         if (!nStringNodes.item(j).getParentNode().getNodeName().equals("array")) {  ///make sure it is not the strings in the array
@@ -65,8 +69,10 @@ public class PListParser {
 
                     //check for playing card
                     if (nChildNodes.getLength() == 53) {
+                        //TODO: extractMineralCard();
                         //System.out.println("its a normal card");
 
+                        //TODO: getArrayStrings()
                         NodeList nArrayNodes = eNormalCard.getElementsByTagName("array");
                         if (nArrayNodes.item(0).getNodeType() == Node.ELEMENT_NODE) {
                             Element eOccurrence = (Element) nArrayNodes.item(0);
@@ -118,6 +124,7 @@ public class PListParser {
                     if (nChildNodes.getLength() == 21) {
                         //System.out.println("its a trump or rules card");
                         if (aKeyItems.get(3).toLowerCase().contains("trump")) {
+                            //TODO: extractTrumpCard()
                             //System.out.println("its a trump card");
 
                             TrumpCard trumpCard = new TrumpCard(aStringItems.get(0),
@@ -130,6 +137,7 @@ public class PListParser {
 
 
                         } else if (aKeyItems.get(3).toLowerCase().contains("rule")){
+                            //TODO: extractRulesCard()
                             //System.out.println("its a rules card");
 
                             RuleCard ruleCard = new RuleCard(aStringItems.get(0),
