@@ -15,6 +15,7 @@ public class Game {
     static ArrayList<BaseCard> playedCards;
     static TrumpCard currentTrump;
     static Player winner;
+    static View view;
 
     private ArrayList<Player> players;
     private Player dealer;
@@ -26,6 +27,7 @@ public class Game {
         trumpCards = new ArrayList<TrumpCard>();
         players = new ArrayList<Player>();
         playedCards = new ArrayList<BaseCard>();
+        view = new View();
 
         currentTrump = new TrumpCard("", "", "trump", "None:", " its the first round");
 
@@ -141,6 +143,7 @@ public class Game {
         //show cards to player
         System.out.println("Current player is: " + currentPlayer.getName());
         System.out.println("Press enter to continue");
+        String userInput;
 
         Integer number;
         do {
@@ -151,26 +154,25 @@ public class Game {
             }
 
 
-            System.out.println("Please Select a card ");
-            System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavage", "Crustal Abun", "Value");
-            //Hide pass for first round
+            //check to see if it is the first round
             if (!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
-                System.out.printf(" %-3d : | %-113s |%n", i, "pass and pickup a card");
-            }
-            i++;
-            for (; i < currentPlayer.getHand().size(); i++) {
-                System.out.printf(" %-3d : %s%n", i, currentPlayer.showCardFromHand(i - 1).getDetails());
-            }
-            while (!scanner.hasNextInt()) {
-                System.out.println("Please enter a number");
-                scanner.next();
-            }
-            number = scanner.nextInt();
-
-            if(playedCards.size() > 0){
-                cardPlayable = isCardPlayable(currentPlayer.showCardFromHand(number - 1));
+                userInput = view.getCardSelectionWithPass(currentPlayer.getHand());
+            } else {
+                userInput = view.getCardSelection(currentPlayer.getHand());
             }
 
+            while (!tryParseInt(userInput)) {
+                userInput = view.getCardSelectionWithPassAndError(currentPlayer.getHand(),"Please enter a number");
+            }
+            number = Integer.parseInt(userInput);
+
+            if( number < 1){
+                cardPlayable = true;
+            } else {
+                if(playedCards.size() > 0){
+                    cardPlayable = isCardPlayable(currentPlayer.showCardFromHand(number - 1));
+                }
+            }
         }
         while (number < 0 || number > currentPlayer.getHand().size() || !cardPlayable);
 
@@ -196,17 +198,10 @@ public class Game {
     }
 
     private boolean isCardPlayable(BaseCard card) {
-        //return (card.getCardType().toLowerCase().contains("trump") || card.isThisCardGreaterThan(currentTrump, (MineralCard) playedCards.get(playedCards.size() - 1)));
-        if(card.getCardType().toLowerCase().contains("trump")){
-            System.out.println("Its a trump = true");
-            return true;
-        } else if(card.isThisCardGreaterThan(currentTrump, (MineralCard) playedCards.get(playedCards.size() - 1))){
-            System.out.println("Its a higher value = true");
-            return true;
-        } else {
-            System.out.println("Its not a playable card = false");
-            return false;
-        }
+        return (playedCards.get(playedCards.size()-1).getCardType().toLowerCase().contains("trump")
+                || card.getCardType().toLowerCase().contains("trump")
+                || card.isThisCardGreaterThan(currentTrump,
+                (MineralCard) playedCards.get(playedCards.size() - 1)));
     }
 
     //endregion
@@ -275,5 +270,17 @@ public class Game {
 
         System.out.println("The Winner IS :" + winner);
         winner = null;
+    }
+
+
+    /*** helper ***/
+
+    boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
