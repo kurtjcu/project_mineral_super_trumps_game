@@ -11,7 +11,7 @@ public class TrumpCard extends BaseCard {
         this.subTitle = subTitle;
     }
 
-    private String getSubTitle() {
+    public String getSubTitle() {
         return subTitle;
     }
 

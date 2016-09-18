@@ -149,7 +149,7 @@ public class MineralCard extends BaseCard {
                 break;
 
             default:
-                System.out.println("Could not find trump when comparing cards");
+                System.out.println("ERROR - Could not find trump when comparing cards");
                 break;
 
         }
