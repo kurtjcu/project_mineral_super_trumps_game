@@ -1,5 +1,8 @@
 package cardsPackage;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 /**
  * Created by kurt on 4/09/2016.
  */
@@ -55,10 +58,27 @@ public abstract class BaseCard {
     }
 
     // Lets user know of error loading card
-   static void errorLoadingCard(String error) {
+    static void errorLoadingCard(String error) {
         System.out.println("There was an error constructing card! \n it was:" + error);
     }
 
+    public static int getCardIndexByTitle(ArrayList arrayOfCards, String titleString) {
+
+        for (Object card : arrayOfCards) {
+            if (((BaseCard)card).getTitle().toLowerCase().contains(titleString.toLowerCase()))
+                return arrayOfCards.indexOf(card);
+        }
+        System.out.println("didn't find card in getCardIndexByTitle");
+        return -1;
+    }
+
+    public static ArrayList<BaseCard> getCardsAsBase(ArrayList list){
+        ArrayList<BaseCard> baseCardList = new ArrayList<>();
+        for(Object card : list){
+            baseCardList.add((BaseCard)card);
+        }
+        return baseCardList;
+    }
 
     //TODO: this code smells, refactor for MVC
     public String getDetails(){

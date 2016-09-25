@@ -112,27 +112,28 @@ public class Game {
         }
     }
 
-    private static TrumpCard selectTrump() {
-        Scanner scanner = new Scanner(System.in);
+    private TrumpCard selectTrump() {
+        String userInput = "";
         Integer number;
-        do {
-            System.out.println("Please Select a Trump category ");
-            for (int i = 0; i < trumpCards.size(); i++) {
-                //hide geologist card when shoeing cards
-                if (!trumpCards.get(i).getTitle().toLowerCase().contains("geologist")) {
-                    System.out.println(i + ": " + trumpCards.get(i).getDetails());
-                }
+        ArrayList<TrumpCard> trumpCardsToDisplay = new ArrayList<>();
+
+        for(TrumpCard card : trumpCards){
+            if(!card.getTitle().toLowerCase().contains("geologist")) {
+                trumpCardsToDisplay.add(card);
             }
-            while (!scanner.hasNextInt()) {
-                System.out.println("Please enter a number");
-                scanner.next();
-            }
-            number = scanner.nextInt();
         }
-        while (number < 0 || number > (trumpCards.size() - 1));  //TODO: make this check for geologist instead of size-1
+
+        do {
+            userInput = view.showCardSelectionWithMessage(BaseCard.getCardsAsBase(trumpCardsToDisplay), "Please Select a Trump category ");
+            while (!tryParseInt(userInput)) {
+                userInput = view.showCardSelectionWithMessage(BaseCard.getCardsAsBase(trumpCardsToDisplay), "Please enter a number. \nSelect a Trump category ");
+            }
+            number = Integer.parseInt(userInput) - 1;
+        }
+        while (number < 0 || number > (trumpCards.size()));
 
         Integer newTrump = number;   //set the trump
-
+        System.out.println("number is = " + number);
         return trumpCards.get(newTrump);
     }
 
@@ -141,28 +142,28 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         boolean cardPlayable = true;
         //show cards to player
-        System.out.println("Current player is: " + currentPlayer.getName());
-        System.out.println("Press enter to continue");
+        view.showString("Current player is: " + currentPlayer.getName());
+        view.pauseForEnter("");
         String userInput;
 
         Integer number;
         do {
             int i = 0;
-            System.out.println("Current Trump is is: " + Game.currentTrump.getDetails());
+            view.showCardWithMessage(Game.currentTrump, "The current trump is:");
             if (Game.playedCards.size() > 0) {
-                System.out.println("Last Played Card was: " + Game.playedCards.get(Game.playedCards.size() - 1));
+                view.showCardWithMessage(Game.playedCards.get(Game.playedCards.size() - 1), "Last Played Card was: ");
             }
 
 
             //check to see if it is the first round
             if (!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
-                userInput = view.getCardSelectionWithPass(currentPlayer.getHand());
+                userInput = view.showCardSelectionWithPass(currentPlayer.getHand());
             } else {
-                userInput = view.getCardSelection(currentPlayer.getHand());
+                userInput = view.showCardSelection(currentPlayer.getHand());
             }
 
             while (!tryParseInt(userInput)) {
-                userInput = view.getCardSelectionWithPassAndError(currentPlayer.getHand(),"Please enter a number");
+                userInput = view.showCardSelectionWithPassAndMessage(currentPlayer.getHand(),"Please enter a number");
             }
             number = Integer.parseInt(userInput);
 
@@ -241,7 +242,7 @@ public class Game {
         myGame.selectCard(currentPlayer);
 
         //get player to select trump
-        currentTrump = selectTrump();
+        currentTrump = myGame.selectTrump();
 
         //TODO: state the top value for that category from the card just played
 

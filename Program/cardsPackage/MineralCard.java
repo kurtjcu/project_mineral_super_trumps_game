@@ -1,6 +1,7 @@
 package cardsPackage;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -121,9 +122,10 @@ public class MineralCard extends BaseCard {
     public boolean isThisCardGreaterThan(TrumpCard trump, MineralCard cardToCompare) {
 
         boolean testIs = false;
+
         switch(trump.getTitle()) {
 
-            case "Economic value":
+            case "The Miner":
                 testIs = (CardStatic.economicValue.get(this.getEconomicValue())  >
                         CardStatic.economicValue.get(cardToCompare.getEconomicValue()) );
                 break;
@@ -157,6 +159,7 @@ public class MineralCard extends BaseCard {
     }
 
     //endregion
+
 
 
     //TODO: this code smells, refactor for MVC

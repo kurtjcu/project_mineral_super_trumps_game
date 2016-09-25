@@ -1,5 +1,7 @@
 package cardsPackage;
 
+import java.util.ArrayList;
+
 /**
  * Created by kurt on 4/09/2016.
  */
@@ -14,4 +16,5 @@ public class RuleCard extends BaseCard {
     public String getSubTitle() {
         return subTitle;
     }
+
 }
