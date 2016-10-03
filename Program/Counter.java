@@ -1,8 +1,12 @@
 /**
  * Created by kurt on 6/09/2016.
+ *
+ * Copied from http://stackoverflow.com/questions/7572434/how-to-implement-a-concurrent-circular-ticker-counter-in-java
+ *
+ * Added seed for occasions where doy do not want to start at first item.
  */
 
-//TODO: add reference for where i got this from
+
 public class Counter {
     private final int max;
     private int count;

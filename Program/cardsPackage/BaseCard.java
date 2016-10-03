@@ -80,11 +80,6 @@ public abstract class BaseCard {
         return baseCardList;
     }
 
-    //TODO: this code smells, refactor for MVC
-    public String getDetails(){
-        return(String.format("| %-20s | %-11s |",getTitle(), getCardType()));
-    }
-
     @Override
     public String toString(){
         return title;

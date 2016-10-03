@@ -2,10 +2,9 @@
  * Created by kurt on 5/09/2016.
  */
 
-import cardsPackage.*;
+import cardsPackage.BaseCard;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Player {
 

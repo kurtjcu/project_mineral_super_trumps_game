@@ -1,7 +1,5 @@
 package cardsPackage;
 
-import java.util.ArrayList;
-
 /**
  * Created by kurt on 4/09/2016.
  */
@@ -15,15 +13,5 @@ public class TrumpCard extends BaseCard {
 
     public String getSubTitle() {
         return subTitle;
-    }
-
-
-    //TODO: this code smells, refactor for MVC
-    @Override
-    public String getDetails() {
-
-        String string = String.format(" %-76s |",getSubTitle());
-
-        return ("\u001B[31m" + super.getDetails() + string + "\u001B[0m");
     }
 }

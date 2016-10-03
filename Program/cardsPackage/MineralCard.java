@@ -1,7 +1,6 @@
 package cardsPackage;
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -71,7 +70,6 @@ public class MineralCard extends BaseCard {
     /*** Setters  ***/
 
     // should be none as a card is read only once created.
-
 
     //region Getters
 
@@ -160,25 +158,4 @@ public class MineralCard extends BaseCard {
 
     //endregion
 
-
-
-    //TODO: this code smells, refactor for MVC
-    @Override
-    public String getDetails() {
-        String string = String.format(" %-11s | %-11s | %-20s | %-12s | %-10s |",
-                Arrays.toString( getHardness()),
-                Arrays.toString(getSpecificGravity()),
-                getCleavage(),
-                getCrustalAbundance(),
-                getEconomicValue())
-        ;
-
-        return(super.getDetails() + string);
-
-    }
-
-/*** ways to compare two or more cards?? **/
-    //should this be overrides tha
-
-    /*** Errors  ***/
 }

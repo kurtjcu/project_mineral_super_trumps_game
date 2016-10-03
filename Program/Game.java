@@ -2,9 +2,13 @@
  * Created by kurt on 5/09/2016.
  */
 
-import java.util.*;
+import cardsPackage.BaseCard;
+import cardsPackage.MineralCard;
+import cardsPackage.TrumpCard;
 
-import cardsPackage.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Stack;
 
 
 public class Game {

@@ -2,17 +2,19 @@
  * Created by kurt on 1/09/2016.
  */
 
-import cardsPackage.*;
+import cardsPackage.BaseCard;
+import cardsPackage.MineralCard;
+import cardsPackage.RuleCard;
+import cardsPackage.TrumpCard;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
 
 
 public class PListParser {

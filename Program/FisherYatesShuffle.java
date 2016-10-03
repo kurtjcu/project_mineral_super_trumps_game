@@ -1,11 +1,14 @@
 import cardsPackage.BaseCard;
-import java.util.*;
+
+import java.util.Stack;
 
 /**
  * Created by kurt on 26/08/2016.
+ *
+ * Copied from https://www.dotnetperls.com/shuffle-java
+ * Then modified to fit
  */
 
-//TODO: add reference for where i got this from
 public class FisherYatesShuffle
 {
 
