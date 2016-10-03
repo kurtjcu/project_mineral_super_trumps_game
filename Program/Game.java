@@ -61,7 +61,7 @@ public class Game {
     public void doShuffle() {
         deck = FisherYatesShuffle.doFisherYatesShuffle(deck);
     }
-
+    //TODO:refactor for MVC
     public Boolean setPlayers() {
         Scanner scanner = new Scanner(System.in);
         boolean keepGoing = true;
