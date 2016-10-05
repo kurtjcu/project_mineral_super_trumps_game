@@ -7,7 +7,7 @@ import java.util.Hashtable;
 /**
  * Created by kurt on 30/08/2016.
  */
-class CardStatic {
+public class CardStatic {
 
 
 
@@ -67,4 +67,13 @@ class CardStatic {
         economicValue = tempHashTable;
     }
 
+    //helper method
+    public static BaseCard getCardByTitle(ArrayList<BaseCard> cards, String title){
+        for(BaseCard card : cards){
+            if(card.getTitle().contains(title)){
+                return card;
+            }
+        }
+        return null;
+    }
 }

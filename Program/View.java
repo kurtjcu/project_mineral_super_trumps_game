@@ -12,6 +12,9 @@ import java.util.Scanner;
  */
 public class View {
 
+    String menuTop = String.format("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name",
+            "Card Type", "Hardness", "Spec Grav", "Cleavage", "Crustal Abun", "Value");
+
     public void showString (String string){
         System.out.println(string);
     }
@@ -48,12 +51,16 @@ public class View {
         return(stringPrefix + string);
     }
 
+
+    //TODO:not used??
     public String showHand (ArrayList<BaseCard> hand){
         return showHand(hand, 0);
     }
+
     public String showHand (ArrayList<BaseCard> hand, int offset){
         StringBuilder string = new StringBuilder();
-        for(int i = 0; i < hand.size(); i++){
+        int i = 0;
+        for(; i < hand.size(); i++){
             string = string.append(String.format(" %-3d : %s%n", i + offset, getFormattedCardString(hand.get(i))));
         }
         return string.toString();
@@ -63,7 +70,7 @@ public class View {
     public String showCardSelection(ArrayList<BaseCard> cardsList){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please Select a card ");
-        System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavage", "Crustal Abun", "Value");
+        System.out.printf(menuTop);
         System.out.println(showHand(cardsList, 1));
         return scanner.next();
     }
@@ -71,7 +78,7 @@ public class View {
     public String showCardSelectionWithPass(ArrayList<BaseCard> cardsList){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please Select a card ");
-        System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavage", "Crustal Abun", "Value");
+        System.out.printf(menuTop);
         System.out.printf(" %-3d : | %-113s |%n", 0, "pass and pickup a card");
         System.out.println(showHand(cardsList, 1));
         return scanner.next();
@@ -90,14 +97,18 @@ public class View {
 
 
     public void showCard(BaseCard card){
-        showCardWithMessage(card, "");
+        System.out.printf(" %-3d : %s%n", 0, getFormattedCardString(card));
+    }
+
+    public void showCard(BaseCard card, int offset){
+        System.out.printf(" %-3d : %s%n", offset, getFormattedCardString(card));
     }
 
     public void showCardWithMessage(BaseCard card, String message){
         if(!message.equals("")){
             System.out.println(message);
         }
-        System.out.printf("       | %-20s | %-11s | %-11s | %-11s | %-20s | %-12s | %-10s |%n", "Name", "Card Type", "Hardness", "Spec Grav", "Cleavage", "Crustal Abun", "Value");
+        System.out.printf(menuTop);
         System.out.printf(" %-3d : %s%n", 0, getFormattedCardString(card));
     }
 

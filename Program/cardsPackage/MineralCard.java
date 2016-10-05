@@ -129,8 +129,8 @@ public class MineralCard extends BaseCard {
                 break;
 
             case "The Petrologist":
-                testIs = (CardStatic.crustalAbundance.get(this.getEconomicValue())  >
-                        CardStatic.crustalAbundance.get(cardToCompare.getEconomicValue()) );
+                testIs = (CardStatic.crustalAbundance.get(this.getCrustalAbundance())  >
+                        CardStatic.crustalAbundance.get(cardToCompare.getCrustalAbundance()) );
                 break;
 
             case "The Gemmologist":
@@ -139,8 +139,8 @@ public class MineralCard extends BaseCard {
                 break;
 
             case "The Mineralogist":
-                testIs = (CardStatic.cleavage.get(this.getEconomicValue())  >
-                        CardStatic.cleavage.get(cardToCompare.getEconomicValue()) );
+                testIs = (CardStatic.cleavage.get(this.getCleavage())  >
+                        CardStatic.cleavage.get(cardToCompare.getCleavage()) );
                 break;
 
             case "The Geophysicist" :

@@ -3,6 +3,7 @@
  */
 
 import cardsPackage.BaseCard;
+import cardsPackage.CardStatic;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
 
@@ -16,10 +17,12 @@ public class Game {
     static Stack<BaseCard> deck;
     private static ArrayList<BaseCard> rulesCards;
     static ArrayList<TrumpCard> trumpCards;
+    static ArrayList<MineralCard> playingCards;
     static ArrayList<BaseCard> playedCards;
     static TrumpCard currentTrump;
     static Player winner;
     static View view;
+    static final int geophysicistAndMagnetiteMenuNumber = 99;
 
     private ArrayList<Player> players;
     private Player dealer;
@@ -31,6 +34,7 @@ public class Game {
         trumpCards = new ArrayList<TrumpCard>();
         players = new ArrayList<Player>();
         playedCards = new ArrayList<BaseCard>();
+        playingCards = new ArrayList<>();
         view = new View();
 
         currentTrump = new TrumpCard("", "", "trump", "None:", " its the first round");
@@ -38,6 +42,7 @@ public class Game {
         //sort rule cards from file and create deck
         for (BaseCard card : PListParser.getCardsList()) {
             if (card.getCardType().contains("play")) {
+                playingCards.add((MineralCard) card);
                 deck.push(card);
             } else if (card.getCardType().contains("trump")) {
                 trumpCards.add((TrumpCard) card);
@@ -65,6 +70,7 @@ public class Game {
     public void doShuffle() {
         deck = FisherYatesShuffle.doFisherYatesShuffle(deck);
     }
+
     //TODO:refactor for MVC
     public Boolean setPlayers() {
         Scanner scanner = new Scanner(System.in);
@@ -121,8 +127,8 @@ public class Game {
         Integer number;
         ArrayList<TrumpCard> trumpCardsToDisplay = new ArrayList<>();
 
-        for(TrumpCard card : trumpCards){
-            if(!card.getTitle().toLowerCase().contains("geologist")) {
+        for (TrumpCard card : trumpCards) {
+            if (!card.getTitle().toLowerCase().contains("geologist")) {
                 trumpCardsToDisplay.add(card);
             }
         }
@@ -141,14 +147,53 @@ public class Game {
         return trumpCards.get(newTrump);
     }
 
+    private TrumpCard checkForShowingGeophysicistAndMagnetite(ArrayList<BaseCard> cardsList) {
+
+        boolean hasGeophysicist = cardsList.contains(CardStatic.getCardByTitle(BaseCard.getCardsAsBase(trumpCards), "Geophysicist"));
+        boolean hasMagnetite = cardsList.contains(CardStatic.getCardByTitle(BaseCard.getCardsAsBase(playingCards), "Magnetite"));
+        if (hasGeophysicist && hasMagnetite) {
+            return new TrumpCard("none", "none", "trump", "Geophysicist And Magnetite", "Play these two cards to play the hand");
+        }
+        return null;
+
+    }
+
+    private Integer showCardSelection(ArrayList<BaseCard> hand) {
+
+        String userInput;
+        //check to see if it is the first round
+        if (!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
+            userInput = view.showCardSelectionWithPass(hand);
+        } else {
+            userInput = view.showCardSelection(hand);
+        }
+
+        while (!tryParseInt(userInput)) {
+            userInput = view.showCardSelectionWithPassAndMessage(hand, "Please enter a number");
+        }
+        return (Integer.parseInt(userInput));
+
+    }
+
     private void selectCard(Player currentPlayer) {
 
         Scanner scanner = new Scanner(System.in);
         boolean cardPlayable = true;
+
+        TrumpCard hasGeophysicistAndMagnetite;
+        ArrayList<BaseCard> hand = new ArrayList<>();
+
+        hand.addAll(currentPlayer.getHand());
+
+        hasGeophysicistAndMagnetite = checkForShowingGeophysicistAndMagnetite(hand);
+        if (hasGeophysicistAndMagnetite != null) {
+            hand.add(hasGeophysicistAndMagnetite);
+        }
+
         //show cards to player
         view.showString("Current player is: " + currentPlayer.getName());
         view.pauseForEnter("");
-        String userInput;
+
 
         Integer number;
         do {
@@ -158,28 +203,19 @@ public class Game {
                 view.showCardWithMessage(Game.playedCards.get(Game.playedCards.size() - 1), "Last Played Card was: ");
             }
 
+            number = showCardSelection(hand);
 
-            //check to see if it is the first round
-            if (!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
-                userInput = view.showCardSelectionWithPass(currentPlayer.getHand());
-            } else {
-                userInput = view.showCardSelection(currentPlayer.getHand());
-            }
-
-            while (!tryParseInt(userInput)) {
-                userInput = view.showCardSelectionWithPassAndMessage(currentPlayer.getHand(),"Please enter a number");
-            }
-            number = Integer.parseInt(userInput);
-
-            if( number < 1){
+            if (number < 1 || hand.get(number - 1).getTitle().contains("Geophysicist And Magnetite")) {
                 cardPlayable = true;
             } else {
-                if(playedCards.size() > 0){
-                    cardPlayable = isCardPlayable(currentPlayer.showCardFromHand(number - 1));
+                if (playedCards.size() > 0) {
+                    cardPlayable = isCardPlayable(hand.get(number - 1));
                 }
             }
+            System.out.println("card playable = " + cardPlayable);
+            System.out.println("number = " + number);
         }
-        while (number < 0 || number > currentPlayer.getHand().size() || !cardPlayable);
+        while (number < 0 || number > hand.size() || !cardPlayable);
 
 
         Integer cardToPlay = number - 1;
@@ -188,14 +224,30 @@ public class Game {
             currentPlayer.addToHand(Game.deck.pop());
         } else {
             //TODO: refactor to method
-            if (currentPlayer.showCardFromHand(cardToPlay).getCardType().contains("trump")) {
-                if (currentPlayer.showCardFromHand(cardToPlay).getTitle().toLowerCase().contains("geologist")) {
+            if (hand.get(cardToPlay).getCardType().contains("trump")) {
+                if (hand.get(cardToPlay).getTitle().toLowerCase().contains("geologist")) {
+                    Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
                     currentTrump = selectTrump();
+                    //play another card
+                    selectCard(currentPlayer);
+                } else if (hand.get(cardToPlay).getTitle().toLowerCase().contains("Geophysicist And Magnetite")) {
+                    Game.playedCards.add(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
+                            CardStatic.getCardByTitle(BaseCard.getCardsAsBase(playingCards), "Magnetite"))));
+                    Game.playedCards.add(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
+                            CardStatic.getCardByTitle(BaseCard.getCardsAsBase(trumpCards), "Geophysicist"))));
+                    currentTrump = selectTrump();
+                    //play another card
+                    selectCard(currentPlayer);
                 } else {
-                    currentTrump = (TrumpCard) currentPlayer.showCardFromHand(cardToPlay);
+                    Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
+                    currentTrump = (TrumpCard) hand.get(cardToPlay);
+                    //play another card
+                    selectCard(currentPlayer);
                 }
+            } else {
+                Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
             }
-            Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
+
             if (currentPlayer.getHand().size() < 2) {
                 winner = currentPlayer;
             }
@@ -203,7 +255,7 @@ public class Game {
     }
 
     private boolean isCardPlayable(BaseCard card) {
-        return (playedCards.get(playedCards.size()-1).getCardType().toLowerCase().contains("trump")
+        return (playedCards.get(playedCards.size() - 1).getCardType().toLowerCase().contains("trump")
                 || card.getCardType().toLowerCase().contains("trump")
                 || card.isThisCardGreaterThan(currentTrump,
                 (MineralCard) playedCards.get(playedCards.size() - 1)));
@@ -253,7 +305,7 @@ public class Game {
 
         while (winner == null) {
             //check deck size and re shuffle if last card has been played
-            if (deck.size() > 1) {
+            if (deck.size() < 2) {
                 for (BaseCard card : playedCards) {
                     deck.push(card);
                 }
