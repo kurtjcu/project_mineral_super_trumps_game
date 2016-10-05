@@ -42,6 +42,7 @@ public abstract class BaseCard {
 
     public String getCardType() {
         return cardType;
+
     }
 
     public String getTitle() {
