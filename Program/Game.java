@@ -22,19 +22,25 @@ public class Game {
     static TrumpCard currentTrump;
     static Player winner;
     static View view;
-    static final int geophysicistAndMagnetiteMenuNumber = 99;
 
     private ArrayList<Player> players;
+    private ArrayList<Player> activePlayers;
+    private ArrayList<Player> finishedPlayers;
     private Player dealer;
 
 
     public Game() {
-        deck = new Stack<BaseCard>();
-        rulesCards = new ArrayList<BaseCard>();
-        trumpCards = new ArrayList<TrumpCard>();
-        players = new ArrayList<Player>();
-        playedCards = new ArrayList<BaseCard>();
+        deck = new Stack<>();
+        rulesCards = new ArrayList<>();
+        trumpCards = new ArrayList<>();
         playingCards = new ArrayList<>();
+
+        playedCards = new ArrayList<>();
+
+        players = new ArrayList<>();
+        activePlayers = new ArrayList<>();
+        finishedPlayers = new ArrayList<>();
+
         view = new View();
 
         currentTrump = new TrumpCard("", "", "trump", "None:", " its the first round");
@@ -100,6 +106,25 @@ public class Game {
 
     }
 
+    private void resetActivePlayers()
+    {
+        activePlayers = new ArrayList<>();
+
+        for(Player player : players) {
+            if(!finishedPlayers.contains(player)){
+                activePlayers.add(player);
+            }
+        }
+    }
+
+    private Player getNextActivePlayer(Counter playerCounter){
+        int playerNum = playerCounter.increment();
+        while(!activePlayers.contains(players.get(playerNum))){
+            playerNum = playerCounter.increment();
+        }
+        return players.get(playerNum);
+    }
+
     public boolean setDealer() {
         if (players.size() > 0) {
             dealer = players.get((int) (Math.random() * (players.size())));
@@ -123,9 +148,11 @@ public class Game {
     }
 
     private TrumpCard selectTrump() {
-        String userInput = "";
+        String userInput;
         Integer number;
         ArrayList<TrumpCard> trumpCardsToDisplay = new ArrayList<>();
+
+        resetActivePlayers();
 
         for (TrumpCard card : trumpCards) {
             if (!card.getTitle().toLowerCase().contains("geologist")) {
@@ -155,7 +182,6 @@ public class Game {
             return new TrumpCard("none", "none", "trump", "Geophysicist And Magnetite", "Play these two cards to play the hand");
         }
         return null;
-
     }
 
     private Integer showCardSelection(ArrayList<BaseCard> hand) {
@@ -176,33 +202,29 @@ public class Game {
     }
 
     private void selectCard(Player currentPlayer) {
-
-        Scanner scanner = new Scanner(System.in);
         boolean cardPlayable = true;
 
         TrumpCard hasGeophysicistAndMagnetite;
         ArrayList<BaseCard> hand = new ArrayList<>();
 
+        //create a temp hand to check for Geo+Mag
         hand.addAll(currentPlayer.getHand());
-
         hasGeophysicistAndMagnetite = checkForShowingGeophysicistAndMagnetite(hand);
         if (hasGeophysicistAndMagnetite != null) {
             hand.add(hasGeophysicistAndMagnetite);
         }
-
+        view.clearScreen();
         //show cards to player
         view.showString("Current player is: " + currentPlayer.getName());
         view.pauseForEnter("");
 
-
         Integer number;
         do {
-            int i = 0;
             view.showCardWithMessage(Game.currentTrump, "The current trump is:");
+
             if (Game.playedCards.size() > 0) {
                 view.showCardWithMessage(Game.playedCards.get(Game.playedCards.size() - 1), "Last Played Card was: ");
             }
-
             number = showCardSelection(hand);
 
             if (number < 1 || hand.get(number - 1).getTitle().contains("Geophysicist And Magnetite")) {
@@ -222,14 +244,18 @@ public class Game {
 
         if (cardToPlay.equals(-1)) {    //are we passing??
             currentPlayer.addToHand(Game.deck.pop());
+            activePlayers.remove(currentPlayer);
         } else {
             //TODO: refactor to method
+            //check for trump
             if (hand.get(cardToPlay).getCardType().contains("trump")) {
+                //check for geologist
                 if (hand.get(cardToPlay).getTitle().toLowerCase().contains("geologist")) {
                     Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
                     currentTrump = selectTrump();
                     //play another card
                     selectCard(currentPlayer);
+                //check for Geophysicist && Magnetite
                 } else if (hand.get(cardToPlay).getTitle().toLowerCase().contains("Geophysicist And Magnetite")) {
                     Game.playedCards.add(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
                             CardStatic.getCardByTitle(BaseCard.getCardsAsBase(playingCards), "Magnetite"))));
@@ -238,12 +264,15 @@ public class Game {
                     currentTrump = selectTrump();
                     //play another card
                     selectCard(currentPlayer);
+                //fall through to normal trump
                 } else {
                     Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
                     currentTrump = (TrumpCard) hand.get(cardToPlay);
+                    resetActivePlayers();
                     //play another card
                     selectCard(currentPlayer);
                 }
+            //normal playing card
             } else {
                 Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
             }
@@ -276,6 +305,8 @@ public class Game {
             return;
         }
 
+        myGame.resetActivePlayers();
+
         if (myGame.setDealer()) {
             System.out.println("The Dealer is " + myGame.getDealer());
         } else {
@@ -283,15 +314,19 @@ public class Game {
             return;
         }
 
+        //create counter
+        Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));
+
         myGame.doShuffle();
 
         myGame.dealCards();
 
-        Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));   //create counter
+
+
 
         // should be:
         //get player to the left of dealer
-        Player currentPlayer = myGame.players.get(playerCounter.increment());
+        Player currentPlayer = myGame.getNextActivePlayer(playerCounter);
 
         //get hand and display to player
         //get player to select card
@@ -315,11 +350,18 @@ public class Game {
             System.out.println("playedCard size = " + playedCards.size());
 
             //get next player
-            currentPlayer = myGame.players.get(playerCounter.increment());
+            currentPlayer = myGame.getNextActivePlayer(playerCounter);
 
             //get hand and display to player
             //get player to select card
             myGame.selectCard(currentPlayer);
+
+            //check for all but one has passed
+            if(myGame.activePlayers.size() == 1){
+                myGame.resetActivePlayers();
+                currentTrump = myGame.selectTrump();
+                myGame.selectCard(currentPlayer);
+            }
 
             //TODO: state the top value for that category from the card just played
 

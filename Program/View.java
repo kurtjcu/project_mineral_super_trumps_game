@@ -121,4 +121,12 @@ public class View {
         }
         scanner.hasNext();
     }
+
+    public void clearScreen(){
+        for (int i=0; i<25; i++)
+            System.out.println();
+        System.out.println("!!! Dont Cheat !!!");
+        for (int i=0; i<25; i++)
+            System.out.println();
+    }
 }

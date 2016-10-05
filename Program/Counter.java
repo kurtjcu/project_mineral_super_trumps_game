@@ -3,7 +3,7 @@
  *
  * Copied from http://stackoverflow.com/questions/7572434/how-to-implement-a-concurrent-circular-ticker-counter-in-java
  *
- * Added seed for occasions where doy do not want to start at first item.
+ * Added seed for occasions where you do not want to start at first item.
  */
 
 
