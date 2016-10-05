@@ -6,7 +6,7 @@ package cardsPackage;
 public class RuleCard extends BaseCard {
     private String subTitle;                // name of card
 
-    public RuleCard(String fileName, String imageName, String cardType, String title, String subTitle){
+    public RuleCard(String fileName, String imageName, String cardType, String title, String subTitle) {
         super(fileName, imageName, cardType, title);
         this.subTitle = subTitle;
     }

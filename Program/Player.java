@@ -6,7 +6,7 @@ import cardsPackage.BaseCard;
 
 import java.util.ArrayList;
 
-public class Player {
+class Player {
 
     private String name;
     private ArrayList<BaseCard> hand;
@@ -33,15 +33,12 @@ public class Player {
         return name;
     }
 
-    public ArrayList<BaseCard> getHand() {
+    ArrayList<BaseCard> getHand() {
         return hand;
     }
 
-    public BaseCard showCardFromHand(int cardIndex) {
-        return hand.get(cardIndex);
-    }
 
-    public BaseCard takeCardFromHand(int cardIndex ){
+    BaseCard takeCardFromHand(int cardIndex) {
         BaseCard card = hand.get(cardIndex);
         hand.remove(card);
         return card;

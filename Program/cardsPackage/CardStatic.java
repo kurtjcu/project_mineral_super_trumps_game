@@ -9,22 +9,21 @@ import java.util.Hashtable;
  */
 public class CardStatic {
 
-
-
     static final ArrayList cardType;
+
     static {
-        ArrayList<String> tempArrayList= new ArrayList<>();
+        ArrayList<String> tempArrayList = new ArrayList<>();
         tempArrayList.add("play");
         tempArrayList.add("trump");
         tempArrayList.add("rule");
         cardType = tempArrayList;
     }
 
-    //TODO: create Dictionary for Occurrence...
-
     static final Dictionary<String, Integer> crustalAbundance;
+
     static {
         Hashtable<String, Integer> tempHashTable = new Hashtable<>();
+        tempHashTable.put("zero", -1);
         tempHashTable.put("ultratrace", 0);
         tempHashTable.put("trace", 1);
         tempHashTable.put("low", 2);
@@ -35,8 +34,10 @@ public class CardStatic {
     }
 
     static final Dictionary<String, Integer> cleavage;
+
     static {
         Hashtable<String, Integer> tempHashTable = new Hashtable<>();
+        tempHashTable.put("zero", -1);
         tempHashTable.put("none", 0);
         tempHashTable.put("poor/none", 1);
         tempHashTable.put("1 poor", 2);
@@ -56,8 +57,10 @@ public class CardStatic {
     }
 
     static final Dictionary<String, Integer> economicValue;
+
     static {
         Hashtable<String, Integer> tempHashTable = new Hashtable<>();
+        tempHashTable.put("zero", -1);
         tempHashTable.put("trivial", 0);
         tempHashTable.put("low", 1);
         tempHashTable.put("moderate", 2);
@@ -68,9 +71,9 @@ public class CardStatic {
     }
 
     //helper method
-    public static BaseCard getCardByTitle(ArrayList<BaseCard> cards, String title){
-        for(BaseCard card : cards){
-            if(card.getTitle().contains(title)){
+    public static BaseCard getCardByTitle(ArrayList<BaseCard> cards, String title) {
+        for (BaseCard card : cards) {
+            if (card.getTitle().contains(title)) {
                 return card;
             }
         }

@@ -125,7 +125,7 @@ public class View {
     public void clearScreen(){
         for (int i=0; i<25; i++)
             System.out.println();
-        System.out.println("!!! Dont Cheat !!!");
+        System.out.println("!!! Don't Cheat !!!");
         for (int i=0; i<25; i++)
             System.out.println();
     }

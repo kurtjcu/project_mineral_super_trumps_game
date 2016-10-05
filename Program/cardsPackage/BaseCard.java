@@ -1,7 +1,6 @@
 package cardsPackage;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Created by kurt on 4/09/2016.
@@ -12,7 +11,6 @@ public abstract class BaseCard {
     private String cardType;            // normal or trump?? (dont forget there is also an instructions type)
     String title;                // name of card
     Integer error = 0;           // Error if not 0
-
 
 
     BaseCard(String fileName, String imageName, String cardType, String title) {
@@ -49,7 +47,7 @@ public abstract class BaseCard {
         return title;
     }
 
-    public Integer getError(){
+    public Integer getError() {
         return error;
     }
 
@@ -63,26 +61,16 @@ public abstract class BaseCard {
         System.out.println("There was an error constructing card! \n it was:" + error);
     }
 
-    public static int getCardIndexByTitle(ArrayList arrayOfCards, String titleString) {
-
-        for (Object card : arrayOfCards) {
-            if (((BaseCard)card).getTitle().toLowerCase().contains(titleString.toLowerCase()))
-                return arrayOfCards.indexOf(card);
-        }
-        System.out.println("didn't find card in getCardIndexByTitle");
-        return -1;
-    }
-
-    public static ArrayList<BaseCard> getCardsAsBase(ArrayList list){
+    public static ArrayList<BaseCard> getCardsAsBase(ArrayList list) {
         ArrayList<BaseCard> baseCardList = new ArrayList<>();
-        for(Object card : list){
-            baseCardList.add((BaseCard)card);
+        for (Object card : list) {
+            baseCardList.add((BaseCard) card);
         }
         return baseCardList;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return title;
     }
 

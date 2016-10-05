@@ -49,7 +49,7 @@ public class MineralCard extends BaseCard {
             error = error + 1;
         }
 
-        if (CardStatic.crustalAbundance.get(crustalAbundance.replaceAll("\\s","")) != null) {
+        if (CardStatic.crustalAbundance.get(crustalAbundance.replaceAll("\\s", "")) != null) {
             this.crustalAbundance = crustalAbundance.trim();
         } else {
             errorLoadingCard("crustalAbundance not supported " + crustalAbundance);
@@ -65,11 +65,6 @@ public class MineralCard extends BaseCard {
 
 
     }
-
-
-    /*** Setters  ***/
-
-    // should be none as a card is read only once created.
 
     //region Getters
 
@@ -121,31 +116,31 @@ public class MineralCard extends BaseCard {
 
         boolean testIs = false;
 
-        switch(trump.getTitle()) {
+        switch (trump.getTitle()) {
 
             case "The Miner":
-                testIs = (CardStatic.economicValue.get(this.getEconomicValue())  >
-                        CardStatic.economicValue.get(cardToCompare.getEconomicValue()) );
+                testIs = (CardStatic.economicValue.get(this.getEconomicValue()) >
+                        CardStatic.economicValue.get(cardToCompare.getEconomicValue()));
                 break;
 
             case "The Petrologist":
-                testIs = (CardStatic.crustalAbundance.get(this.getCrustalAbundance())  >
-                        CardStatic.crustalAbundance.get(cardToCompare.getCrustalAbundance()) );
+                testIs = (CardStatic.crustalAbundance.get(this.getCrustalAbundance()) >
+                        CardStatic.crustalAbundance.get(cardToCompare.getCrustalAbundance()));
                 break;
 
             case "The Gemmologist":
-                testIs = (hardness[hardness.length-1]  >
-                        cardToCompare.hardness[cardToCompare.hardness.length-1] );
+                testIs = (hardness[hardness.length - 1] >
+                        cardToCompare.hardness[cardToCompare.hardness.length - 1]);
                 break;
 
             case "The Mineralogist":
-                testIs = (CardStatic.cleavage.get(this.getCleavage())  >
-                        CardStatic.cleavage.get(cardToCompare.getCleavage()) );
+                testIs = (CardStatic.cleavage.get(this.getCleavage()) >
+                        CardStatic.cleavage.get(cardToCompare.getCleavage()));
                 break;
 
-            case "The Geophysicist" :
-                testIs = (specificGravity[specificGravity.length-1]  >
-                        cardToCompare.specificGravity[cardToCompare.specificGravity.length-1] );
+            case "The Geophysicist":
+                testIs = (specificGravity[specificGravity.length - 1] >
+                        cardToCompare.specificGravity[cardToCompare.specificGravity.length - 1]);
                 break;
 
             default:

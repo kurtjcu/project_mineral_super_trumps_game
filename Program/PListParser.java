@@ -3,18 +3,18 @@
  */
 
 import cardsPackage.BaseCard;
-import cardsPackage.MineralCard;
-import cardsPackage.RuleCard;
-import cardsPackage.TrumpCard;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+        import cardsPackage.MineralCard;
+        import cardsPackage.RuleCard;
+        import cardsPackage.TrumpCard;
+        import org.w3c.dom.Document;
+        import org.w3c.dom.Element;
+        import org.w3c.dom.Node;
+        import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.util.ArrayList;
+        import javax.xml.parsers.DocumentBuilder;
+        import javax.xml.parsers.DocumentBuilderFactory;
+        import java.io.File;
+        import java.util.ArrayList;
 
 
 public class PListParser {
@@ -151,7 +151,8 @@ public class PListParser {
 
                 System.out.println("Card Title is " + card.getTitle());
                 if (card.getError() > 0) {
-                    System.out.println("There was at least one error with this card: " + card.getTitle() + " \n ErrorCount = " + card.getError());
+                    System.out.println("There was at least one error with this card: " + card.getTitle() +
+                            " \n ErrorCount = " + card.getError());
                 }
             }
 

@@ -14,22 +14,26 @@ import java.util.Stack;
 
 public class Game {
 
-    static Stack<BaseCard> deck;
-    private static ArrayList<BaseCard> rulesCards;
-    static ArrayList<TrumpCard> trumpCards;
-    static ArrayList<MineralCard> playingCards;
-    static ArrayList<BaseCard> playedCards;
-    static TrumpCard currentTrump;
-    static Player winner;
-    static View view;
+    private static Stack<BaseCard> deck;
+    private static ArrayList<BaseCard> rulesCards;    //not used yet
+    private static ArrayList<TrumpCard> trumpCards;
+    private static ArrayList<MineralCard> playingCards;
+    private static ArrayList<BaseCard> playedCards;
+    private static TrumpCard currentTrump;
+    private static View view;
+    private static MineralCard clearCard;
 
     private ArrayList<Player> players;
     private ArrayList<Player> activePlayers;
     private ArrayList<Player> finishedPlayers;
     private Player dealer;
+    private static Player winner;
+    private static Player loser;
+
+    private final int deltHandSize = 1; // normal game is 7
 
 
-    public Game() {
+    private Game() {
         deck = new Stack<>();
         rulesCards = new ArrayList<>();
         trumpCards = new ArrayList<>();
@@ -44,6 +48,8 @@ public class Game {
         view = new View();
 
         currentTrump = new TrumpCard("", "", "trump", "None:", " its the first round");
+        clearCard = new MineralCard("none", "none", "play", "none", "none", "none", "none", new String[]{"zero"},
+                new Double[]{0d}, new Double[]{0d}, "zero", "zero", "zero");
 
         //sort rule cards from file and create deck
         for (BaseCard card : PListParser.getCardsList()) {
@@ -65,7 +71,7 @@ public class Game {
      * Getters
      **/
 
-    public String getDealer() {
+    private String getDealer() {
         return dealer.getName();
     }
 
@@ -73,12 +79,11 @@ public class Game {
      * Setters
      **/
 
-    public void doShuffle() {
+    private void doShuffle() {
         deck = FisherYatesShuffle.doFisherYatesShuffle(deck);
     }
 
-    //TODO:refactor for MVC
-    public Boolean setPlayers() {
+    private Boolean setPlayers() {
         Scanner scanner = new Scanner(System.in);
         boolean keepGoing = true;
         do {
@@ -106,26 +111,32 @@ public class Game {
 
     }
 
-    private void resetActivePlayers()
-    {
+    private void resetActivePlayers() {
         activePlayers = new ArrayList<>();
 
-        for(Player player : players) {
-            if(!finishedPlayers.contains(player)){
+        for (Player player : players) {
+            if (!finishedPlayers.contains(player)) {
                 activePlayers.add(player);
             }
         }
     }
 
-    private Player getNextActivePlayer(Counter playerCounter){
+    private Player getNextActivePlayer(Counter playerCounter) {
         int playerNum = playerCounter.increment();
-        while(!activePlayers.contains(players.get(playerNum))){
+        while (!activePlayers.contains(players.get(playerNum))) {
             playerNum = playerCounter.increment();
         }
         return players.get(playerNum);
     }
 
-    public boolean setDealer() {
+    private void displayCurrentPlayer(Player currentPlayer) {
+        view.clearScreen();
+        //show cards to player
+        view.showString("Current player is: " + currentPlayer.getName());
+        view.pauseForEnter("");
+    }
+
+    private boolean setDealer() {
         if (players.size() > 0) {
             dealer = players.get((int) (Math.random() * (players.size())));
             return true;
@@ -136,10 +147,8 @@ public class Game {
 
     //region helper methods
 
-    public void dealCards() {
-        Counter playerCounter = new Counter(players.size(), players.indexOf(dealer));
-        //System.out.println("Index of Dealer " + players.indexOf(dealer));
-        for (int j = 1; j < 8; j++) {
+    private void dealCards(Counter playerCounter) {
+        for (int j = 0; j < deltHandSize; j++) {
             // deal a card to each player
             for (int i = 0; i < players.size(); i++) {
                 players.get(playerCounter.increment()).addToHand(deck.pop());  //give card to next player
@@ -161,9 +170,11 @@ public class Game {
         }
 
         do {
-            userInput = view.showCardSelectionWithMessage(BaseCard.getCardsAsBase(trumpCardsToDisplay), "Please Select a Trump category ");
+            userInput = view.showCardSelectionWithMessage(BaseCard.getCardsAsBase(trumpCardsToDisplay),
+                    "Please Select a Trump category ");
             while (!tryParseInt(userInput)) {
-                userInput = view.showCardSelectionWithMessage(BaseCard.getCardsAsBase(trumpCardsToDisplay), "Please enter a number. \nSelect a Trump category ");
+                userInput = view.showCardSelectionWithMessage(BaseCard.getCardsAsBase(trumpCardsToDisplay),
+                        "Please enter a number. \nSelect a Trump category ");
             }
             number = Integer.parseInt(userInput) - 1;
         }
@@ -176,10 +187,13 @@ public class Game {
 
     private TrumpCard checkForShowingGeophysicistAndMagnetite(ArrayList<BaseCard> cardsList) {
 
-        boolean hasGeophysicist = cardsList.contains(CardStatic.getCardByTitle(BaseCard.getCardsAsBase(trumpCards), "Geophysicist"));
-        boolean hasMagnetite = cardsList.contains(CardStatic.getCardByTitle(BaseCard.getCardsAsBase(playingCards), "Magnetite"));
+        boolean hasGeophysicist = cardsList.contains(CardStatic.getCardByTitle(BaseCard.getCardsAsBase(trumpCards),
+                "Geophysicist"));
+        boolean hasMagnetite = cardsList.contains(CardStatic.getCardByTitle(BaseCard.getCardsAsBase(playingCards),
+                "Magnetite"));
         if (hasGeophysicist && hasMagnetite) {
-            return new TrumpCard("none", "none", "trump", "Geophysicist And Magnetite", "Play these two cards to play the hand");
+            return new TrumpCard("none", "none", "trump", "Geophysicist And Magnetite",
+                    "Play these two cards to play the hand");
         }
         return null;
     }
@@ -201,11 +215,30 @@ public class Game {
 
     }
 
+    private void checkForDeckShuffle() {
+        //check deck size and re shuffle if second last card has been played
+        if (deck.size() < 2) {
+            for (BaseCard card : playedCards) {
+                if (!card.equals(clearCard))
+                    deck.push(card);
+            }
+            playedCards.clear();
+            doShuffle();
+        }
+        System.out.println("deck size = " + deck.size());
+        System.out.println("playedCard size = " + playedCards.size());
+    }
+
     private void selectCard(Player currentPlayer) {
         boolean cardPlayable = true;
 
         TrumpCard hasGeophysicistAndMagnetite;
         ArrayList<BaseCard> hand = new ArrayList<>();
+
+        //check for empty hand
+        if (currentPlayer.getHand().size() < 1) {
+            return;
+        }
 
         //create a temp hand to check for Geo+Mag
         hand.addAll(currentPlayer.getHand());
@@ -213,10 +246,6 @@ public class Game {
         if (hasGeophysicistAndMagnetite != null) {
             hand.add(hasGeophysicistAndMagnetite);
         }
-        view.clearScreen();
-        //show cards to player
-        view.showString("Current player is: " + currentPlayer.getName());
-        view.pauseForEnter("");
 
         Integer number;
         do {
@@ -255,7 +284,7 @@ public class Game {
                     currentTrump = selectTrump();
                     //play another card
                     selectCard(currentPlayer);
-                //check for Geophysicist && Magnetite
+                    //check for Geophysicist && Magnetite
                 } else if (hand.get(cardToPlay).getTitle().toLowerCase().contains("Geophysicist And Magnetite")) {
                     Game.playedCards.add(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
                             CardStatic.getCardByTitle(BaseCard.getCardsAsBase(playingCards), "Magnetite"))));
@@ -264,7 +293,7 @@ public class Game {
                     currentTrump = selectTrump();
                     //play another card
                     selectCard(currentPlayer);
-                //fall through to normal trump
+                    //fall through to normal trump
                 } else {
                     Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
                     currentTrump = (TrumpCard) hand.get(cardToPlay);
@@ -272,13 +301,20 @@ public class Game {
                     //play another card
                     selectCard(currentPlayer);
                 }
-            //normal playing card
+                //normal playing card
             } else {
                 Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
             }
 
+
+            //TODO: why does this have to be 2 shouldn't it be 1 << something smells here...
             if (currentPlayer.getHand().size() < 2) {
-                winner = currentPlayer;
+                finishedPlayers.add(currentPlayer);
+                activePlayers.remove(currentPlayer);
+                if (finishedPlayers.size() + 1 == players.size()) {
+                    winner = finishedPlayers.get(0);
+                    loser = currentPlayer;
+                }
             }
         }
     }
@@ -291,12 +327,10 @@ public class Game {
     }
 
     //endregion
-    //TODO: move this into another class for MVC
     public static void main(String[] args) {
 
         Game myGame = new Game();
 
-        //TODO:
         if (myGame.setPlayers()) {
             System.out.println("Correct number of players entered");
         } else {
@@ -319,15 +353,13 @@ public class Game {
 
         myGame.doShuffle();
 
-        myGame.dealCards();
-
-
-
+        myGame.dealCards(playerCounter);
 
         // should be:
         //get player to the left of dealer
         Player currentPlayer = myGame.getNextActivePlayer(playerCounter);
 
+        myGame.displayCurrentPlayer(currentPlayer);
         //get hand and display to player
         //get player to select card
         myGame.selectCard(currentPlayer);
@@ -339,42 +371,48 @@ public class Game {
 
 
         while (winner == null) {
-            //check deck size and re shuffle if last card has been played
-            if (deck.size() < 2) {
-                for (BaseCard card : playedCards) {
-                    deck.push(card);
-                }
-                myGame.doShuffle();
-            }
-            System.out.println("deck size = " + deck.size());
-            System.out.println("playedCard size = " + playedCards.size());
+
+            myGame.checkForDeckShuffle();
 
             //get next player
             currentPlayer = myGame.getNextActivePlayer(playerCounter);
 
+            myGame.displayCurrentPlayer(currentPlayer);
             //get hand and display to player
             //get player to select card
             myGame.selectCard(currentPlayer);
 
-            //check for all but one has passed
-            if(myGame.activePlayers.size() == 1){
-                myGame.resetActivePlayers();
-                currentTrump = myGame.selectTrump();
-                myGame.selectCard(currentPlayer);
+            //check for all but one has passed and its not the only the looser left
+            if (myGame.activePlayers.size() == 1 && (myGame.finishedPlayers.size() + 1) < myGame.players.size()) {
+
+                if (currentPlayer.getHand().size() > 1) {
+                    myGame.resetActivePlayers();
+                    currentTrump = myGame.selectTrump();
+                    playedCards.add(clearCard);
+                    myGame.selectCard(currentPlayer);
+                } else {
+                    myGame.checkForDeckShuffle();
+                    //get next player
+                    currentPlayer = myGame.getNextActivePlayer(playerCounter);
+                    myGame.displayCurrentPlayer(currentPlayer);
+                    currentTrump = myGame.selectTrump();
+                    playedCards.add(clearCard);
+                    //get hand and display to player
+                    //get player to select card
+                    myGame.selectCard(currentPlayer);
+                }
             }
 
             //TODO: state the top value for that category from the card just played
-
         }
-
-        System.out.println("The Winner IS :" + winner);
-        winner = null;
+        System.out.println("The Winner is :" + winner);
+        System.out.println("and " + loser + " Lost...");
     }
 
 
     /*** helper ***/
 
-    boolean tryParseInt(String value) {
+    private boolean tryParseInt(String value) {
         try {
             Integer.parseInt(value);
             return true;
