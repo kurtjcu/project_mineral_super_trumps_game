@@ -1,5 +1,7 @@
-/**
+/*
  * Created by kurt on 5/09/2016.
+ *
+ * Holds player details such as name also holds the players hand
  */
 
 import cardsPackage.BaseCard;

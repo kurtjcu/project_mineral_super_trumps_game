@@ -1,5 +1,8 @@
-/**
+/*
  * Created by kurt on 5/09/2016.
+ *
+ * Main Game code for Mineral Super Trumps,
+ * this is where the game is run from
  */
 
 import cardsPackage.BaseCard;
@@ -348,7 +351,7 @@ public class Game {
             return;
         }
 
-        //create counter
+        //create counter for peoples turns
         Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));
 
         myGame.doShuffle();
@@ -359,16 +362,15 @@ public class Game {
         //get player to the left of dealer
         Player currentPlayer = myGame.getNextActivePlayer(playerCounter);
 
+        //show the current player their cards
         myGame.displayCurrentPlayer(currentPlayer);
+
         //get hand and display to player
         //get player to select card
         myGame.selectCard(currentPlayer);
 
         //get player to select trump
         currentTrump = myGame.selectTrump();
-
-        //TODO: state the top value for that category from the card just played
-
 
         while (winner == null) {
 
@@ -402,8 +404,6 @@ public class Game {
                     myGame.selectCard(currentPlayer);
                 }
             }
-
-            //TODO: state the top value for that category from the card just played
         }
         System.out.println("The Winner is :" + winner);
         System.out.println("and " + loser + " Lost...");
