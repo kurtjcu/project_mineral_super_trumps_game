@@ -33,7 +33,7 @@ public class Game {
     private static Player winner;
     private static Player loser;
 
-    private final int deltHandSize = 1; // normal game is 7
+    private final int dealtHandSize = 7; // normal game is 7
 
 
     private Game() {
@@ -151,7 +151,7 @@ public class Game {
     //region helper methods
 
     private void dealCards(Counter playerCounter) {
-        for (int j = 0; j < deltHandSize; j++) {
+        for (int j = 0; j < dealtHandSize; j++) {
             // deal a card to each player
             for (int i = 0; i < players.size(); i++) {
                 players.get(playerCounter.increment()).addToHand(deck.pop());  //give card to next player
