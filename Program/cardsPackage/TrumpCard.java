@@ -14,4 +14,29 @@ public class TrumpCard extends BaseCard {
     public String getSubTitle() {
         return subTitle;
     }
+
+    public String getCurrentCategory(){
+        switch (getTitle()) {
+
+            case "The Miner":
+                return("Economic Value");
+
+            case "The Petrologist":
+                return ("Crustal Abundance");
+
+            case "The Gemmologist":
+                return ("Hardness");
+
+            case "The Mineralogist":
+                return ("Cleavage");
+
+            case "The Geophysicist":
+                return ("Specific Gravity");
+
+            default:
+                System.out.println("ERROR - Could not find Value for current trump");
+                break;
+        }
+        return "none";
+    }
 }

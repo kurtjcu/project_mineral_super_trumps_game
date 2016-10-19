@@ -106,6 +106,31 @@ public class MineralCard extends BaseCard {
     public String getEconomicValue() {
         return economicValue;
     }
+
+    public String getCurrentValue(TrumpCard trump){
+        switch (trump.getTitle()) {
+
+            case "The Miner":
+                return(getEconomicValue());
+
+            case "The Petrologist":
+                return (getCrustalAbundance());
+
+            case "The Gemmologist":
+                return (hardness[hardness.length - 1].toString());
+
+            case "The Mineralogist":
+                return (getCleavage());
+
+            case "The Geophysicist":
+                return (specificGravity[specificGravity.length - 1].toString());
+
+            default:
+                System.out.println("ERROR - Could not find Value for current trump");
+                break;
+        }
+        return "none";
+    }
     //endregion
 
     //region Helpers
