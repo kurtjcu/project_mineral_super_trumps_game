@@ -5,27 +5,43 @@ package swingLayout;
  */
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import javax.swing.border.*;
 import java.awt.*;
 
-public class BottomPanel extends JPanel {
+public class BottomPanelNextPlayer extends JPanel {
 
-    public BottomPanel() {
+
+    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
+    JLabel playerWhosTurnItIs = new JLabel("none", SwingConstants.CENTER);
+    JButton ready = new JButton("Ready");
+
+    public BottomPanelNextPlayer() {
         super(new BorderLayout());
         int gameHeight = (int) (Math.round(FrameGridBag.ySize * .666));
         int gameWidth = (int) (Math.round(FrameGridBag.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
+        playerWhosTurnItIs.setFont(largeFont);
+        playerWhosTurnItIs.setBorder(new EmptyBorder(30,30,30,30));
+        ready.setFont(largeFont);
+        this.add(playerWhosTurnItIs, BorderLayout.PAGE_START);
+        this.add(ready, BorderLayout.CENTER);
         this.setVisible(true);
     }
 
-    void showNextPlayer(){
-        this.setLayout(new BorderLayout());
+    public BottomPanelNextPlayer(String playerName) {
+        this();
+        String prefix = "It is currently ";
+        String suffix = "'s turn ";
+        playerWhosTurnItIs.setText(prefix + playerName + suffix);
+
     }
+
+
 
     public static void main(String[] args) {
 
-        BottomPanel bottomPanel = new BottomPanel();
+        BottomPanelNextPlayer bottomPanel = new BottomPanelNextPlayer("JimBob");
         bottomPanel.setBorder(new LineBorder(Color.GREEN, 2));
 
         JFrame frame = new JFrame("Testing");

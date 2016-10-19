@@ -29,6 +29,9 @@ public class TopPanelLeft extends JPanel {
                 topPanel, bottomPanel);
         this.add(splitPane, BorderLayout.CENTER);
         splitPane.setResizeWeight(0.5);
+        setTopPanel("Mineral Supertrumps");
+        setBottomPanel("None");
+
         this.setVisible(true);
 
     }
@@ -41,7 +44,7 @@ public class TopPanelLeft extends JPanel {
     }
 
     public void setBottomPanel(String text){
-        JLabel label = new JLabel(text, SwingConstants.CENTER);
+        JLabel label = new JLabel("Current Player: " + text, SwingConstants.CENTER);
         label.setFont(largeFont);
         bottomPanel.add(label);
 
@@ -62,8 +65,6 @@ public class TopPanelLeft extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        topPanelLeft.setTopPanel("Beer");
-        topPanelLeft.setBottomPanel("Current player:JimBob");
 
         frame.pack();
 

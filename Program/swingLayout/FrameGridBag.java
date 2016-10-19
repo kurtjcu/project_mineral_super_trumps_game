@@ -71,11 +71,7 @@ public class FrameGridBag {
         //Create and set up the window.
         JFrame frame = new JFrame("GridBagLayoutDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Set up the content pane.
         addComponentsToPane(frame.getContentPane());
-
-        //Display the window.
         frame.pack();
         frame.setVisible(true);
     }
