@@ -13,8 +13,8 @@ public class TopPanelRightFinishedPlayers extends JPanel {
 
     public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
 
-    int gameHeight = (int) (Math.round(FrameGridBag.ySize * .3));
-    int gameWidth = (int) (Math.round(FrameGridBag.xSize * .16));
+    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .3));
+    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .16));
 
     public JLabel title;
     public JList finishedPlayerList;

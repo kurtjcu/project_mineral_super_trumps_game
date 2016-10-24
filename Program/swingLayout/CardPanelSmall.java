@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 public class CardPanelSmall extends JPanel {
 
 
-    int gameHeight = (int) (Math.round(FrameGridBag.ySize * .2));
-    int gameWidth = (int) (Math.round(FrameGridBag.xSize * .13));
+    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .2));
+    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .13));
 
 
     public CardPanelSmall(String fileName, String filePrefix) {

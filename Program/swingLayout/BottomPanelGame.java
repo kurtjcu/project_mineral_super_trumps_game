@@ -20,8 +20,8 @@ public class BottomPanelGame extends JPanel {
 
     public BottomPanelGame() {
         super(new BorderLayout());
-        int gameHeight = (int) (Math.round(FrameGridBag.ySize * .666));
-        int gameWidth = (int) (Math.round(FrameGridBag.xSize));
+        int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .666));
+        int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
         this.add(text, BorderLayout.CENTER);

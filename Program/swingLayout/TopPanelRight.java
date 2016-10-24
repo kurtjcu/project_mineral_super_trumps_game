@@ -3,7 +3,6 @@ package swingLayout;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
@@ -12,8 +11,8 @@ public class TopPanelRight extends JPanel {
 
     public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
 
-    int gameHeight = (int) (Math.round(FrameGridBag.ySize * .333));
-    int gameWidth = (int) (Math.round(FrameGridBag.xSize * .333));
+    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
+    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .333));
 
     TopPanelRightFinishedPlayers finishedPlayersPanel = new TopPanelRightFinishedPlayers();
     JButton showRulesButton = new JButton("Show Rules");

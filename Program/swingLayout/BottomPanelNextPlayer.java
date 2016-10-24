@@ -17,8 +17,8 @@ public class BottomPanelNextPlayer extends JPanel {
 
     public BottomPanelNextPlayer() {
         super(new BorderLayout());
-        int gameHeight = (int) (Math.round(FrameGridBag.ySize * .666));
-        int gameWidth = (int) (Math.round(FrameGridBag.xSize));
+        int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .666));
+        int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
         playerWhosTurnItIs.setFont(largeFont);

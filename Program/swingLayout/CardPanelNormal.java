@@ -13,8 +13,8 @@ import java.io.IOException;
 public class CardPanelNormal extends JPanel {
 
 
-    int gameHeight = (int) (Math.round(FrameGridBag.ySize * .3));
-    int gameWidth = (int) (Math.round(FrameGridBag.xSize * .2));
+    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .3));
+    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .2));
 
 
     public CardPanelNormal(String fileName, String filePrefix) {

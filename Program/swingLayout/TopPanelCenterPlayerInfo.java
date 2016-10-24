@@ -12,8 +12,8 @@ public class TopPanelCenterPlayerInfo extends JPanel {
 
     public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
 
-    int gameHeight = (int) (Math.round(FrameGridBag.ySize * .15));
-    int gameWidth = (int) (Math.round(FrameGridBag.xSize * .1));
+    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .15));
+    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .1));
 
     public JLabel playerNumber;
     public JLabel playerName;

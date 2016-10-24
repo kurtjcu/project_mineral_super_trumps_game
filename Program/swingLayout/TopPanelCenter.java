@@ -12,8 +12,8 @@ public class TopPanelCenter extends JPanel {
 
     public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
 
-    int gameHeight = (int) (Math.round(FrameGridBag.ySize * .333));
-    int gameWidth = (int) (Math.round(FrameGridBag.xSize * .333));
+    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
+    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .333));
     ArrayList<TopPanelCenterPlayerInfo> players = new ArrayList<>();
 
     public TopPanelCenter() {

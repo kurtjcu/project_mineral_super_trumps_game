@@ -16,8 +16,8 @@ public class TopPanel extends JPanel {
 
     public TopPanel() {
         super(new BorderLayout());
-        int gameHeight = (int) (Math.round(FrameGridBag.ySize * .333));
-        int gameWidth = (Math.round(FrameGridBag.xSize));
+        int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
+        int gameWidth = (Math.round(FrameGridBagMainGame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
         displayThreeHorizontalFrames(leftPanel, centerPanel, rightPanel);
