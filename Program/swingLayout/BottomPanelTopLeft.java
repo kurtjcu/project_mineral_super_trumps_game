@@ -43,11 +43,11 @@ public class BottomPanelTopLeft extends JPanel {
         centerCurrentSelectedCard = new JPanel();
         rightDetails = new JPanel();
 
-        detailsHardness = new JLabel("last played");
-        detailsSpecificGravity = new JLabel("current trump");
-        detailsCleavage = new JLabel("current trump");
-        detailsCrustalAbundance = new JLabel("current trump");
-        detailsEconomicValue = new JLabel("current trump");
+        detailsHardness = new JLabel("Hardness: ");
+        detailsSpecificGravity = new JLabel("Specific Gravity: ");
+        detailsCleavage = new JLabel("Cleavage: ");
+        detailsCrustalAbundance = new JLabel("Crustal Abundance: ");
+        detailsEconomicValue = new JLabel("Economic Value: ");
 
         selectedCard = new CardPanelNormal("Slide65.jpg", filePrefix);
 
@@ -122,10 +122,8 @@ public class BottomPanelTopLeft extends JPanel {
             detailsCrustalAbundance.setText("");
             detailsEconomicValue.setText("");
         }
-
         selectedCard = new CardPanelNormal(card.getFileName(), filePrefix);
     }
-
 
 
     public static void main(String[] args) {

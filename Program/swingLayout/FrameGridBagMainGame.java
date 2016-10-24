@@ -22,13 +22,7 @@ public class FrameGridBagMainGame {
     public static int xSize = 1024;
     public static int ySize = 768;
 
-    /*
-    public JPanel setTopLeftPanel()
-    {
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-    }
-    */
+
 
     public static void addComponentsToPane(Container pane) {
         if (RIGHT_TO_LEFT) {
