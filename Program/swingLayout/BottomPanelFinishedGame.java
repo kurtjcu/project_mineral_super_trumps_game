@@ -31,14 +31,14 @@ public class BottomPanelFinishedGame extends JPanel {
 
     public BottomPanelFinishedGame(ArrayList<String> players) {
         this();
-        ArrayList<String> listNames = new ArrayList<>();
+        //ArrayList<String> listNames = new ArrayList<>();
         JList finishedPlayerList;
         DefaultListModel listModel = new DefaultListModel();
         finishedPlayerList = new JList(listModel);
         finishedPlayerList.setLayoutOrientation(JList.VERTICAL);
         JLabel winner = new JLabel("Winner: " + players.get(0), SwingConstants.CENTER);
         int i ;
-        for (i = 1; i < players.size() - 1; i++){
+        for (i = 1; i < players.size(); i++){
             listModel.addElement(players.get(i));
         }
         //TODO: refactor into "addText"

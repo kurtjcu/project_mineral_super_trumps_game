@@ -9,6 +9,7 @@ import cardsPackage.BaseCard;
 import cardsPackage.CardStatic;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
+import gamePackage.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;

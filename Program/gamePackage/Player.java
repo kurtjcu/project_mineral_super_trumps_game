@@ -1,3 +1,4 @@
+package gamePackage;
 /*
  * Created by kurt on 5/09/2016.
  *
@@ -8,13 +9,13 @@ import cardsPackage.BaseCard;
 
 import java.util.ArrayList;
 
-class Player {
+public class Player {
 
     private String name;
     private ArrayList<BaseCard> hand;
 
 
-    Player(String name) {
+    public Player(String name) {
         this.name = name;
         hand = new ArrayList<>();
     }
@@ -23,7 +24,7 @@ class Player {
      * setters
      **/
 
-    void addToHand(BaseCard card) {
+    public void addToHand(BaseCard card) {
         hand.add(card);
     }
 
@@ -31,16 +32,16 @@ class Player {
      * Getters
      **/
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    ArrayList<BaseCard> getHand() {
+    public ArrayList<BaseCard> getHand() {
         return hand;
     }
 
 
-    BaseCard takeCardFromHand(int cardIndex) {
+    public BaseCard takeCardFromHand(int cardIndex) {
         BaseCard card = hand.get(cardIndex);
         hand.remove(card);
         return card;

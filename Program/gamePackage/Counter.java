@@ -1,3 +1,5 @@
+package gamePackage;
+
 /**
  * Created by kurt on 6/09/2016.
  * <p>
@@ -7,11 +9,11 @@
  */
 
 
-class Counter {
+public class Counter {
     private final int max;
     private int count;
 
-    private Counter(int max) {
+    public Counter(int max) {
         if (max < 1) {
             throw new IllegalArgumentException();
         }
@@ -19,16 +21,16 @@ class Counter {
         this.max = max;
     }
 
-    Counter(int max, int seed) {
+    public Counter(int max, int seed) {
         this(max);
         this.count = seed;
     }
 
-    int getCount() {
+    public int getCount() {
         return count;
     }
 
-    int increment() {
+    public int increment() {
         count = (count + 1) % max;
         return count;
     }

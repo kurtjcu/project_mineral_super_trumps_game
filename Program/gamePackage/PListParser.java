@@ -1,4 +1,4 @@
-/*
+package gamePackage;/*
  * Created by kurt on 1/09/2016.
  *
  * Does all the heavy lifting as far as getting the cards from the plist file
@@ -27,7 +27,7 @@ public class PListParser {
     private static Element normalCardElement;
 
 
-    private static ArrayList<String> elementsToArray(Element element, String elementName) {
+    public static ArrayList<String> elementsToArray(Element element, String elementName) {
         ArrayList<String> tempArrayList = new ArrayList<>();
         NodeList nodes = element.getElementsByTagName(elementName);
         for (int j = 0; j < nodes.getLength(); j++) {
@@ -38,7 +38,7 @@ public class PListParser {
         return tempArrayList;
     }
 
-    private static BaseCard extractTrumpOrRulesCard() {
+    public static BaseCard extractTrumpOrRulesCard() {
         if (keyItemsFromElement.get(3).toLowerCase().contains("trump")) {
             //System.out.println("its a trump card");
 
@@ -60,7 +60,7 @@ public class PListParser {
 
     }
 
-    private static BaseCard extractMineralCard() {
+    public static BaseCard extractMineralCard() {
 
         NodeList nArrayNodes = normalCardElement.getElementsByTagName("array");
         if (nArrayNodes.item(0).getNodeType() == Node.ELEMENT_NODE) {
@@ -105,7 +105,7 @@ public class PListParser {
     }
 
     //reads file
-    static ArrayList<BaseCard> getCardsList() {
+    public static ArrayList<BaseCard> getCardsList() {
         ArrayList<BaseCard> cardList = new ArrayList<>();
 
         try {

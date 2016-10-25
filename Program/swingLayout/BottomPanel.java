@@ -7,6 +7,8 @@ package swingLayout;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import gamePackage.*;
 
 public class BottomPanel extends JPanel {
 
@@ -19,15 +21,39 @@ public class BottomPanel extends JPanel {
         this.setVisible(true);
     }
 
-    void showNextPlayer(){
+    void showNextPlayer(String playerName ){
         this.setLayout(new BorderLayout());
+        this.add(new BottomPanelNextPlayer(playerName));
+    }
+
+    void showFinishedHand(){
+        this.setLayout(new BorderLayout());
+        this.add(new BottomPanelFinishedHand());
+    }
+
+    void showEndOfGame(ArrayList<String> players){
+        this.setLayout(new BorderLayout());
+        this.add(new BottomPanelFinishedGame(players));
+    }
+
+    void showGame(Player player  ){
+
     }
 
     public static void main(String[] args) {
 
         BottomPanel bottomPanel = new BottomPanel();
         bottomPanel.setBorder(new LineBorder(Color.GREEN, 2));
+        //bottomPanel.showNextPlayer("jim bob");
+        //bottomPanel.showFinishedHand();
 
+        ArrayList<String> players = new ArrayList<>();
+        players.add("winner");
+        players.add("2nd");
+        players.add("3rd");
+        players.add("4th");
+        players.add("Looza!");
+        bottomPanel.showEndOfGame(players);
         JFrame frame = new JFrame("Testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());

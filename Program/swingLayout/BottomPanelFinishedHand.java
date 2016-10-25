@@ -30,20 +30,19 @@ public class BottomPanelFinishedHand extends JPanel {
     }
 
 
-
     void setText(){
         JLabel congrats = new JLabel("Congratulations!", SwingConstants.CENTER);
-        JLabel empyHand = new JLabel("You have emptied your hand", SwingConstants.CENTER);
-        JLabel pleaseWait = new JLabel("Please wait until you have emptied your hand", SwingConstants.CENTER);
+        JLabel emptyHand = new JLabel("You have emptied your hand", SwingConstants.CENTER);
+        JLabel pleaseWait = new JLabel("Please wait until the game has finished", SwingConstants.CENTER);
         congrats.setFont(largeFont);
-        empyHand.setFont(largeFont);
+        emptyHand.setFont(largeFont);
         pleaseWait.setFont(largeFont);
         congrats.setBorder(new EmptyBorder(30,30,30,30));
-        empyHand.setBorder(new EmptyBorder(30,30,30,30));
+        emptyHand.setBorder(new EmptyBorder(30,30,30,30));
         pleaseWait.setBorder(new EmptyBorder(30,30,30,30));
         text.setBorder(new EmptyBorder(30,30,30,30));
         text.add(congrats, BorderLayout.PAGE_START);
-        text.add(empyHand, BorderLayout.CENTER);
+        text.add(emptyHand, BorderLayout.CENTER);
         text.add(pleaseWait, BorderLayout.PAGE_END);
         text.setVisible(true);
     }
