@@ -7,6 +7,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+import cardsPackage.TrumpCard;
+import gamePackage.*;
+
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
@@ -41,10 +44,17 @@ public class BottomPanelBottomHandView extends JPanel {
         this.setVisible(true);
     }
 
+    public BottomPanelBottomHandView(Player player) {
+        this();
+        setHand(player.getHand());
+
+    }
+
+
 
     void setHand(ArrayList<BaseCard> cards){
-        handView.clear();
-        cardsInHand.removeAll();
+        //handView.clear();
+        //cardsInHand.removeAll();
         for(BaseCard cardInHand : hand) {
             handView.add(new CardPanelNormal(cardInHand.getFileName(), filePrefix));
         }

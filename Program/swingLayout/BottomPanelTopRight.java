@@ -62,6 +62,13 @@ public class BottomPanelTopRight extends JPanel {
         this.setVisible(true);
 
     }
+
+    public BottomPanelTopRight(BaseCard card, TrumpCard trump) {
+        this();
+        setLastPlayed(card, trump);
+        setTrump(trump);
+
+    }
     
     void createTopPanel (){
         topTitles.setLayout(new BorderLayout());
@@ -123,6 +130,5 @@ public class BottomPanelTopRight extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.pack();
-
     }
 }

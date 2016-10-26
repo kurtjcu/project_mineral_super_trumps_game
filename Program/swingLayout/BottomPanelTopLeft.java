@@ -66,6 +66,11 @@ public class BottomPanelTopLeft extends JPanel {
         this.setVisible(true);
 
     }
+
+    public BottomPanelTopLeft(BaseCard card ) {
+        this();
+        setSelectedCard(card);
+    }
     
     void createLeftButtons(){
         leftButtons.setLayout(new BorderLayout());
@@ -77,6 +82,7 @@ public class BottomPanelTopLeft extends JPanel {
         centerCurrentSelectedCard.setLayout(new BorderLayout());
         centerCurrentSelectedCard.add(selectedCard, BorderLayout.CENTER);
     }
+
     
     void createRightDetails(){
         rightDetails.setLayout(new BoxLayout(rightDetails, BoxLayout.Y_AXIS));

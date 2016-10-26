@@ -37,7 +37,8 @@ public class BottomPanel extends JPanel {
     }
 
     void showGame(Player player  ){
-
+        this.setLayout(new BorderLayout());
+        this.add(new BottomPanelGame());
     }
 
     public static void main(String[] args) {
