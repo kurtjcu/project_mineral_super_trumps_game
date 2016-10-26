@@ -5,6 +5,8 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+import gamePackage.*;
+
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
@@ -14,7 +16,7 @@ public class TopPanelCenter extends JPanel {
 
     int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
     int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .333));
-    ArrayList<TopPanelCenterPlayerInfo> players = new ArrayList<>();
+    ArrayList<TopPanelCenterPlayerInfo> playerPanels = new ArrayList<>();
 
     public TopPanelCenter() {
         super(new FlowLayout());
@@ -23,7 +25,7 @@ public class TopPanelCenter extends JPanel {
             TopPanelCenterPlayerInfo tempPlayerInfo = new TopPanelCenterPlayerInfo();
             tempPlayerInfo.setPlayerNumber("Player " + i);
             this.add(tempPlayerInfo);
-            players.add(tempPlayerInfo);
+            playerPanels.add(tempPlayerInfo);
         }
 
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
@@ -32,12 +34,23 @@ public class TopPanelCenter extends JPanel {
 
     }
 
+    public TopPanelCenter(ArrayList<Player> players) {
+        this();
+        setPlayers(players);
+    }
+
+    public void setPlayers(ArrayList<Player> players){
+        for(int i = 0; i < players.size(); i++){
+            setPlayersName(i, players.get(i).getName());
+        }
+    }
+
     public void setPlayersName(int index, String name){
-        players.get(index).setPlayerName(name);
+        playerPanels.get(index).setPlayerName(name);
     }
 
     public void setPlayersStatus(int index, String status){
-        players.get(index).setPlayerStatus(status);
+        playerPanels.get(index).setPlayerStatus(status);
     }
 
     public static void main(String[] args) {
@@ -49,12 +62,8 @@ public class TopPanelCenter extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(topPanelCenter);
-
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-
-
         frame.pack();
 
     }

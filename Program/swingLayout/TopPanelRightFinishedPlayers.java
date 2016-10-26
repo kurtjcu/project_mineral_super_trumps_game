@@ -1,5 +1,7 @@
 package swingLayout;
 
+import gamePackage.Player;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -48,6 +50,14 @@ public class TopPanelRightFinishedPlayers extends JPanel {
     public void addFinishedNameToList(String name){
 
         this.listModel.addElement(name);
+    }
+
+    public void setFinishedPlayers(ArrayList<Player> players){
+
+        for(Player player : players){
+            this.listModel.addElement(player.getName());
+        }
+
     }
 
     public static void main(String[] args) {

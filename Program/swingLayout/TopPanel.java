@@ -4,7 +4,10 @@ package swingLayout;
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
+import gamePackage.Player;
+
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -24,12 +27,10 @@ public class TopPanel extends JPanel {
         this.setVisible(true);
     }
 
-    public void displayCenterText(String textToDisplay){
-        this.removeAll();
-        JLabel label = new JLabel(textToDisplay, SwingConstants.CENTER);
-        Font font1 = new Font("SansSerif", Font.BOLD, 20);
-        label.setFont(font1);
-        this.add(label);
+    // use this in game
+    public TopPanel(ArrayList<Player> players) {
+        this();
+        centerPanel = new TopPanelCenter(players);
     }
 
     public void displayThreeHorizontalFrames(JPanel frame1, JPanel frame2 ,JPanel frame3) {
@@ -39,14 +40,12 @@ public class TopPanel extends JPanel {
         this.add(frame1, BorderLayout.LINE_START);
         this.add(frame2, BorderLayout.CENTER);
         this.add(frame3, BorderLayout.LINE_END);
-;
     }
 
     public static void main(String[] args) {
 
         TopPanel topPanel = new TopPanel();
         topPanel.setBorder(new LineBorder(Color.GREEN, 2));
-
 
         JFrame frame = new JFrame("Testing");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +54,5 @@ public class TopPanel extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
-
-
     }
 }

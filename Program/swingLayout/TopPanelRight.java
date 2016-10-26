@@ -1,8 +1,11 @@
 package swingLayout;
 
+import gamePackage.Player;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
@@ -27,6 +30,10 @@ public class TopPanelRight extends JPanel {
         this.setBorder(new LineBorder(Color.GREEN, 2));
         this.setVisible(true);
 
+    }
+
+    public void setFinishedPlayers(ArrayList<Player> players){
+        finishedPlayersPanel.setFinishedPlayers(players);
     }
 
 
