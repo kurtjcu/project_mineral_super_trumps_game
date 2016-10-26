@@ -8,6 +8,7 @@ package swingLayout;
  * GridBagLayoutDemo.java requires no other files.
  */
 
+import gamePackage.Game;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -19,10 +20,10 @@ public class FrameGridBagMainGame {
     public static int xSize = 1024;
     public static int ySize = 768;
 
-    static TopPanel topPanel;
-    static BottomPanel bottomPanel;
+    public TopPanel topPanel;
+    public BottomPanel bottomPanel;
 
-    public static void addComponentsToPane(Container pane) {
+    public void addComponentsToPane(Container pane, Game game) {
         if (RIGHT_TO_LEFT) {
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
@@ -32,7 +33,7 @@ public class FrameGridBagMainGame {
         GridBagConstraints c = new GridBagConstraints();
 
 
-        topPanel = new TopPanel();
+        topPanel = new TopPanel(game.getPlayers());
         topPanel.setBorder(new LineBorder(Color.GREEN, 2));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
@@ -59,11 +60,12 @@ public class FrameGridBagMainGame {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI(Game game) {
         //Create and set up the window.
         JFrame frame = new JFrame("GridBagLayoutDemo");
+        FrameGridBagMainGame mainFrame = new FrameGridBagMainGame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        addComponentsToPane(frame.getContentPane());
+        mainFrame.addComponentsToPane(frame.getContentPane(), game);
         frame.pack();
         frame.setVisible(true);
     }
@@ -73,7 +75,7 @@ public class FrameGridBagMainGame {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                createAndShowGUI(new Game());
             }
         });
     }

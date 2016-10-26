@@ -1,3 +1,5 @@
+package gamePackage;
+
 import cardsPackage.BaseCard;
 import cardsPackage.MineralCard;
 import cardsPackage.RuleCard;

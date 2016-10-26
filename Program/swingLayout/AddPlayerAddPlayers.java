@@ -2,12 +2,14 @@ package swingLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
  * Created by kurt.Schoenhoff on 26/10/2016.
  */
-public class AddPlayerAddPlayers extends JPanel {
+public class AddPlayerAddPlayers extends JPanel implements ActionListener{
 
     int gameHeight = (int) (Math.round(AddPlayerFrame.ySize * .6));
     int gameWidth = (int) (Math.round(AddPlayerFrame.xSize * .3));
@@ -22,13 +24,16 @@ public class AddPlayerAddPlayers extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setupLabels();
         setupPlayerNames();
-        startGame = new JButton("Start Game");
+        startGame = new JButton("Start gamePackage.Game");
 
         for (int i = 0; i < 5; i++){
             this.add(labels.get(i));
             this.add(playerNames.get(i));
         }
+
         this.add(startGame);
+
+        startGame.addActionListener(this);
 
 
     }
@@ -44,6 +49,29 @@ public class AddPlayerAddPlayers extends JPanel {
         playerNames = new ArrayList<>();
         for(int i = 0; i < 5; i++){
             playerNames.add(new JTextField());
+        }
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        ArrayList<String> names = new ArrayList<>();
+        int numNames = 0;
+
+        for(JTextField playerName :  playerNames){
+            String name = playerName.getText();
+            if(!name.isEmpty()){
+                numNames++;
+                names.add(playerName.getText());
+                System.out.println(name);
+            }
+
+        }
+
+        if(numNames > 2){
+            GuiView.game.setPlayers(names);
+            GuiView.addPlayerFrame.dispose();
+            GuiView.startGameFrame();
+        } else {
+            //TODO: show warning and re request
         }
     }
 

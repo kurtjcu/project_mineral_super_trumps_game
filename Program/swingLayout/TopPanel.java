@@ -14,7 +14,7 @@ import javax.swing.border.LineBorder;
 public class TopPanel extends JPanel {
 
     TopPanelLeft leftPanel = new TopPanelLeft();
-    TopPanelCenter centerPanel = new TopPanelCenter();
+    public TopPanelCenter centerPanel = new TopPanelCenter();
     TopPanelRight rightPanel = new TopPanelRight();
 
     public TopPanel() {

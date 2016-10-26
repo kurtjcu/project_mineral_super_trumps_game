@@ -1,7 +1,7 @@
-/*
+package gamePackage;/*
  * Created by kurt on 5/09/2016.
  *
- * Main Game code for Mineral Super Trumps,
+ * Main gamePackage.Game code for Mineral Super Trumps,
  * this is where the game is run from
  */
 
@@ -9,7 +9,7 @@ import cardsPackage.BaseCard;
 import cardsPackage.CardStatic;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
-import gamePackage.*;
+import swingLayout.GuiView;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -37,7 +37,7 @@ public class Game {
     private final int dealtHandSize = 7; // normal game is 7
 
 
-    private Game() {
+    public Game() {
         deck = new Stack<>();
         rulesCards = new ArrayList<>();
         trumpCards = new ArrayList<>();
@@ -79,12 +79,22 @@ public class Game {
         return dealer.getName();
     }
 
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+
     /**
      * Setters
      **/
 
     private void doShuffle() {
         deck = FisherYatesShuffle.doFisherYatesShuffle(deck);
+    }
+
+    public void setPlayers(ArrayList<String> playersNames){
+        for(String playerName : playersNames){
+            this.players.add(new Player(playerName));
+        }
     }
 
     private Boolean setPlayers() {
@@ -331,7 +341,7 @@ public class Game {
     }
 
     //endregion
-    public static void main(String[] args) {
+    public static void oldMain(String[] args) {
 
         Game myGame = new Game();
 
@@ -408,6 +418,18 @@ public class Game {
         }
         System.out.println("The Winner is :" + winner);
         System.out.println("and " + loser + " Lost...");
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        GuiView guiView = new GuiView(game);
+
+        //add players to game
+        guiView.startAddPlayerFrame();
+
+        //guiView.startGameFrame();
+
+        //guiView.gameFrame.createAndShowGUI();
     }
 
 
