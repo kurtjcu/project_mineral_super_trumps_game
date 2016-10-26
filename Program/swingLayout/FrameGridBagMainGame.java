@@ -10,19 +10,17 @@ package swingLayout;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class FrameGridBagMainGame {
-    final static boolean shouldFill = true;
-    final static boolean shouldWeightX = true;
     final static boolean RIGHT_TO_LEFT = false;
 
 
     public static int xSize = 1024;
     public static int ySize = 768;
 
-
+    static TopPanel topPanel;
+    static BottomPanel bottomPanel;
 
     public static void addComponentsToPane(Container pane) {
         if (RIGHT_TO_LEFT) {
@@ -34,7 +32,7 @@ public class FrameGridBagMainGame {
         GridBagConstraints c = new GridBagConstraints();
 
 
-        TopPanel topPanel = new TopPanel();
+        topPanel = new TopPanel();
         topPanel.setBorder(new LineBorder(Color.GREEN, 2));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
@@ -43,7 +41,7 @@ public class FrameGridBagMainGame {
         c.gridy = 0;
         pane.add(topPanel, c);
 
-        BottomPanel bottomPanel = new BottomPanel();
+        bottomPanel = new BottomPanel();
         bottomPanel.setBorder(new LineBorder(Color.GREEN, 2));
         c.fill = GridBagConstraints.HORIZONTAL;
 
