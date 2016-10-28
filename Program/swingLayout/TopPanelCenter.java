@@ -1,21 +1,18 @@
-package swingLayout;
+package swingLayout;//import gamePackage.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 import java.util.ArrayList;
-
-import gamePackage.*;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 public class TopPanelCenter extends JPanel {
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
-
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .333));
+    int gameHeight = (int) (Math.round(Frame.ySize * .333));
+    int gameWidth = (int) (Math.round(Frame.xSize * .333));
     ArrayList<TopPanelCenterPlayerInfo> playerPanels = new ArrayList<>();
 
     public TopPanelCenter() {
@@ -35,6 +32,7 @@ public class TopPanelCenter extends JPanel {
 
     }
 
+    /*
     public TopPanelCenter(ArrayList<Player> players){
         this();
         setPlayers(players);
@@ -51,6 +49,7 @@ public class TopPanelCenter extends JPanel {
         this.repaint();
 
     }
+    */
 
     public void setPlayersName(int index, String name){
         playerPanels.get(index).setPlayerName(name);

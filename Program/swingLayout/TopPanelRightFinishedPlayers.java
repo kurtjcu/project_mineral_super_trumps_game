@@ -1,10 +1,9 @@
-package swingLayout;
-
-import gamePackage.Player;
+package swingLayout;//import gamePackage.Player;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 import java.util.ArrayList;
 
 /**
@@ -13,10 +12,8 @@ import java.util.ArrayList;
 public class TopPanelRightFinishedPlayers extends JPanel {
 
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
-
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .3));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .16));
+    int gameHeight = (int) (Math.round(Frame.ySize * .3));
+    int gameWidth = (int) (Math.round(Frame.xSize * .16));
 
     public JLabel title;
     public JList finishedPlayerList;
@@ -24,19 +21,13 @@ public class TopPanelRightFinishedPlayers extends JPanel {
     public DefaultListModel listModel = new DefaultListModel();
 
 
-
-
-
-
     public TopPanelRightFinishedPlayers() {
         super(new BorderLayout());
 
         title = new JLabel("Finished Players", SwingConstants.CENTER);
-        title.setFont(largeFont);
+        title.setFont(Frame.largeFont);
         finishedPlayerList = new JList(listModel);
         finishedPlayerList.setLayoutOrientation(JList.VERTICAL);
-
-
 
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
@@ -52,6 +43,7 @@ public class TopPanelRightFinishedPlayers extends JPanel {
         this.listModel.addElement(name);
     }
 
+    /*
     public void setFinishedPlayers(ArrayList<Player> players){
 
         for(Player player : players){
@@ -59,6 +51,7 @@ public class TopPanelRightFinishedPlayers extends JPanel {
         }
 
     }
+    */
 
     public static void main(String[] args) {
 

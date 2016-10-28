@@ -3,6 +3,7 @@ package swingLayout;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +14,8 @@ import java.io.IOException;
 public class CardPanelNormal extends JPanel {
 
 
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .3));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .2));
+    int gameHeight = (int) (Math.round(Frame.ySize * .3));
+    int gameWidth = (int) (Math.round(Frame.xSize * .2));
 
 
     public CardPanelNormal(String fileName, String filePrefix) {

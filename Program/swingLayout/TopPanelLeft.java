@@ -1,6 +1,4 @@
-package swingLayout;
-
-import gamePackage.Player;
+package swingLayout;//import gamePackage.Player;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,10 +11,9 @@ public class TopPanelLeft extends JPanel {
 
     public JPanel topPanel = new JPanel(new BorderLayout());
     public JPanel bottomPanel = new JPanel(new BorderLayout());
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
 
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .333));
+    int gameHeight = (int) (Math.round(Frame.ySize * .333));
+    int gameWidth = (int) (Math.round(Frame.xSize * .333));
     JSplitPane splitPane;
 
 
@@ -36,27 +33,31 @@ public class TopPanelLeft extends JPanel {
 
     }
 
+
+    /*
     public TopPanelLeft(Player player){
         this();
         setBottomPanel(player.getName());
         this.repaint();
     }
+    */
 
     public void setTopPanel(String text){
         JLabel label = new JLabel(text, SwingConstants.CENTER);
-        label.setFont(largeFont);
+        label.setFont(Frame.largeFont);
         topPanel.add(label);
 
     }
 
     public void setBottomPanel(String text){
         JLabel label = new JLabel("Current Player: " + text, SwingConstants.CENTER);
-        label.setFont(largeFont);
+        label.setFont(Frame.largeFont);
         bottomPanel.add(label);
 
 
 
     }
+
 
     public static void main(String[] args) {
 

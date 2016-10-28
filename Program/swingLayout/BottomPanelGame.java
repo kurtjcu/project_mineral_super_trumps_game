@@ -1,37 +1,33 @@
-package swingLayout;
-
-/**
+package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
-import cardsPackage.BaseCard;
-import cardsPackage.TrumpCard;
-import gamePackage.Player;
+//import cardsPackage.BaseCard;
+//import cardsPackage.TrumpCard;
+//import gamePackage.Player;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 import java.util.ArrayList;
 
 public class BottomPanelGame extends JPanel {
 
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
-    public Font extraLargeFont = new Font("SansSerif", Font.BOLD, 40);
-
 
     public BottomPanelGame() {
         super(new BorderLayout());
-        int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .666));
-        int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize));
+        int gameHeight = (int) (Math.round(Frame.ySize * .666));
+        int gameWidth = (int) (Math.round(Frame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
 
         this.setVisible(true);
     }
 
-    // use this in game
+    // TODO: add this functionality back to project when attached to game
+    /*
     public BottomPanelGame(Player player, TrumpCard currentTrump, BaseCard lastPlayedCard) {
         this();
         try {
@@ -43,6 +39,7 @@ public class BottomPanelGame extends JPanel {
             System.out.println("Beer Time? " + e);
         }
     }
+    */
 
 
     public static void main(String[] args) {

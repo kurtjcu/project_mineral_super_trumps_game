@@ -1,6 +1,4 @@
-package swingLayout;
-
-/**
+package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
@@ -8,22 +6,21 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 
 public class BottomPanelFinishedHand extends JPanel {
 
-
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
     JPanel text = new JPanel(new BorderLayout());
     JButton ready = new JButton("Awesome");
 
     public BottomPanelFinishedHand() {
         super(new BorderLayout());
-        int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .666));
-        int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize));
+        int gameHeight = (int) (Math.round(Frame.ySize * .666));
+        int gameWidth = (int) (Math.round(Frame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
         setText();
-        ready.setFont(largeFont);
+        ready.setFont(Frame.largeFont);
         this.add(text, BorderLayout.PAGE_START);
         this.add(ready, BorderLayout.CENTER);
         this.setVisible(true);
@@ -34,9 +31,9 @@ public class BottomPanelFinishedHand extends JPanel {
         JLabel congrats = new JLabel("Congratulations!", SwingConstants.CENTER);
         JLabel emptyHand = new JLabel("You have emptied your hand", SwingConstants.CENTER);
         JLabel pleaseWait = new JLabel("Please wait until the game has finished", SwingConstants.CENTER);
-        congrats.setFont(largeFont);
-        emptyHand.setFont(largeFont);
-        pleaseWait.setFont(largeFont);
+        congrats.setFont(Frame.largeFont);
+        emptyHand.setFont(Frame.largeFont);
+        pleaseWait.setFont(Frame.largeFont);
         congrats.setBorder(new EmptyBorder(30,30,30,30));
         emptyHand.setBorder(new EmptyBorder(30,30,30,30));
         pleaseWait.setBorder(new EmptyBorder(30,30,30,30));

@@ -1,24 +1,19 @@
-package swingLayout;
-
-import cardsPackage.BaseCard;
-import cardsPackage.MineralCard;
-import cardsPackage.TrumpCard;
+package swingLayout;//import cardsPackage.BaseCard;
+//import cardsPackage.MineralCard;
+//import cardsPackage.TrumpCard;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 public class BottomPanelTopLeft extends JPanel {
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
-
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .666));
-
-    String filePrefix = "Program/swingLayout/images/";
+    int gameHeight = (int) (Math.round(Frame.ySize * .333));
+    int gameWidth = (int) (Math.round(Frame.xSize * .666));
 
     JPanel leftButtons;
     JPanel centerCurrentSelectedCard;
@@ -49,7 +44,7 @@ public class BottomPanelTopLeft extends JPanel {
         detailsCrustalAbundance = new JLabel("Crustal Abundance: ");
         detailsEconomicValue = new JLabel("Economic Value: ");
 
-        selectedCard = new CardPanelNormal("Slide65.jpg", filePrefix);
+        selectedCard = new CardPanelNormal("Slide65.jpg", Frame.filePrefix);
 
         pass = new JButton("Pass");
         playCard = new JButton("Play Card");
@@ -67,23 +62,25 @@ public class BottomPanelTopLeft extends JPanel {
 
     }
 
+    /*
     public BottomPanelTopLeft(BaseCard card ) {
         this();
         setSelectedCard(card);
     }
-    
+    */
+
     void createLeftButtons(){
         leftButtons.setLayout(new BorderLayout());
         leftButtons.add(pass, BorderLayout.PAGE_START);
         leftButtons.add(playCard, BorderLayout.PAGE_END);
     }
-    
+
     void createCenterCurrentSelectedCard(){
         centerCurrentSelectedCard.setLayout(new BorderLayout());
         centerCurrentSelectedCard.add(selectedCard, BorderLayout.CENTER);
     }
 
-    
+
     void createRightDetails(){
         rightDetails.setLayout(new BoxLayout(rightDetails, BoxLayout.Y_AXIS));
         rightDetails.add(detailsHardness);
@@ -93,24 +90,25 @@ public class BottomPanelTopLeft extends JPanel {
         rightDetails.add(detailsEconomicValue);
 
     }
-    
+
     void createPanels(){
         createLeftButtons();
         createCenterCurrentSelectedCard();
         createRightDetails();
     }
-    
+
     void setupLabels(){
-        pass.setFont(largeFont);
-        playCard.setFont(largeFont);
-        detailsHardness.setFont(largeFont);
-        detailsSpecificGravity.setFont(largeFont);
-        detailsCleavage.setFont(largeFont);
-        detailsCrustalAbundance.setFont(largeFont);
-        detailsEconomicValue.setFont(largeFont);
+        pass.setFont(Frame.largeFont);
+        playCard.setFont(Frame.largeFont);
+        detailsHardness.setFont(Frame.largeFont);
+        detailsSpecificGravity.setFont(Frame.largeFont);
+        detailsCleavage.setFont(Frame.largeFont);
+        detailsCrustalAbundance.setFont(Frame.largeFont);
+        detailsEconomicValue.setFont(Frame.largeFont);
     }
 
 
+    /*
     void setSelectedCard(BaseCard card){
         selectedCard = new CardPanelNormal(card.getFileName(), filePrefix);
         if( card.getCardType().toLowerCase().contains("play")){
@@ -130,6 +128,7 @@ public class BottomPanelTopLeft extends JPanel {
         }
         selectedCard = new CardPanelNormal(card.getFileName(), filePrefix);
     }
+    */
 
 
     public static void main(String[] args) {

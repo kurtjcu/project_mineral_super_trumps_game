@@ -3,6 +3,7 @@ package swingLayout;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
@@ -10,10 +11,8 @@ import java.awt.*;
 public class TopPanelCenterPlayerInfo extends JPanel {
 
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
-
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .15));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .1));
+    int gameHeight = (int) (Math.round(Frame.ySize * .15));
+    int gameWidth = (int) (Math.round(Frame.xSize * .1));
 
     public JLabel playerNumber;
     public JLabel playerName;
@@ -41,18 +40,18 @@ public class TopPanelCenterPlayerInfo extends JPanel {
     }
 
     public void setPlayerName(String playerName){
-        this.playerName.setFont(largeFont);
+        this.playerName.setFont(Frame.largeFont);
         this.playerName.setText(playerName);
     }
 
 
     public void setPlayerNumber(String playerNumber) {
-        this.playerNumber.setFont(largeFont);
+        this.playerNumber.setFont(Frame.largeFont);
         this.playerNumber.setText(playerNumber);
     }
 
     public void setPlayerStatus(String playerStatus) {
-        this.playerStatus.setFont(largeFont);
+        this.playerStatus.setFont(Frame.largeFont);
         this.playerStatus.setText(playerStatus);
     }
 

@@ -1,26 +1,22 @@
 package swingLayout;
 
 import cardsPackage.BaseCard;
+import gamePackage.Player;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 import java.util.ArrayList;
-
-import cardsPackage.TrumpCard;
-import gamePackage.*;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 public class BottomPanelBottomHandView extends JPanel {
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
+    int gameHeight = (int) (Math.round(Frame.ySize * .333));
+    int gameWidth = (int) (Math.round(Frame.xSize));
 
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .333));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize));
-
-    String filePrefix = "Program/swingLayout/images/";
 
     JPanel cardsInHand;
     JScrollPane scrollPane;
@@ -44,6 +40,8 @@ public class BottomPanelBottomHandView extends JPanel {
         this.setVisible(true);
     }
 
+
+
     public BottomPanelBottomHandView(Player player) {
         this();
         setHand(player.getHand());
@@ -56,7 +54,7 @@ public class BottomPanelBottomHandView extends JPanel {
         //handView.clear();
         //cardsInHand.removeAll();
         for(BaseCard cardInHand : hand) {
-            handView.add(new CardPanelNormal(cardInHand.getFileName(), filePrefix));
+            handView.add(new CardPanelNormal(cardInHand.getFileName(), Frame.filePrefix));
         }
         for(CardPanelNormal cardImage : handView){
             cardsInHand.add(cardImage);
@@ -75,7 +73,7 @@ public class BottomPanelBottomHandView extends JPanel {
         frame.add(thisPanel);
 
         for(int i = 0; i < 10; i++) {
-            thisPanel.handView.add(new CardPanelNormal("Slide65.jpg", thisPanel.filePrefix));
+            thisPanel.handView.add(new CardPanelNormal("Slide65.jpg", Frame.filePrefix));
         }
 
         for(CardPanelNormal cardImage : thisPanel.handView){

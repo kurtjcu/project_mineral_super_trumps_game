@@ -1,6 +1,4 @@
-package swingLayout;
-
-/**
+package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
@@ -8,20 +6,20 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 import java.util.ArrayList;
 
 public class BottomPanelFinishedGame extends JPanel {
 
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
-    public Font extraLargeFont = new Font("SansSerif", Font.BOLD, 40);
+
     JPanel text = new JPanel(new BorderLayout());
     JPanel buttons = new JPanel(new BorderLayout());
 
     public BottomPanelFinishedGame() {
         super(new BorderLayout());
-        int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .666));
-        int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize));
+        int gameHeight = (int) (Math.round(Frame.ySize * .666));
+        int gameWidth = (int) (Math.round(Frame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
         this.add(text, BorderLayout.CENTER);
@@ -43,7 +41,7 @@ public class BottomPanelFinishedGame extends JPanel {
         }
         //TODO: refactor into "addText"
         winner.setBorder(new EmptyBorder(30,30,30,30));
-        winner.setFont(extraLargeFont);
+        winner.setFont(Frame.extraLargeFont);
         finishedPlayerList.setBorder(new EmptyBorder(100,200,100,200));
         text.add(winner, BorderLayout.PAGE_START);
         text.add(finishedPlayerList, BorderLayout.CENTER);

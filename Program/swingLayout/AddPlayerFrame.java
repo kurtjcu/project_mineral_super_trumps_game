@@ -14,21 +14,18 @@ public class AddPlayerFrame extends JFrame {
     JButton showRules;
 
     String fileName = "Slide65.jpg";
-    String filePrefix = "Program/swingLayout/images/";
 
-    public static int xSize = 1024;
-    public static int ySize = 768;
 
     public AddPlayerFrame(){
         super("Mineral Supertrumps - Add players");
         this.setLayout(new BorderLayout());
-        setSize(xSize, ySize);
+        setSize(Frame.xSize, Frame.ySize);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         title = new JLabel("Welcome to Mineral Supertrumps");
         playerEntry = new AddPlayerAddPlayers();
-        superTumpsImage = new AddPlayerSuperTrumpImage(fileName, filePrefix);
+        superTumpsImage = new AddPlayerSuperTrumpImage(fileName, Frame.filePrefix);
         showRules = new JButton("Show Rules");
 
         this.add(title, BorderLayout.PAGE_START);

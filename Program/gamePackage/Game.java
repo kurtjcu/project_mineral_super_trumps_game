@@ -9,7 +9,6 @@ import cardsPackage.BaseCard;
 import cardsPackage.CardStatic;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
-import swingLayout.GuiView;
 
 import java.util.ArrayList;
 import java.util.Scanner;

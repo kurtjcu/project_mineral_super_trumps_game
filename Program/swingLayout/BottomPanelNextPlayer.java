@@ -1,31 +1,30 @@
-package swingLayout;
-
-/**
+package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BottomPanelNextPlayer extends JPanel implements ActionListener {
 
 
-    public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
     JLabel playerWhosTurnItIs = new JLabel("none", SwingConstants.CENTER);
     JButton ready = new JButton("Ready");
 
     public BottomPanelNextPlayer() {
         super(new BorderLayout());
-        int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .666));
-        int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize));
+        int gameHeight = (int) (Math.round(Frame.ySize * .666));
+        int gameWidth = (int) (Math.round(Frame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
-        playerWhosTurnItIs.setFont(largeFont);
+        playerWhosTurnItIs.setFont(Frame.largeFont);
         playerWhosTurnItIs.setBorder(new EmptyBorder(30,30,30,30));
-        ready.setFont(largeFont);
+        ready.setFont(Frame.largeFont);
         ready.addActionListener(this);
         this.add(playerWhosTurnItIs, BorderLayout.PAGE_START);
         this.add(ready, BorderLayout.CENTER);
@@ -40,10 +39,12 @@ public class BottomPanelNextPlayer extends JPanel implements ActionListener {
 
     }
 
+
     public void actionPerformed(ActionEvent e) {
         System.out.println("drink beer");
-        GuiView.gameFrame.redrawBottomFrameGame();
+        //GuiView.gameFrame.redrawBottomFrameGame();
     }
+
 
     public static void main(String[] args) {
 

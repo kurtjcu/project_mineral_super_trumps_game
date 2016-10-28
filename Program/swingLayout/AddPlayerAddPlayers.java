@@ -2,6 +2,7 @@ package swingLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
  */
 public class AddPlayerAddPlayers extends JPanel implements ActionListener{
 
-    int gameHeight = (int) (Math.round(AddPlayerFrame.ySize * .6));
-    int gameWidth = (int) (Math.round(AddPlayerFrame.xSize * .3));
+    int gameHeight = (int) (Math.round(Frame.ySize * .6));
+    int gameWidth = (int) (Math.round(Frame.xSize * .3));
 
 
     ArrayList<JLabel> labels;
@@ -66,6 +67,7 @@ public class AddPlayerAddPlayers extends JPanel implements ActionListener{
 
         if(numNames > 2){
 
+            /*
             GuiView.game.setPlayers(names);
             GuiView.game.resetActivePlayers();
             GuiView.game.setDealer();
@@ -76,6 +78,7 @@ public class AddPlayerAddPlayers extends JPanel implements ActionListener{
 
             GuiView.addPlayerFrame.dispose();
             GuiView.startGameFrame();
+            */
         } else {
             //TODO: show warning and re request
         }

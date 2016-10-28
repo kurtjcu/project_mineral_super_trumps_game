@@ -1,11 +1,12 @@
 package swingLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
@@ -13,8 +14,8 @@ import javax.imageio.ImageIO;
 public class CardPanelSmall extends JPanel {
 
 
-    int gameHeight = (int) (Math.round(FrameGridBagMainGame.ySize * .2));
-    int gameWidth = (int) (Math.round(FrameGridBagMainGame.xSize * .13));
+    int gameHeight = (int) (Math.round(Frame.ySize * .2));
+    int gameWidth = (int) (Math.round(Frame.xSize * .13));
 
 
     public CardPanelSmall(String fileName, String filePrefix) {
