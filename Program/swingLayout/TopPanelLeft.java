@@ -1,5 +1,7 @@
 package swingLayout;
 
+import gamePackage.Player;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -32,6 +34,12 @@ public class TopPanelLeft extends JPanel {
 
         this.setVisible(true);
 
+    }
+
+    public TopPanelLeft(Player player){
+        this();
+        setBottomPanel(player.getName());
+        this.repaint();
     }
 
     public void setTopPanel(String text){

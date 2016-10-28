@@ -7,8 +7,10 @@ package swingLayout;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BottomPanelNextPlayer extends JPanel {
+public class BottomPanelNextPlayer extends JPanel implements ActionListener {
 
 
     public Font largeFont = new Font("SansSerif", Font.BOLD, 20);
@@ -24,6 +26,7 @@ public class BottomPanelNextPlayer extends JPanel {
         playerWhosTurnItIs.setFont(largeFont);
         playerWhosTurnItIs.setBorder(new EmptyBorder(30,30,30,30));
         ready.setFont(largeFont);
+        ready.addActionListener(this);
         this.add(playerWhosTurnItIs, BorderLayout.PAGE_START);
         this.add(ready, BorderLayout.CENTER);
         this.setVisible(true);
@@ -37,7 +40,10 @@ public class BottomPanelNextPlayer extends JPanel {
 
     }
 
-
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("drink beer");
+        GuiView.gameFrame.redrawBottomFrameGame();
+    }
 
     public static void main(String[] args) {
 

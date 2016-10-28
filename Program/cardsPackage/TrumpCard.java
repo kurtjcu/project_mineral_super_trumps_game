@@ -33,6 +33,9 @@ public class TrumpCard extends BaseCard {
             case "The Geophysicist":
                 return ("Specific Gravity");
 
+            case "The Geologist":
+                return ("None for the geologist");
+
             default:
                 System.out.println("ERROR - Could not find Value for current trump");
                 break;

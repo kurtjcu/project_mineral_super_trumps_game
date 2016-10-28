@@ -125,6 +125,9 @@ public class MineralCard extends BaseCard {
             case "The Geophysicist":
                 return (specificGravity[specificGravity.length - 1].toString());
 
+            case "The Geologist":
+                return ("None for the geologist");
+
             default:
                 System.out.println("ERROR - Could not find Value for current trump");
                 break;

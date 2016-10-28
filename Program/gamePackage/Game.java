@@ -22,8 +22,9 @@ public class Game {
     private static ArrayList<BaseCard> rulesCards;    //not used yet
     private static ArrayList<TrumpCard> trumpCards;
     private static ArrayList<MineralCard> playingCards;
-    private static ArrayList<BaseCard> playedCards;
-    private static TrumpCard currentTrump;
+    public static ArrayList<BaseCard> playedCards;
+    public static BaseCard lastPlayedCard;
+    public static TrumpCard currentTrump;
     private static View view;
     private static MineralCard clearCard;
 
@@ -31,8 +32,11 @@ public class Game {
     private ArrayList<Player> activePlayers;
     private ArrayList<Player> finishedPlayers;
     private Player dealer;
+    public Player currentPlayer;
     private static Player winner;
     private static Player loser;
+    public Counter playerCounter;
+    private boolean firstPlayedCard = true;
 
     private final int dealtHandSize = 7; // normal game is 7
 
@@ -68,6 +72,8 @@ public class Game {
 
             }
         }
+        lastPlayedCard = rulesCards.get(0);
+        currentTrump = trumpCards.get(trumpCards.size() - 1);
         System.out.println("Full Deck size = " + deck.size());
     }
 
@@ -87,13 +93,16 @@ public class Game {
      * Setters
      **/
 
-    private void doShuffle() {
+    public void doShuffle() {
         deck = FisherYatesShuffle.doFisherYatesShuffle(deck);
     }
 
     public void setPlayers(ArrayList<String> playersNames){
         for(String playerName : playersNames){
             this.players.add(new Player(playerName));
+        }
+        for(Player player : players){
+            System.out.println(player.getName());
         }
     }
 
@@ -125,7 +134,7 @@ public class Game {
 
     }
 
-    private void resetActivePlayers() {
+    public void resetActivePlayers() {
         activePlayers = new ArrayList<>();
 
         for (Player player : players) {
@@ -135,12 +144,12 @@ public class Game {
         }
     }
 
-    private Player getNextActivePlayer(Counter playerCounter) {
+    public void getNextActivePlayer() {
         int playerNum = playerCounter.increment();
         while (!activePlayers.contains(players.get(playerNum))) {
             playerNum = playerCounter.increment();
         }
-        return players.get(playerNum);
+        currentPlayer =  players.get(playerNum);
     }
 
     private void displayCurrentPlayer(Player currentPlayer) {
@@ -150,18 +159,24 @@ public class Game {
         view.pauseForEnter("");
     }
 
-    private boolean setDealer() {
+    public boolean setDealer() {
         if (players.size() > 0) {
             dealer = players.get((int) (Math.random() * (players.size())));
+            System.out.println("Dealer is " + dealer.getName());
             return true;
         } else {
             return false;
         }
+
     }
 
     //region helper methods
 
-    private void dealCards(Counter playerCounter) {
+    public void setPlayerCounter(Game myGame) {
+        playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));
+    }
+
+    public void dealCards(Counter playerCounter) {
         for (int j = 0; j < dealtHandSize; j++) {
             // deal a card to each player
             for (int i = 0; i < players.size(); i++) {
@@ -243,6 +258,15 @@ public class Game {
         System.out.println("playedCard size = " + playedCards.size());
     }
 
+    public void addPlayedCard(BaseCard card){
+        if(firstPlayedCard){
+            firstPlayedCard = false;
+            playedCards.clear();
+        }
+        playedCards.add(card);
+        lastPlayedCard = card;
+    }
+
     private void selectCard(Player currentPlayer) {
         boolean cardPlayable = true;
 
@@ -294,22 +318,22 @@ public class Game {
             if (hand.get(cardToPlay).getCardType().contains("trump")) {
                 //check for geologist
                 if (hand.get(cardToPlay).getTitle().toLowerCase().contains("geologist")) {
-                    Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
+                    addPlayedCard(currentPlayer.takeCardFromHand(cardToPlay));
                     currentTrump = selectTrump();
                     //play another card
                     selectCard(currentPlayer);
                     //check for Geophysicist && Magnetite
                 } else if (hand.get(cardToPlay).getTitle().toLowerCase().contains("Geophysicist And Magnetite")) {
-                    Game.playedCards.add(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
+                    addPlayedCard(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
                             CardStatic.getCardByTitle(BaseCard.getCardsAsBase(playingCards), "Magnetite"))));
-                    Game.playedCards.add(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
+                    addPlayedCard(currentPlayer.takeCardFromHand(currentPlayer.getHand().indexOf(
                             CardStatic.getCardByTitle(BaseCard.getCardsAsBase(trumpCards), "Geophysicist"))));
                     currentTrump = selectTrump();
                     //play another card
                     selectCard(currentPlayer);
                     //fall through to normal trump
                 } else {
-                    Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
+                    addPlayedCard(currentPlayer.takeCardFromHand(cardToPlay));
                     currentTrump = (TrumpCard) hand.get(cardToPlay);
                     resetActivePlayers();
                     //play another card
@@ -317,7 +341,7 @@ public class Game {
                 }
                 //normal playing card
             } else {
-                Game.playedCards.add(currentPlayer.takeCardFromHand(cardToPlay));
+                addPlayedCard(currentPlayer.takeCardFromHand(cardToPlay));
             }
 
 
@@ -341,7 +365,7 @@ public class Game {
     }
 
     //endregion
-    public static void oldMain(String[] args) {
+    public static void oldmain(String[] args) {
 
         Game myGame = new Game();
 
@@ -363,22 +387,22 @@ public class Game {
         }
 
         //create counter for peoples turns
-        Counter playerCounter = new Counter(myGame.players.size(), myGame.players.indexOf(myGame.dealer));
+        myGame.setPlayerCounter(myGame);
 
         myGame.doShuffle();
 
-        myGame.dealCards(playerCounter);
+        myGame.dealCards(myGame.playerCounter);
 
         // should be:
         //get player to the left of dealer
-        Player currentPlayer = myGame.getNextActivePlayer(playerCounter);
+        myGame.getNextActivePlayer();
 
         //show the current player their cards
-        myGame.displayCurrentPlayer(currentPlayer);
+        myGame.displayCurrentPlayer(myGame.currentPlayer);
 
         //get hand and display to player
         //get player to select card
-        myGame.selectCard(currentPlayer);
+        myGame.selectCard(myGame.currentPlayer);
 
         //get player to select trump
         currentTrump = myGame.selectTrump();
@@ -388,31 +412,31 @@ public class Game {
             myGame.checkForDeckShuffle();
 
             //get next player
-            currentPlayer = myGame.getNextActivePlayer(playerCounter);
+             myGame.getNextActivePlayer();
 
-            myGame.displayCurrentPlayer(currentPlayer);
+            myGame.displayCurrentPlayer(myGame.currentPlayer);
             //get hand and display to player
             //get player to select card
-            myGame.selectCard(currentPlayer);
+            myGame.selectCard(myGame.currentPlayer);
 
             //check for all but one has passed and its not the only the looser left
             if (myGame.activePlayers.size() == 1 && (myGame.finishedPlayers.size() + 1) < myGame.players.size()) {
 
-                if (currentPlayer.getHand().size() > 1) {
+                if (myGame.currentPlayer.getHand().size() > 1) {
                     myGame.resetActivePlayers();
                     currentTrump = myGame.selectTrump();
-                    playedCards.add(clearCard);
-                    myGame.selectCard(currentPlayer);
+                    myGame.addPlayedCard(clearCard);
+                    myGame.selectCard(myGame.currentPlayer);
                 } else {
                     myGame.checkForDeckShuffle();
                     //get next player
-                    currentPlayer = myGame.getNextActivePlayer(playerCounter);
-                    myGame.displayCurrentPlayer(currentPlayer);
+                    myGame.getNextActivePlayer();
+                    myGame.displayCurrentPlayer(myGame.currentPlayer);
                     currentTrump = myGame.selectTrump();
-                    playedCards.add(clearCard);
+                    myGame.addPlayedCard(clearCard);
                     //get hand and display to player
                     //get player to select card
-                    myGame.selectCard(currentPlayer);
+                    myGame.selectCard(myGame.currentPlayer);
                 }
             }
         }
@@ -420,12 +444,14 @@ public class Game {
         System.out.println("and " + loser + " Lost...");
     }
 
+
+
     public static void main(String[] args) {
         Game game = new Game();
         GuiView guiView = new GuiView(game);
 
         //add players to game
-        guiView.startAddPlayerFrame();
+        //guiView.startAddPlayerFrame();
 
         //guiView.startGameFrame();
 

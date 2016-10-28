@@ -16,44 +16,54 @@ import javax.swing.border.LineBorder;
 public class FrameGridBagMainGame {
     final static boolean RIGHT_TO_LEFT = false;
 
-
     public static int xSize = 1024;
     public static int ySize = 768;
 
+
     public TopPanel topPanel;
     public BottomPanel bottomPanel;
+    static JFrame frame = new JFrame("GridBagLayoutDemo");
+
+    GridBagConstraints cTopPanel = new GridBagConstraints();
+    GridBagConstraints cBottomPanel = new GridBagConstraints();
+    Container pane;
 
     public void addComponentsToPane(Container pane, Game game) {
+
+        this.pane = pane;
         if (RIGHT_TO_LEFT) {
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
 
-
         pane.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
 
-
-        topPanel = new TopPanel(game.getPlayers());
+        topPanel = new TopPanel(game);
         topPanel.setBorder(new LineBorder(Color.GREEN, 2));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridwidth = 3;
-        c.gridx = 0;
-        c.gridy = 0;
-        pane.add(topPanel, c);
+        cTopPanel.fill = GridBagConstraints.HORIZONTAL;
+        cTopPanel.weightx = 0.5;
+        cTopPanel.gridwidth = 3;
+        cTopPanel.gridx = 0;
+        cTopPanel.gridy = 0;
+        pane.add(topPanel, cTopPanel);
 
         bottomPanel = new BottomPanel();
+        bottomPanel.showNextPlayer(GuiView.game.currentPlayer.getName());
         bottomPanel.setBorder(new LineBorder(Color.GREEN, 2));
-        c.fill = GridBagConstraints.HORIZONTAL;
+        cBottomPanel.fill = GridBagConstraints.HORIZONTAL;
 
-        c.weightx = 0.5;
-        c.gridwidth = 3;
-        c.gridx = 0;
-        c.gridy = 1;
-        pane.add(bottomPanel, c);
+        cBottomPanel.weightx = 0.5;
+        cBottomPanel.gridwidth = 3;
+        cBottomPanel.gridx = 0;
+        cBottomPanel.gridy = 1;
+        pane.add(bottomPanel, cBottomPanel);
     }
 
-
+    public void redrawBottomFrameGame(){
+        bottomPanel = new BottomPanel();
+        bottomPanel.showGame();
+        pane.add(bottomPanel, cBottomPanel);
+        frame.pack();
+    }
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -62,7 +72,7 @@ public class FrameGridBagMainGame {
      */
     public static void createAndShowGUI(Game game) {
         //Create and set up the window.
-        JFrame frame = new JFrame("GridBagLayoutDemo");
+
         FrameGridBagMainGame mainFrame = new FrameGridBagMainGame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.addComponentsToPane(frame.getContentPane(), game);

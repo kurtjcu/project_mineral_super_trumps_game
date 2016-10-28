@@ -8,6 +8,9 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
+
+import cardsPackage.BaseCard;
+import cardsPackage.TrumpCard;
 import gamePackage.*;
 
 public class BottomPanel extends JPanel {
@@ -24,6 +27,7 @@ public class BottomPanel extends JPanel {
     void showNextPlayer(String playerName ){
         this.setLayout(new BorderLayout());
         this.add(new BottomPanelNextPlayer(playerName));
+        this.repaint();
     }
 
     void showFinishedHand(){
@@ -36,9 +40,16 @@ public class BottomPanel extends JPanel {
         this.add(new BottomPanelFinishedGame(players));
     }
 
-    void showGame(Player player  ){
+    void showGame(){
         this.setLayout(new BorderLayout());
-        this.add(new BottomPanelGame());
+
+        try{
+            System.out.println(Game.currentTrump.getTitle());
+        } catch(Exception e) {
+            System.out.println("Sexception: " + e);
+        }
+        this.add(new BottomPanelGame(GuiView.game.currentPlayer, Game.currentTrump, Game.lastPlayedCard));
+        System.out.println("Sure Why Not?");
     }
 
     public static void main(String[] args) {

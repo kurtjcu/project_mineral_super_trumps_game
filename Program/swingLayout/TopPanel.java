@@ -4,6 +4,7 @@ package swingLayout;
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
+import gamePackage.Game;
 import gamePackage.Player;
 
 import java.awt.*;
@@ -13,6 +14,8 @@ import javax.swing.border.LineBorder;
 
 public class TopPanel extends JPanel {
 
+
+    Game game;
     TopPanelLeft leftPanel = new TopPanelLeft();
     public TopPanelCenter centerPanel = new TopPanelCenter();
     TopPanelRight rightPanel = new TopPanelRight();
@@ -28,9 +31,12 @@ public class TopPanel extends JPanel {
     }
 
     // use this in game
-    public TopPanel(ArrayList<Player> players) {
+    public TopPanel(Game game) {
         this();
-        centerPanel = new TopPanelCenter(players);
+        leftPanel = new TopPanelLeft(game.currentPlayer);
+        centerPanel = new TopPanelCenter(game.getPlayers());
+        displayThreeHorizontalFrames(leftPanel, centerPanel, rightPanel);
+
     }
 
     public void displayThreeHorizontalFrames(JPanel frame1, JPanel frame2 ,JPanel frame3) {

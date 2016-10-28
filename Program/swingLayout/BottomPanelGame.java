@@ -34,9 +34,14 @@ public class BottomPanelGame extends JPanel {
     // use this in game
     public BottomPanelGame(Player player, TrumpCard currentTrump, BaseCard lastPlayedCard) {
         this();
-        this.add(new BottomPanelTopLeft(player.getHand().get(0)), BorderLayout.LINE_START);
-        this.add(new BottomPanelTopRight(lastPlayedCard, currentTrump), BorderLayout.CENTER);
-        this.add(new BottomPanelBottomHandView(player), BorderLayout.PAGE_END);
+        try {
+            this.add(new BottomPanelTopLeft(player.getHand().get(0)), BorderLayout.LINE_START);
+            this.add(new BottomPanelTopRight(lastPlayedCard, currentTrump), BorderLayout.CENTER);
+            this.add(new BottomPanelBottomHandView(player), BorderLayout.PAGE_END);
+            this.repaint();
+        } catch (Exception e) {
+            System.out.println("Beer Time? " + e);
+        }
     }
 
 
@@ -44,7 +49,7 @@ public class BottomPanelGame extends JPanel {
 
         ArrayList<String> names = new ArrayList<>();
         for(int i = 0; i <= 5; i++){
-            names.add("Player " + (1+i));
+            names.add("Player " + (1 + i));
         }
         BottomPanelGame bottomPanel = new BottomPanelGame();
         bottomPanel.setBorder(new LineBorder(Color.GREEN, 2));

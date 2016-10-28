@@ -16,10 +16,14 @@ public class GuiView {
     public static Game game;
 
     public GuiView(Game game){
+
         this.game = game;
+
+        startAddPlayerFrame();
     }
 
     public void startAddPlayerFrame(){
+
         addPlayerFrame = new AddPlayerFrame();
     }
 

@@ -34,8 +34,6 @@ public class AddPlayerAddPlayers extends JPanel implements ActionListener{
         this.add(startGame);
 
         startGame.addActionListener(this);
-
-
     }
 
     void setupLabels(){
@@ -67,7 +65,15 @@ public class AddPlayerAddPlayers extends JPanel implements ActionListener{
         }
 
         if(numNames > 2){
+
             GuiView.game.setPlayers(names);
+            GuiView.game.resetActivePlayers();
+            GuiView.game.setDealer();
+            GuiView.game.setPlayerCounter(GuiView.game);
+            GuiView.game.doShuffle();
+            GuiView.game.dealCards(GuiView.game.playerCounter);
+            GuiView.game.getNextActivePlayer();
+
             GuiView.addPlayerFrame.dispose();
             GuiView.startGameFrame();
         } else {
