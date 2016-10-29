@@ -26,6 +26,7 @@ public class BottomPanelGame extends JPanel {
 
         this.add(new BottomPanelTopLeft(controller), BorderLayout.LINE_START);
         this.add(new BottomPanelTopRight(controller), BorderLayout.CENTER);
+        this.add(new BottomPanelBottomHandView(controller), BorderLayout.PAGE_END);
 
         this.setVisible(true);
     }

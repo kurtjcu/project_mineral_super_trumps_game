@@ -46,8 +46,8 @@ public class BottomPanelTopRight extends JPanel {
         lastPlayedLabel = new JLabel("last played");
         currentTrumpLabel = new JLabel("current trump");
 
-        lastPlayedCard = new CardPanelSmall("Slide65.jpg", Frame.filePrefix);
-        currentTrumpCard = new CardPanelSmall("Slide66.jpg", Frame.filePrefix);
+        lastPlayedCard = new CardPanelSmall(controller.game.lastPlayedCard.getFileName(), Frame.filePrefix);
+        currentTrumpCard = new CardPanelSmall(controller.game.currentTrump.getFileName(), Frame.filePrefix);
 
         currentCategory = new JLabel("Current category:");
         currentValue = new JLabel("Value to beat:");

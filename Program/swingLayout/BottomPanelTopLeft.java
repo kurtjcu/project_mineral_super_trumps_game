@@ -28,7 +28,8 @@ public class BottomPanelTopLeft extends JPanel {
     JLabel detailsCrustalAbundance;
     JLabel detailsEconomicValue;
 
-    CardPanelNormal selectedCard;
+    BaseCard selectedCard;
+    CardPanelNormal selectedCardImage;
 
     JButton pass;
     JButton playCard;
@@ -41,13 +42,19 @@ public class BottomPanelTopLeft extends JPanel {
         centerCurrentSelectedCard = new JPanel();
         rightDetails = new JPanel();
 
-        detailsHardness = new JLabel("Hardness: ");
+        selectedCard = controller.game.currentPlayer.getHand().get(0);
+        System.out.println(selectedCard.getTitle());
+
+
+
+        detailsHardness = new JLabel("Hardness: " );
         detailsSpecificGravity = new JLabel("Specific Gravity: ");
         detailsCleavage = new JLabel("Cleavage: ");
         detailsCrustalAbundance = new JLabel("Crustal Abundance: ");
         detailsEconomicValue = new JLabel("Economic Value: ");
 
-        selectedCard = new CardPanelNormal("Slide65.jpg", Frame.filePrefix);
+        setSelectedCardImage(selectedCard);
+        selectedCardImage = new CardPanelNormal(selectedCard.getFileName(), Frame.filePrefix);
 
         pass = new JButton("Pass");
         playCard = new JButton("Play Card");
@@ -75,7 +82,7 @@ public class BottomPanelTopLeft extends JPanel {
 
     void createCenterCurrentSelectedCard(){
         centerCurrentSelectedCard.setLayout(new BorderLayout());
-        centerCurrentSelectedCard.add(selectedCard, BorderLayout.CENTER);
+        centerCurrentSelectedCard.add(selectedCardImage, BorderLayout.CENTER);
     }
 
 
@@ -107,12 +114,12 @@ public class BottomPanelTopLeft extends JPanel {
 
 
 
-    void setSelectedCard(BaseCard card){
-        selectedCard = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
+    void setSelectedCardImage(BaseCard card){
+        selectedCardImage = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
         if( card.getCardType().toLowerCase().contains("play")){
             MineralCard currentCard = (MineralCard)card;
-            detailsHardness.setText("Hardness: " + currentCard.getHardness().toString());
-            detailsSpecificGravity.setText("Specific Gravity: " + currentCard.getSpecificGravity().toString());
+            detailsHardness.setText("Hardness: " + currentCard.getHardness()[0]);
+            detailsSpecificGravity.setText("Specific Gravity: " + currentCard.getSpecificGravity()[0]);
             detailsCleavage.setText("Cleavage: " + currentCard.getCleavage());
             detailsCrustalAbundance.setText("Crustal Abundance: " + currentCard.getCrustalAbundance());
             detailsEconomicValue.setText("Economic Value: " + currentCard.getEconomicValue());
@@ -124,7 +131,7 @@ public class BottomPanelTopLeft extends JPanel {
             detailsCrustalAbundance.setText("");
             detailsEconomicValue.setText("");
         }
-        selectedCard = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
+        selectedCardImage = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
     }
 
 

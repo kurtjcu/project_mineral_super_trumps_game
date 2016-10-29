@@ -1,6 +1,7 @@
 package swingLayout;
 
 import cardsPackage.BaseCard;
+import gamePackage.Game;
 import gamePackage.Player;
 
 import javax.swing.*;
@@ -16,6 +17,8 @@ public class BottomPanelBottomHandView extends JPanel {
     int gameHeight = (int) (Math.round(Frame.ySize * .333));
     int gameWidth = (int) (Math.round(Frame.xSize));
 
+    Controller controller;
+
 
     JPanel cardsInHand;
     JScrollPane scrollPane;
@@ -25,8 +28,9 @@ public class BottomPanelBottomHandView extends JPanel {
 
 
 
-    public BottomPanelBottomHandView() {
+    public BottomPanelBottomHandView(Controller controller) {
         super();
+        this.controller = controller;
         hand = new ArrayList<>();
         handView = new ArrayList<>();
         cardsInHand = new JPanel();
@@ -40,12 +44,6 @@ public class BottomPanelBottomHandView extends JPanel {
     }
 
 
-
-    public BottomPanelBottomHandView(Player player) {
-        this();
-        setHand(player.getHand());
-
-    }
 
 
 
@@ -63,7 +61,7 @@ public class BottomPanelBottomHandView extends JPanel {
 
     public static void main(String[] args) {
 
-        BottomPanelBottomHandView thisPanel = new BottomPanelBottomHandView();
+        BottomPanelBottomHandView thisPanel = new BottomPanelBottomHandView(new Controller(new Game()));
         thisPanel.setBorder(new LineBorder(Color.GREEN, 2));
 
         JFrame frame = new JFrame("Testing");
