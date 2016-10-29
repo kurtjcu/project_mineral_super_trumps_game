@@ -19,18 +19,19 @@ import java.util.Stack;
 
 public class Game {
 
-    private static Stack<BaseCard> deck;
+    public static Stack<BaseCard> deck;
     private static ArrayList<BaseCard> rulesCards;    //not used yet
     private static ArrayList<TrumpCard> trumpCards;
     private static ArrayList<MineralCard> playingCards;
     public static ArrayList<BaseCard> playedCards;
     public BaseCard lastPlayedCard;
+    public BaseCard currentlySelectedCard;
     public TrumpCard currentTrump;
     private static View view;
     private static MineralCard clearCard;
 
     public ArrayList<Player> players;
-    private static ArrayList<Player> activePlayers;
+    public static ArrayList<Player> activePlayers;
     private static ArrayList<Player> finishedPlayers;
     private static Player dealer;
     public Player currentPlayer;

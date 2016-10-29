@@ -2,17 +2,10 @@ package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
-import cardsPackage.BaseCard;
-import cardsPackage.TrumpCard;
-import gamePackage.Game;
-import gamePackage.Player;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class BottomPanelNextPlayer extends JPanel {
 
@@ -32,7 +25,7 @@ public class BottomPanelNextPlayer extends JPanel {
         playerWhosTurnItIs.setFont(Frame.largeFont);
         playerWhosTurnItIs.setBorder(new EmptyBorder(30,30,30,30));
         ready.setFont(Frame.largeFont);
-        ready.addActionListener(controller.showNextPlayerGame);
+        ready.addActionListener(controller.showPlayerGame);
         this.add(playerWhosTurnItIs, BorderLayout.PAGE_START);
         this.add(ready, BorderLayout.CENTER);
         String prefix = "It is currently ";

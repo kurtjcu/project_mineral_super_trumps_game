@@ -1,5 +1,7 @@
 package swingLayout;
 
+import cardsPackage.BaseCard;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,19 +12,21 @@ import java.io.IOException;
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
-public class CardPanelNormal extends JPanel {
+public class CardPanelNormal extends JButton {
 
 
     int gameHeight = (int) (Math.round(Frame.ySize * .3));
     int gameWidth = (int) (Math.round(Frame.xSize * .2));
 
+    public BaseCard card;
 
-    public CardPanelNormal(String fileName, String filePrefix) {
 
+    public CardPanelNormal(BaseCard card, String filePrefix) {
+        this.card = card;
         this.setSize(gameWidth, gameHeight );
         BufferedImage image;
         try {
-            image = ImageIO.read(new File(filePrefix + fileName));
+            image = ImageIO.read(new File(filePrefix + card.getFileName()));
 
             JLabel picture = new JLabel(new ImageIcon(image.getScaledInstance(gameWidth,
                     gameHeight, Image.SCALE_SMOOTH)));
@@ -37,6 +41,7 @@ public class CardPanelNormal extends JPanel {
 
 
 
+    /*
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("TestingTopPanelCenterPlayer");
@@ -52,4 +57,5 @@ public class CardPanelNormal extends JPanel {
         frame.pack();
 
     }
+    */
 }

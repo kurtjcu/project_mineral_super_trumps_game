@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 /**
  * Created by kurt.Schoenhoff on 29/10/2016.
  */
-public class ShowNextPlayerGame implements ActionListener {
+public class ShowPlayerGame implements ActionListener {
 
     Controller controller;
-    public ShowNextPlayerGame(Controller controller){
+    public ShowPlayerGame(Controller controller){
         this.controller = controller;
     }
 

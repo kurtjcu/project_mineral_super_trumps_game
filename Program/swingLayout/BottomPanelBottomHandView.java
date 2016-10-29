@@ -53,14 +53,16 @@ public class BottomPanelBottomHandView extends JPanel {
         //cardsInHand.removeAll();
         hand = cards;
         for(BaseCard cardInHand : hand) {
-            handView.add(new CardPanelNormal(cardInHand.getFileName(), Frame.filePrefix));
+            handView.add(new CardPanelNormal(cardInHand, Frame.filePrefix));
         }
         for(CardPanelNormal cardImage : handView){
+            cardImage.addActionListener(controller.playerSelectCard);
             cardsInHand.add(cardImage);
         }
     }
 
 
+    /*
     public static void main(String[] args) {
 
         BottomPanelBottomHandView thisPanel = new BottomPanelBottomHandView(new Controller(new Game()));
@@ -87,4 +89,5 @@ public class BottomPanelBottomHandView extends JPanel {
 
 
     }
+    */
 }

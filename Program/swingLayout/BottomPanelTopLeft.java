@@ -54,10 +54,12 @@ public class BottomPanelTopLeft extends JPanel {
         detailsEconomicValue = new JLabel("Economic Value: ");
 
         setSelectedCardImage(selectedCard);
-        selectedCardImage = new CardPanelNormal(selectedCard.getFileName(), Frame.filePrefix);
+        selectedCardImage = new CardPanelNormal(selectedCard, Frame.filePrefix);
 
         pass = new JButton("Pass");
+        pass.addActionListener(controller.playerPass);
         playCard = new JButton("Play Card");
+        pass.addActionListener(controller.playerPlayCard);
 
         setupLabels();
         createPanels();
@@ -71,6 +73,21 @@ public class BottomPanelTopLeft extends JPanel {
         this.setVisible(true);
 
     }
+
+    public BottomPanelTopLeft(Controller controller, BaseCard card) {
+        this(controller);
+        selectedCard = card;
+        setSelectedCardImage(card);
+        selectedCardImage = new CardPanelNormal(selectedCard, Frame.filePrefix);
+        setupLabels();
+        createPanels();
+        this.removeAll();
+        this.add(leftButtons, BorderLayout.LINE_START);
+        this.add(centerCurrentSelectedCard, BorderLayout.CENTER);
+        this.add(rightDetails, BorderLayout.LINE_END);
+
+    }
+
 
 
 
@@ -115,7 +132,7 @@ public class BottomPanelTopLeft extends JPanel {
 
 
     void setSelectedCardImage(BaseCard card){
-        selectedCardImage = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
+        //selectedCardImage = new CardPanelNormal(card, Frame.filePrefix);
         if( card.getCardType().toLowerCase().contains("play")){
             MineralCard currentCard = (MineralCard)card;
             detailsHardness.setText("Hardness: " + currentCard.getHardness()[0]);
@@ -131,7 +148,7 @@ public class BottomPanelTopLeft extends JPanel {
             detailsCrustalAbundance.setText("");
             detailsEconomicValue.setText("");
         }
-        selectedCardImage = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
+        selectedCardImage = new CardPanelNormal(card, Frame.filePrefix);
     }
 
 

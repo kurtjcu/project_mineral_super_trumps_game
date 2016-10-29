@@ -99,6 +99,13 @@ public class Frame extends JFrame {
         this.pack();
     }
 
+    public void showPlayerGameHand(BaseCard card){
+        bottomPanel.removeAll();
+        bottomPanelGame = new BottomPanelGame(controller, card);
+        bottomPanel.add(bottomPanelGame, BorderLayout.CENTER);
+        this.pack();
+    }
+
     //TODO: add player details and make sure it passes them down the line
     public void showPlayerFinishedHand(){
         bottomPanel.removeAll();

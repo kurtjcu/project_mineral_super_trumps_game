@@ -19,13 +19,20 @@ public class Controller extends JFrame{
     }
 
     public ShowNextPlayer showNextPlayer; // = new ShowNextPlayer(game);
-    public ShowNextPlayerGame showNextPlayerGame;
+    public ShowPlayerGame showPlayerGame;
+    public PlayerPass playerPass;
+    public PlayerPlayCard playerPlayCard;
+    public PlayerSelectCard playerSelectCard;
 
 
     public Controller(Game game) {
         this.game = game;
         showNextPlayer = new ShowNextPlayer(this);
-        showNextPlayerGame = new ShowNextPlayerGame(this);
+        showPlayerGame = new ShowPlayerGame(this);
+        playerPass = new PlayerPass(this);
+        playerPlayCard = new PlayerPlayCard(this);
+        playerSelectCard = new PlayerSelectCard(this);
+
     }
 
     /*

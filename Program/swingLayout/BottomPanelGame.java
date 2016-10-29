@@ -31,6 +31,12 @@ public class BottomPanelGame extends JPanel {
         this.setVisible(true);
     }
 
+    public BottomPanelGame(Controller controller, BaseCard card) {
+        this(controller);
+        this.add(new BottomPanelTopLeft(controller, card), BorderLayout.LINE_START);
+
+    }
+
     /*
     public BottomPanelGame(String label){
         this();
