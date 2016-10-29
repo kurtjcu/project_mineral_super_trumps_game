@@ -19,9 +19,9 @@ import java.util.Stack;
 
 public class Game {
 
-    public static Stack<BaseCard> deck;
+    public Stack<BaseCard> deck;
     private static ArrayList<BaseCard> rulesCards;    //not used yet
-    private static ArrayList<TrumpCard> trumpCards;
+    public ArrayList<TrumpCard> trumpCards;
     private static ArrayList<MineralCard> playingCards;
     public static ArrayList<BaseCard> playedCards;
     public BaseCard lastPlayedCard;
@@ -31,8 +31,8 @@ public class Game {
     private static MineralCard clearCard;
 
     public ArrayList<Player> players;
-    public static ArrayList<Player> activePlayers;
-    private static ArrayList<Player> finishedPlayers;
+    public ArrayList<Player> activePlayers;
+    public ArrayList<Player> finishedPlayers;
     private static Player dealer;
     public Player currentPlayer;
     private static Player winner;
@@ -243,7 +243,7 @@ public class Game {
 
     }
 
-    private void checkForDeckShuffle() {
+    public void checkForDeckShuffle() {
         //check deck size and re shuffle if second last card has been played
         if (deck.size() < 2) {
             for (BaseCard card : playedCards) {
@@ -309,7 +309,7 @@ public class Game {
         Integer cardToPlay = number - 1;
 
         if (cardToPlay.equals(-1)) {    //are we passing??
-            currentPlayer.addToHand(Game.deck.pop());
+            currentPlayer.addToHand(deck.pop());
             activePlayers.remove(currentPlayer);
         } else {
             //TODO: refactor to method
@@ -471,9 +471,9 @@ public class Game {
         controller.frame.pack();
 
 
-        controller.frame.initSetPlayerInfo(game.currentPlayer, game.players);
+        controller.frame.initSetPlayerInfo();
 
-        controller.frame.showNextPlayer();
+        controller.frame.showPlayerSelectTrump();
 
         //add players to game
         //guiView.startAddPlayerFrame();

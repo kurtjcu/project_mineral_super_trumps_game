@@ -24,14 +24,19 @@ public class Controller extends JFrame{
     public PlayerPlayCard playerPlayCard;
     public PlayerSelectCard playerSelectCard;
 
+    public ShowPlayerTrumpSelect showPlayerTrumpSelect;
+    public PlayerSelectTrump playerSelectTrump;
+
 
     public Controller(Game game) {
         this.game = game;
-        showNextPlayer = new ShowNextPlayer(this);
-        showPlayerGame = new ShowPlayerGame(this);
-        playerPass = new PlayerPass(this);
-        playerPlayCard = new PlayerPlayCard(this);
-        playerSelectCard = new PlayerSelectCard(this);
+        this.showNextPlayer = new ShowNextPlayer(this);
+        this.showPlayerGame = new ShowPlayerGame(this);
+        this.playerPass = new PlayerPass(this);
+        this.playerPlayCard = new PlayerPlayCard(this);
+        this.playerSelectCard = new PlayerSelectCard(this);
+        this.showPlayerTrumpSelect = new ShowPlayerTrumpSelect(this);
+        this.playerSelectTrump = new PlayerSelectTrump(this);
 
     }
 

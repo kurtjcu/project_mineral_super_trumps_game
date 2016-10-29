@@ -98,6 +98,7 @@ public class BottomPanelTopLeft extends JPanel {
     }
 
     void createCenterCurrentSelectedCard(){
+        centerCurrentSelectedCard = new JPanel();
         centerCurrentSelectedCard.setLayout(new BorderLayout());
         centerCurrentSelectedCard.add(selectedCardImage, BorderLayout.CENTER);
     }
@@ -133,6 +134,7 @@ public class BottomPanelTopLeft extends JPanel {
 
     void setSelectedCardImage(BaseCard card){
         //selectedCardImage = new CardPanelNormal(card, Frame.filePrefix);
+        controller.game.currentlySelectedCard = card;
         if( card.getCardType().toLowerCase().contains("play")){
             MineralCard currentCard = (MineralCard)card;
             detailsHardness.setText("Hardness: " + currentCard.getHardness()[0]);

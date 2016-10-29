@@ -38,8 +38,9 @@ public class Frame extends JFrame {
 
     public BottomPanelNextPlayer bottomPanelNextPlayer;
     public BottomPanelGame bottomPanelGame;
-    public BottomPanelFinishedGame bottomPanelFinishedGame;
-    public BottomPanelFinishedHand bottomPanelFinishedHand;
+
+    public BottomPanelTrumpSelect bottomPanelTrumpSelect;
+
 
     public Frame(Controller controller){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,9 +78,14 @@ public class Frame extends JFrame {
         topPanel.add(topPanelRight, BorderLayout.LINE_END);
     }
 
-    public void initSetPlayerInfo(Player player, ArrayList<Player> players){
-        topPanelLeft.setBottomPanel(player.getName());
-        topPanelCenter.setPlayers(players);   //TODO: un static??
+    public void initSetPlayerInfo(){
+        topPanelLeft.setBottomPanel(controller.game.currentPlayer);
+        topPanelCenter.setPlayers(controller.game.players);
+        topPanelRedraw();
+    }
+
+    public void refreshCurrentPlayer(){
+        topPanelLeft.setBottomPanel(controller.game.currentPlayer);
         topPanelRedraw();
     }
 
@@ -88,6 +94,7 @@ public class Frame extends JFrame {
         bottomPanel.removeAll();
         bottomPanelNextPlayer = new BottomPanelNextPlayer(controller);
         bottomPanel.add(bottomPanelNextPlayer, BorderLayout.CENTER);
+        this.pack();
     }
 
 
@@ -105,6 +112,22 @@ public class Frame extends JFrame {
         bottomPanel.add(bottomPanelGame, BorderLayout.CENTER);
         this.pack();
     }
+
+    public void showPlayerSelectTrump(){
+        bottomPanel.removeAll();
+        bottomPanelTrumpSelect = new BottomPanelTrumpSelect(controller);
+        bottomPanel.add(bottomPanelTrumpSelect, BorderLayout.CENTER);
+        this.pack();
+    }
+
+    public void showPlayerSelectTrump(TrumpCard card){
+        bottomPanel.removeAll();
+        bottomPanelTrumpSelect = new BottomPanelTrumpSelect(controller, card);
+        bottomPanel.add(bottomPanelTrumpSelect, BorderLayout.CENTER);
+        this.pack();
+    }
+
+
 
     //TODO: add player details and make sure it passes them down the line
     public void showPlayerFinishedHand(){

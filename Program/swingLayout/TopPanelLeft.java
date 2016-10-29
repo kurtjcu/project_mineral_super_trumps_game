@@ -45,14 +45,18 @@ public class TopPanelLeft extends JPanel {
 
     }
 
-    public void setBottomPanel(String text){
-        JLabel label = new JLabel("Current Player: " + text, SwingConstants.CENTER);
+    public void setBottomPanel(String player){
+        JLabel label = new JLabel("Current Player: " + player, SwingConstants.CENTER);
         label.setFont(Frame.largeFont);
         bottomPanel.removeAll();
         bottomPanel.add(label);
+    }
 
-
-
+    public void setBottomPanel(Player player){
+        JLabel label = new JLabel("Current Player: " + player.getName(), SwingConstants.CENTER);
+        label.setFont(Frame.largeFont);
+        bottomPanel.removeAll();
+        bottomPanel.add(label);
     }
 
 
