@@ -34,6 +34,7 @@ public class BottomPanelBottomHandView extends JPanel {
         hand = new ArrayList<>();
         handView = new ArrayList<>();
         cardsInHand = new JPanel();
+        setHand(controller.game.currentPlayer.getHand());
         scrollPane = new JScrollPane(cardsInHand);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -50,6 +51,7 @@ public class BottomPanelBottomHandView extends JPanel {
     void setHand(ArrayList<BaseCard> cards){
         //handView.clear();
         //cardsInHand.removeAll();
+        hand = cards;
         for(BaseCard cardInHand : hand) {
             handView.add(new CardPanelNormal(cardInHand.getFileName(), Frame.filePrefix));
         }
