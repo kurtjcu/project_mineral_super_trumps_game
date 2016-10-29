@@ -1,11 +1,12 @@
-package swingLayout;//import cardsPackage.BaseCard;
-//import cardsPackage.MineralCard;
-//import cardsPackage.TrumpCard;
+package swingLayout;
+
+import cardsPackage.BaseCard;
+import cardsPackage.MineralCard;
+import cardsPackage.TrumpCard;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.Frame;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
@@ -61,14 +62,14 @@ public class BottomPanelTopRight extends JPanel {
 
     }
 
-    /*
+
     public BottomPanelTopRight(BaseCard card, TrumpCard trump) {
         this();
         setLastPlayed(card, trump);
         setTrump(trump);
 
     }
-    */
+
 
     void createTopPanel (){
         topTitles.setLayout(new BorderLayout());
@@ -103,9 +104,9 @@ public class BottomPanelTopRight extends JPanel {
     }
 
 
-    /*
+
     void setLastPlayed(BaseCard card, TrumpCard trump){
-        lastPlayedCard = new CardPanelSmall(card.getFileName(), filePrefix);
+        lastPlayedCard = new CardPanelSmall(card.getFileName(), Frame.filePrefix);
         if( card.getCardType().toLowerCase().contains("play")){
             currentValue.setText(((MineralCard)card).getCurrentValue(trump));
         } else {
@@ -114,10 +115,10 @@ public class BottomPanelTopRight extends JPanel {
     }
 
     void setTrump(TrumpCard trump){
-        currentTrumpCard = new CardPanelSmall(trump.getFileName(), filePrefix);
+        currentTrumpCard = new CardPanelSmall(trump.getFileName(), Frame.filePrefix);
         currentCategory.setText(trump.getCurrentCategory());
     }
-    */
+
 
 
     public static void main(String[] args) {

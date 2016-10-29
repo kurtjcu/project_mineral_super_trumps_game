@@ -2,11 +2,15 @@ package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
+import cardsPackage.BaseCard;
+import cardsPackage.TrumpCard;
+import gamePackage.Game;
+import gamePackage.Player;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -42,7 +46,7 @@ public class BottomPanelNextPlayer extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         System.out.println("drink beer");
-        //GuiView.gameFrame.redrawBottomFrameGame();
+        controller.frame.showNextPlayer("fuckhead");
     }
 
 

@@ -2,14 +2,13 @@ package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
-//import cardsPackage.BaseCard;
-//import cardsPackage.TrumpCard;
-//import gamePackage.Player;
+import cardsPackage.BaseCard;
+import cardsPackage.TrumpCard;
+import gamePackage.Player;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.Frame;
 import java.util.ArrayList;
 
 public class BottomPanelGame extends JPanel {
@@ -26,20 +25,27 @@ public class BottomPanelGame extends JPanel {
         this.setVisible(true);
     }
 
-    // TODO: add this functionality back to project when attached to game
-    /*
+    public BottomPanelGame(String label){
+        this();
+        JLabel jLabel = new JLabel("label");
+        this.add(jLabel);
+    }
+
+
     public BottomPanelGame(Player player, TrumpCard currentTrump, BaseCard lastPlayedCard) {
         this();
-        try {
+        //try {
+        System.out.println("using player : " + player.getName());
             this.add(new BottomPanelTopLeft(player.getHand().get(0)), BorderLayout.LINE_START);
-            this.add(new BottomPanelTopRight(lastPlayedCard, currentTrump), BorderLayout.CENTER);
-            this.add(new BottomPanelBottomHandView(player), BorderLayout.PAGE_END);
+            //this.add(new BottomPanelTopRight(lastPlayedCard, currentTrump), BorderLayout.CENTER);
+            //this.add(new BottomPanelBottomHandView(player), BorderLayout.PAGE_END);
             this.repaint();
-        } catch (Exception e) {
-            System.out.println("Beer Time? " + e);
-        }
+        System.out.println("done");
+        //} catch (Exception e) {
+        //    System.out.println("Beer Time? " + e);
+        //}
     }
-    */
+
 
 
     public static void main(String[] args) {

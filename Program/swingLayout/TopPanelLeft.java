@@ -1,4 +1,6 @@
-package swingLayout;//import gamePackage.Player;
+package swingLayout;
+
+import gamePackage.Player;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -34,13 +36,7 @@ public class TopPanelLeft extends JPanel {
     }
 
 
-    /*
-    public TopPanelLeft(Player player){
-        this();
-        setBottomPanel(player.getName());
-        this.repaint();
-    }
-    */
+
 
     public void setTopPanel(String text){
         JLabel label = new JLabel(text, SwingConstants.CENTER);
@@ -52,6 +48,7 @@ public class TopPanelLeft extends JPanel {
     public void setBottomPanel(String text){
         JLabel label = new JLabel("Current Player: " + text, SwingConstants.CENTER);
         label.setFont(Frame.largeFont);
+        bottomPanel.removeAll();
         bottomPanel.add(label);
 
 

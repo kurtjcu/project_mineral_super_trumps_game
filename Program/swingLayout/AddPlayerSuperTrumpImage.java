@@ -13,8 +13,8 @@ import java.io.IOException;
 public class AddPlayerSuperTrumpImage extends JPanel {
 
 
-    int gameHeight = (int) (Math.round(AddPlayerFrame.ySize * .6));
-    int gameWidth = (int) (Math.round(AddPlayerFrame.xSize * .3));
+    int gameHeight = (int) (Math.round(Frame.ySize * .6));
+    int gameWidth = (int) (Math.round(Frame.xSize * .3));
 
 
     public AddPlayerSuperTrumpImage(String fileName, String filePrefix) {

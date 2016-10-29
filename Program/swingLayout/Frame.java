@@ -1,5 +1,7 @@
 package swingLayout;
 
+import gamePackage.Game;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,6 +19,7 @@ public class Frame extends JFrame {
     public static String filePrefix = "Program/swingLayout/images/";
 
     public Container pane;
+
     //main frames
     public TopPanel topPanel;
     public BottomPanel bottomPanel;
@@ -25,6 +28,13 @@ public class Frame extends JFrame {
     public TopPanelLeft topPanelLeft;
     public TopPanelCenter topPanelCenter;
     public TopPanelRight topPanelRight;
+
+    //Bottom Frames
+
+    public BottomPanelNextPlayer bottomPanelNextPlayer;
+    public BottomPanelGame bottomPanelGame;
+    public BottomPanelFinishedGame bottomPanelFinishedGame;
+    public BottomPanelFinishedHand bottomPanelFinishedHand;
 
     public Frame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,23 +63,41 @@ public class Frame extends JFrame {
         this.setVisible(true);
     }
 
+    void topPanelRedraw(){
+        topPanel.removeAll();
+        topPanel.add(topPanelLeft, BorderLayout.LINE_START);
+        topPanel.add(topPanelCenter, BorderLayout.CENTER);
+        topPanel.add(topPanelRight, BorderLayout.LINE_END);
+    }
+
+    public void initSetPlayerInfo(){
+        topPanelLeft.setBottomPanel(Game.currentPlayer.getName());
+        topPanelCenter.setPlayers(Game.getPlayers());
+        topPanelRedraw();
+    }
+
 
     public void showNextPlayer(String playerName){
         bottomPanel.removeAll();
-        bottomPanel.add(new BottomPanelNextPlayer(playerName));
+        bottomPanelNextPlayer = new BottomPanelNextPlayer(playerName);
+        bottomPanel.add(bottomPanelNextPlayer, BorderLayout.CENTER);
     }
 
 
     //TODO: add player details and make sure it passes them down the line
     public void showPlayerGameHand(){
         bottomPanel.removeAll();
-        bottomPanel.add(new BottomPanelGame());
+        showNextPlayer("cunt");
+        bottomPanel.invalidate();
+        //bottomPanel.add(new BottomPanelGame(Controller.game.currentPlayer, Game.currentTrump, Game.lastPlayedCard));
+
+        System.out.println("finished adding");
     }
 
     //TODO: add player details and make sure it passes them down the line
     public void showPlayerFinishedHand(){
         bottomPanel.removeAll();
-        bottomPanel.add(new BottomPanelFinishedHand());
+        bottomPanel.add(new BottomPanelFinishedHand(), BorderLayout.CENTER);
     }
 
     //TODO: add player details and make sure it passes them down the line

@@ -1,9 +1,9 @@
-package swingLayout;//import gamePackage.*;
+package swingLayout;
 
+import gamePackage.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.Frame;
 import java.util.ArrayList;
 
 /**
@@ -32,24 +32,12 @@ public class TopPanelCenter extends JPanel {
 
     }
 
-    /*
-    public TopPanelCenter(ArrayList<Player> players){
-        this();
-        setPlayers(players);
-    }
-
-
 
     public void setPlayers(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             setPlayersName(i, players.get(i).getName());
         }
-
-        this.revalidate();
-        this.repaint();
-
     }
-    */
 
     public void setPlayersName(int index, String name){
         playerPanels.get(index).setPlayerName(name);

@@ -1,11 +1,12 @@
-package swingLayout;//import cardsPackage.BaseCard;
-//import cardsPackage.MineralCard;
-//import cardsPackage.TrumpCard;
+package swingLayout;
+
+import cardsPackage.BaseCard;
+import cardsPackage.MineralCard;
+import cardsPackage.TrumpCard;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.Frame;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.
@@ -62,12 +63,12 @@ public class BottomPanelTopLeft extends JPanel {
 
     }
 
-    /*
+
     public BottomPanelTopLeft(BaseCard card ) {
         this();
         setSelectedCard(card);
     }
-    */
+
 
     void createLeftButtons(){
         leftButtons.setLayout(new BorderLayout());
@@ -108,9 +109,9 @@ public class BottomPanelTopLeft extends JPanel {
     }
 
 
-    /*
+
     void setSelectedCard(BaseCard card){
-        selectedCard = new CardPanelNormal(card.getFileName(), filePrefix);
+        selectedCard = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
         if( card.getCardType().toLowerCase().contains("play")){
             MineralCard currentCard = (MineralCard)card;
             detailsHardness.setText("Hardness: " + currentCard.getHardness().toString());
@@ -126,9 +127,9 @@ public class BottomPanelTopLeft extends JPanel {
             detailsCrustalAbundance.setText("");
             detailsEconomicValue.setText("");
         }
-        selectedCard = new CardPanelNormal(card.getFileName(), filePrefix);
+        selectedCard = new CardPanelNormal(card.getFileName(), Frame.filePrefix);
     }
-    */
+
 
 
     public static void main(String[] args) {

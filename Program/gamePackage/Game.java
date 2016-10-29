@@ -10,6 +10,8 @@ import cardsPackage.CardStatic;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
 
+import swingLayout.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -27,15 +29,15 @@ public class Game {
     private static View view;
     private static MineralCard clearCard;
 
-    private ArrayList<Player> players;
-    private ArrayList<Player> activePlayers;
-    private ArrayList<Player> finishedPlayers;
-    private Player dealer;
-    public Player currentPlayer;
+    private static ArrayList<Player> players;
+    private static ArrayList<Player> activePlayers;
+    private static ArrayList<Player> finishedPlayers;
+    private static Player dealer;
+    public static Player currentPlayer;
     private static Player winner;
     private static Player loser;
-    public Counter playerCounter;
-    private boolean firstPlayedCard = true;
+    public static Counter playerCounter;
+    private static boolean firstPlayedCard = true;
 
     private final int dealtHandSize = 7; // normal game is 7
 
@@ -84,7 +86,7 @@ public class Game {
         return dealer.getName();
     }
 
-    public ArrayList<Player> getPlayers(){
+    public static ArrayList<Player> getPlayers(){
         return players;
     }
 
@@ -447,7 +449,33 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
-        GuiView guiView = new GuiView(game);
+
+
+        //region temp testing
+        game.players.add(new Player("Jim bob"));
+        game.players.add(new Player("Mary"));
+        game.players.add(new Player("Jane"));
+
+        game.resetActivePlayers();
+        game.setDealer();
+        game.setPlayerCounter(game);
+        game.doShuffle();
+        game.dealCards(game.playerCounter);
+        game.getNextActivePlayer();
+
+        //endregion
+
+
+        Controller controller = new Controller(game);
+
+        controller.frame = new Frame();
+
+        controller.frame.pack();
+
+
+        controller.frame.initSetPlayerInfo();
+
+        controller.frame.showNextPlayer(game.currentPlayer.getName());
 
         //add players to game
         //guiView.startAddPlayerFrame();

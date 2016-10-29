@@ -3,7 +3,6 @@ package swingLayout;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.Frame;
 
 /**
  * Created by kurt.Schoenhoff on 29/10/2016.
