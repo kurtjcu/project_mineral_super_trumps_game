@@ -14,37 +14,17 @@ public class PlayerPass implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        System.out.println("pressed pass");
         controller.game.currentPlayer.addToHand(controller.game.deck.pop());
         controller.game.activePlayers.remove(controller.game.currentPlayer);
-        if (controller.game.activePlayers.size() == 1 && (controller.game.finishedPlayers.size() + 1) < controller.game.players.size()) {
-            if (controller.game.currentPlayer.getHand().size() > 1) {
-                controller.game.resetActivePlayers();
-                //controller.frame.refreshCurrentPlayer();
-                //TODO:get player to select trump
-                //myGame.currentTrump = myGame.selectTrump();
-                //TODO: get player to play card !! this should not happen here !! should happen from select trump hand
-                //myGame.addPlayedCard(clearCard);
-                //myGame.selectCard(myGame.currentPlayer);
-                return;
-            } else {
-
-                controller.game.checkForDeckShuffle();
-                //get next player
-                controller.game.getNextActivePlayer();
-                controller.frame.refreshCurrentPlayer();
-                //myGame.displayCurrentPlayer(myGame.currentPlayer);
-                //TODO:get player to select trump
-                //myGame.currentTrump = myGame.selectTrump();
-                //TODO: get player to play card !! this should not happen here !! should happen from select trump hand
-                //myGame.addPlayedCard(clearCard);
-                //myGame.selectCard(myGame.currentPlayer);
-                return;
-            }
-
-
+        if (controller.runGameLogic()) {
+            System.out.println("rungame logic returned true");
+            controller.game.getNextActivePlayer();
+            controller.game.checkForDeckShuffle();
+            controller.frame.showNextPlayer();
+        } else {
+            System.out.println("Rungame logic returned false");
         }
-        controller.game.getNextActivePlayer();
-        controller.frame.showNextPlayer();
 
     }
 }

@@ -59,7 +59,7 @@ public class BottomPanelTopLeft extends JPanel {
         pass = new JButton("Pass");
         pass.addActionListener(controller.playerPass);
         playCard = new JButton("Play Card");
-        pass.addActionListener(controller.playerPlayCard);
+        playCard.addActionListener(controller.playerPlayCard);
 
         setupLabels();
         createPanels();

@@ -27,6 +27,8 @@ public class Controller extends JFrame{
     public ShowPlayerTrumpSelect showPlayerTrumpSelect;
     public PlayerSelectTrump playerSelectTrump;
 
+    public boolean selectTrump = false;
+
 
     public Controller(Game game) {
         this.game = game;
@@ -38,6 +40,24 @@ public class Controller extends JFrame{
         this.showPlayerTrumpSelect = new ShowPlayerTrumpSelect(this);
         this.playerSelectTrump = new PlayerSelectTrump(this);
 
+    }
+
+    public boolean runGameLogic(){
+        if (game.activePlayers.size() == 1 && (game.finishedPlayers.size() + 1) < game.players.size()) {
+            if (game.currentPlayer.getHand().size() > 1) {
+                game.resetActivePlayers();
+                frame.showPlayerSelectTrump(game.trumpCards.get(0));
+                return false;
+            } else {
+
+                game.checkForDeckShuffle();
+                game.getNextActivePlayer();
+                frame.refreshCurrentPlayer();
+                frame.showPlayerSelectTrump(game.trumpCards.get(0));
+                return false;
+            }
+        }
+        return true;
     }
 
     /*

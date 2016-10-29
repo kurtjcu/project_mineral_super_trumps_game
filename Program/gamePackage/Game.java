@@ -23,7 +23,7 @@ public class Game {
     private static ArrayList<BaseCard> rulesCards;    //not used yet
     public ArrayList<TrumpCard> trumpCards;
     private static ArrayList<MineralCard> playingCards;
-    public static ArrayList<BaseCard> playedCards;
+    public ArrayList<BaseCard> playedCards;
     public BaseCard lastPlayedCard;
     public BaseCard currentlySelectedCard;
     public TrumpCard currentTrump;
@@ -288,9 +288,9 @@ public class Game {
         do {
             view.showCardWithMessage(currentTrump, "The current trump is:");
 
-            if (Game.playedCards.size() > 0) {
-                view.showCardWithMessage(Game.playedCards.get(Game.playedCards.size() - 1), "Last Played Card was: ");
-            }
+            //if (myG.playedCards.size() > 0) {
+            //    view.showCardWithMessage(Game.playedCards.get(Game.playedCards.size() - 1), "Last Played Card was: ");
+            //}
             number = showCardSelection(hand);
 
             if (number < 1 || hand.get(number - 1).getTitle().contains("Geophysicist And Magnetite")) {
@@ -356,11 +356,13 @@ public class Game {
         }
     }
 
-    private boolean isCardPlayable(BaseCard card) {
-        return (playedCards.get(playedCards.size() - 1).getCardType().toLowerCase().contains("trump")
+    public boolean isCardPlayable(BaseCard card) {
+        System.out.println(card.getTitle());
+        return (lastPlayedCard.getCardType().toLowerCase().contains("trump")
+                || lastPlayedCard.getCardType().toLowerCase().contains("rule")
                 || card.getCardType().toLowerCase().contains("trump")
                 || card.isThisCardGreaterThan(currentTrump,
-                (MineralCard) playedCards.get(playedCards.size() - 1)));
+                (MineralCard)lastPlayedCard));
     }
 
     //endregion

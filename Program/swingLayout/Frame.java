@@ -91,6 +91,7 @@ public class Frame extends JFrame {
 
 
     public void showNextPlayer(){
+        refreshCurrentPlayer();
         bottomPanel.removeAll();
         bottomPanelNextPlayer = new BottomPanelNextPlayer(controller);
         bottomPanel.add(bottomPanelNextPlayer, BorderLayout.CENTER);
@@ -121,6 +122,8 @@ public class Frame extends JFrame {
     }
 
     public void showPlayerSelectTrump(TrumpCard card){
+        refreshCurrentPlayer();
+        controller.selectTrump = true;
         bottomPanel.removeAll();
         bottomPanelTrumpSelect = new BottomPanelTrumpSelect(controller, card);
         bottomPanel.add(bottomPanelTrumpSelect, BorderLayout.CENTER);
