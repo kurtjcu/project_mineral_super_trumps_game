@@ -3,6 +3,7 @@ package swingLayout;
 import cardsPackage.BaseCard;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
+import gamePackage.Game;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,6 +14,7 @@ import java.awt.*;
  */
 public class BottomPanelTopLeft extends JPanel {
 
+    Controller controller;
     int gameHeight = (int) (Math.round(Frame.ySize * .333));
     int gameWidth = (int) (Math.round(Frame.xSize * .666));
 
@@ -32,9 +34,9 @@ public class BottomPanelTopLeft extends JPanel {
     JButton playCard;
 
 
-    public BottomPanelTopLeft() {
+    public BottomPanelTopLeft(Controller controller) {
         super(new BorderLayout());
-
+        this.controller = controller;
         leftButtons = new JPanel();
         centerCurrentSelectedCard = new JPanel();
         rightDetails = new JPanel();
@@ -63,11 +65,6 @@ public class BottomPanelTopLeft extends JPanel {
 
     }
 
-
-    public BottomPanelTopLeft(BaseCard card ) {
-        this();
-        setSelectedCard(card);
-    }
 
 
     void createLeftButtons(){
@@ -132,9 +129,10 @@ public class BottomPanelTopLeft extends JPanel {
 
 
 
+
     public static void main(String[] args) {
 
-        BottomPanelTopLeft thisPanel = new BottomPanelTopLeft();
+        BottomPanelTopLeft thisPanel = new BottomPanelTopLeft(new Controller(new Game()));
         thisPanel.setBorder(new LineBorder(Color.GREEN, 2));
 
         JFrame frame = new JFrame("Testing");
@@ -146,4 +144,5 @@ public class BottomPanelTopLeft extends JPanel {
         frame.pack();
 
     }
+
 }

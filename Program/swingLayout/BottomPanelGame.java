@@ -4,6 +4,7 @@ package swingLayout; /**
 
 import cardsPackage.BaseCard;
 import cardsPackage.TrumpCard;
+import gamePackage.Game;
 import gamePackage.Player;
 
 import javax.swing.*;
@@ -13,18 +14,23 @@ import java.util.ArrayList;
 
 public class BottomPanelGame extends JPanel {
 
+    Controller controller;
 
-
-    public BottomPanelGame() {
+    public BottomPanelGame(Controller controller) {
         super(new BorderLayout());
+        this.controller = controller;
         int gameHeight = (int) (Math.round(Frame.ySize * .666));
         int gameWidth = (int) (Math.round(Frame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
 
+        this.add(new BottomPanelTopLeft(controller), BorderLayout.LINE_START);
+        this.add(new BottomPanelTopRight(controller), BorderLayout.CENTER);
+
         this.setVisible(true);
     }
 
+    /*
     public BottomPanelGame(String label){
         this();
         JLabel jLabel = new JLabel("label");
@@ -46,15 +52,13 @@ public class BottomPanelGame extends JPanel {
         //}
     }
 
+    */
 
 
     public static void main(String[] args) {
 
-        ArrayList<String> names = new ArrayList<>();
-        for(int i = 0; i <= 5; i++){
-            names.add("Player " + (1 + i));
-        }
-        BottomPanelGame bottomPanel = new BottomPanelGame();
+
+        BottomPanelGame bottomPanel = new BottomPanelGame(new Controller(new Game()));
         bottomPanel.setBorder(new LineBorder(Color.GREEN, 2));
 
         JFrame frame = new JFrame("Testing");
@@ -66,4 +70,5 @@ public class BottomPanelGame extends JPanel {
         frame.setVisible(true);
 
     }
+
 }

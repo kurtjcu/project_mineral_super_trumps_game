@@ -14,14 +14,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BottomPanelNextPlayer extends JPanel implements ActionListener {
+public class BottomPanelNextPlayer extends JPanel {
 
 
     JLabel playerWhosTurnItIs = new JLabel("none", SwingConstants.CENTER);
     JButton ready = new JButton("Ready");
+    Controller controller;
 
-    public BottomPanelNextPlayer() {
+    public BottomPanelNextPlayer(Controller controller) {
         super(new BorderLayout());
+        this.controller = controller;
+
         int gameHeight = (int) (Math.round(Frame.ySize * .666));
         int gameWidth = (int) (Math.round(Frame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
@@ -29,27 +32,17 @@ public class BottomPanelNextPlayer extends JPanel implements ActionListener {
         playerWhosTurnItIs.setFont(Frame.largeFont);
         playerWhosTurnItIs.setBorder(new EmptyBorder(30,30,30,30));
         ready.setFont(Frame.largeFont);
-        ready.addActionListener(this);
+        ready.addActionListener(controller.showNextPlayerGame);
         this.add(playerWhosTurnItIs, BorderLayout.PAGE_START);
         this.add(ready, BorderLayout.CENTER);
+        String prefix = "It is currently ";
+        String suffix = "'s turn ";
+        playerWhosTurnItIs.setText(prefix + controller.game.currentPlayer.getName() + suffix);
         this.setVisible(true);
     }
 
-    public BottomPanelNextPlayer(String playerName) {
-        this();
-        String prefix = "It is currently ";
-        String suffix = "'s turn ";
-        playerWhosTurnItIs.setText(prefix + playerName + suffix);
 
-    }
-
-
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("drink beer");
-        controller.frame.showNextPlayer("fuckhead");
-    }
-
-
+    /*
     public static void main(String[] args) {
 
         BottomPanelNextPlayer bottomPanel = new BottomPanelNextPlayer("JimBob");
@@ -64,4 +57,5 @@ public class BottomPanelNextPlayer extends JPanel implements ActionListener {
         frame.setVisible(true);
 
     }
+    */
 }

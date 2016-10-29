@@ -24,16 +24,16 @@ public class Game {
     private static ArrayList<TrumpCard> trumpCards;
     private static ArrayList<MineralCard> playingCards;
     public static ArrayList<BaseCard> playedCards;
-    public static BaseCard lastPlayedCard;
-    public static TrumpCard currentTrump;
+    public BaseCard lastPlayedCard;
+    public TrumpCard currentTrump;
     private static View view;
     private static MineralCard clearCard;
 
-    private static ArrayList<Player> players;
+    public ArrayList<Player> players;
     private static ArrayList<Player> activePlayers;
     private static ArrayList<Player> finishedPlayers;
     private static Player dealer;
-    public static Player currentPlayer;
+    public Player currentPlayer;
     private static Player winner;
     private static Player loser;
     public static Counter playerCounter;
@@ -86,9 +86,6 @@ public class Game {
         return dealer.getName();
     }
 
-    public static ArrayList<Player> getPlayers(){
-        return players;
-    }
 
     /**
      * Setters
@@ -232,7 +229,7 @@ public class Game {
 
         String userInput;
         //check to see if it is the first round
-        if (!Game.currentTrump.getTitle().toLowerCase().contains("none")) {
+        if (!currentTrump.getTitle().toLowerCase().contains("none")) {
             userInput = view.showCardSelectionWithPass(hand);
         } else {
             userInput = view.showCardSelection(hand);
@@ -288,7 +285,7 @@ public class Game {
 
         Integer number;
         do {
-            view.showCardWithMessage(Game.currentTrump, "The current trump is:");
+            view.showCardWithMessage(currentTrump, "The current trump is:");
 
             if (Game.playedCards.size() > 0) {
                 view.showCardWithMessage(Game.playedCards.get(Game.playedCards.size() - 1), "Last Played Card was: ");
@@ -406,7 +403,7 @@ public class Game {
         myGame.selectCard(myGame.currentPlayer);
 
         //get player to select trump
-        currentTrump = myGame.selectTrump();
+        myGame.currentTrump = myGame.selectTrump();
 
         while (winner == null) {
 
@@ -425,7 +422,7 @@ public class Game {
 
                 if (myGame.currentPlayer.getHand().size() > 1) {
                     myGame.resetActivePlayers();
-                    currentTrump = myGame.selectTrump();
+                    myGame.currentTrump = myGame.selectTrump();
                     myGame.addPlayedCard(clearCard);
                     myGame.selectCard(myGame.currentPlayer);
                 } else {
@@ -433,7 +430,7 @@ public class Game {
                     //get next player
                     myGame.getNextActivePlayer();
                     myGame.displayCurrentPlayer(myGame.currentPlayer);
-                    currentTrump = myGame.selectTrump();
+                    myGame.currentTrump = myGame.selectTrump();
                     myGame.addPlayedCard(clearCard);
                     //get hand and display to player
                     //get player to select card
@@ -468,14 +465,14 @@ public class Game {
 
         Controller controller = new Controller(game);
 
-        controller.frame = new Frame();
+        controller.frame = new Frame(controller);
 
         controller.frame.pack();
 
 
-        controller.frame.initSetPlayerInfo();
+        controller.frame.initSetPlayerInfo(game.currentPlayer, game.players);
 
-        controller.frame.showNextPlayer(game.currentPlayer.getName());
+        controller.frame.showNextPlayer();
 
         //add players to game
         //guiView.startAddPlayerFrame();

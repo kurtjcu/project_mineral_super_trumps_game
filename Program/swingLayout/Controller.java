@@ -12,18 +12,23 @@ public class Controller extends JFrame{
 
     public Frame frame;
 
-    public static Game game;
+    public Game game;
 
     public Controller() {
 
     }
 
-    //public void updatePlayer
+    public ShowNextPlayer showNextPlayer; // = new ShowNextPlayer(game);
+    public ShowNextPlayerGame showNextPlayerGame;
+
 
     public Controller(Game game) {
         this.game = game;
+        showNextPlayer = new ShowNextPlayer(this);
+        showNextPlayerGame = new ShowNextPlayerGame(this);
     }
 
+    /*
     public static void main(String[] args) {
 
         Controller controller = new Controller();
@@ -32,7 +37,8 @@ public class Controller extends JFrame{
         controller.frame.pack();
         controller.frame.showNextPlayer("Jimbob");
 
-        controller.frame.showPlayerGameHand();
+        //controller.frame.showPlayerGameHand();
 
     }
+    */
 }

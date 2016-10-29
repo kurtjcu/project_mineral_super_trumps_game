@@ -1,9 +1,12 @@
 package swingLayout;
 
 import gamePackage.Game;
+import cardsPackage.*;
+import gamePackage.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by kurt.Schoenhoff on 29/10/2016.
@@ -17,6 +20,8 @@ public class Frame extends JFrame {
     public static Font extraLargeFont = new Font("SansSerif", Font.BOLD, 40);
 
     public static String filePrefix = "Program/swingLayout/images/";
+
+    private Controller controller;
 
     public Container pane;
 
@@ -36,11 +41,13 @@ public class Frame extends JFrame {
     public BottomPanelFinishedGame bottomPanelFinishedGame;
     public BottomPanelFinishedHand bottomPanelFinishedHand;
 
-    public Frame(){
+    public Frame(Controller controller){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(xSize, ySize);
         pane = this.getContentPane();
         pane.setLayout(new BorderLayout());
+
+        this.controller = controller;
 
         topPanel = new TopPanel();
         bottomPanel = new BottomPanel();
@@ -70,16 +77,16 @@ public class Frame extends JFrame {
         topPanel.add(topPanelRight, BorderLayout.LINE_END);
     }
 
-    public void initSetPlayerInfo(){
-        topPanelLeft.setBottomPanel(Game.currentPlayer.getName());
-        topPanelCenter.setPlayers(Game.getPlayers());
+    public void initSetPlayerInfo(Player player, ArrayList<Player> players){
+        topPanelLeft.setBottomPanel(player.getName());
+        topPanelCenter.setPlayers(players);   //TODO: un static??
         topPanelRedraw();
     }
 
 
-    public void showNextPlayer(String playerName){
+    public void showNextPlayer(){
         bottomPanel.removeAll();
-        bottomPanelNextPlayer = new BottomPanelNextPlayer(playerName);
+        bottomPanelNextPlayer = new BottomPanelNextPlayer(controller);
         bottomPanel.add(bottomPanelNextPlayer, BorderLayout.CENTER);
     }
 
@@ -87,11 +94,9 @@ public class Frame extends JFrame {
     //TODO: add player details and make sure it passes them down the line
     public void showPlayerGameHand(){
         bottomPanel.removeAll();
-        showNextPlayer("cunt");
-        bottomPanel.invalidate();
-        //bottomPanel.add(new BottomPanelGame(Controller.game.currentPlayer, Game.currentTrump, Game.lastPlayedCard));
-
-        System.out.println("finished adding");
+        bottomPanelGame = new BottomPanelGame(controller);
+        bottomPanel.add(bottomPanelGame, BorderLayout.CENTER);
+        this.pack();
     }
 
     //TODO: add player details and make sure it passes them down the line
@@ -108,7 +113,9 @@ public class Frame extends JFrame {
 
 
 
+    /*
     public static void main(String[] args) {
         Frame frame = new Frame();
     }
+    */
 }

@@ -3,6 +3,7 @@ package swingLayout;
 import cardsPackage.BaseCard;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
+import gamePackage.Game;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -17,7 +18,7 @@ public class BottomPanelTopRight extends JPanel {
     int gameHeight = (int) (Math.round(Frame.ySize * .333));
     int gameWidth = (int) (Math.round(Frame.xSize * .333));
 
-
+    Controller controller;
 
     JPanel topTitles;
     JPanel centerCards;
@@ -33,8 +34,10 @@ public class BottomPanelTopRight extends JPanel {
     JLabel currentValue;
 
 
-    public BottomPanelTopRight() {
+    public BottomPanelTopRight(Controller controller) {
         super(new BorderLayout());
+
+        this.controller = controller;
 
         topTitles = new JPanel();
         centerCards = new JPanel();
@@ -52,6 +55,9 @@ public class BottomPanelTopRight extends JPanel {
         setupLabels();
         createPanels();
 
+        setLastPlayed(controller.game.lastPlayedCard, controller.game.currentTrump);
+        setTrump(controller.game.currentTrump);
+
         this.add(topTitles, BorderLayout.PAGE_START);
         this.add(centerCards, BorderLayout.CENTER);
         this.add(bottomDetails, BorderLayout.PAGE_END);
@@ -62,13 +68,6 @@ public class BottomPanelTopRight extends JPanel {
 
     }
 
-
-    public BottomPanelTopRight(BaseCard card, TrumpCard trump) {
-        this();
-        setLastPlayed(card, trump);
-        setTrump(trump);
-
-    }
 
 
     void createTopPanel (){
@@ -123,7 +122,7 @@ public class BottomPanelTopRight extends JPanel {
 
     public static void main(String[] args) {
 
-        BottomPanelTopRight thisPanel = new BottomPanelTopRight();
+        BottomPanelTopRight thisPanel = new BottomPanelTopRight(new Controller(new Game()));
         thisPanel.setBorder(new LineBorder(Color.GREEN, 2));
 
         JFrame frame = new JFrame("Testing");
