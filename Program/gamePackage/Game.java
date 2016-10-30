@@ -35,12 +35,12 @@ public class Game {
     public ArrayList<Player> finishedPlayers;
     private static Player dealer;
     public Player currentPlayer;
-    private static Player winner;
-    private static Player loser;
+    public Player winner;
+    public Player loser;
     public static Counter playerCounter;
     private static boolean firstPlayedCard = true;
 
-    private final int dealtHandSize = 7; // normal game is 7
+    private final int dealtHandSize = 2; // normal game is 7
 
 
     public Game() {
@@ -408,7 +408,7 @@ public class Game {
         //get player to select trump
         myGame.currentTrump = myGame.selectTrump();
 
-        while (winner == null) {
+        while (myGame.winner == null) {
 
             myGame.checkForDeckShuffle();
 
@@ -441,8 +441,8 @@ public class Game {
                 }
             }
         }
-        System.out.println("The Winner is :" + winner);
-        System.out.println("and " + loser + " Lost...");
+        System.out.println("The Winner is :" + myGame.winner);
+        System.out.println("and " + myGame.loser + " Lost...");
     }
 
 
@@ -460,7 +460,7 @@ public class Game {
         game.setDealer();
         game.setPlayerCounter(game);
         game.doShuffle();
-        game.dealCards(game.playerCounter);
+        game.dealCards(playerCounter);
         game.getNextActivePlayer();
 
         //endregion

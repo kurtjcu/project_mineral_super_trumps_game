@@ -27,6 +27,8 @@ public class Controller extends JFrame{
     public ShowPlayerTrumpSelect showPlayerTrumpSelect;
     public PlayerSelectTrump playerSelectTrump;
 
+    public AwesomePlayerEmptiedHand awesomePlayerEmptiedHand;
+
     public boolean selectTrump = false;
 
 
@@ -39,6 +41,7 @@ public class Controller extends JFrame{
         this.playerSelectCard = new PlayerSelectCard(this);
         this.showPlayerTrumpSelect = new ShowPlayerTrumpSelect(this);
         this.playerSelectTrump = new PlayerSelectTrump(this);
+        awesomePlayerEmptiedHand = new AwesomePlayerEmptiedHand(this);
 
     }
 

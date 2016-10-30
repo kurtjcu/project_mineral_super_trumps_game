@@ -32,7 +32,6 @@ public class PlayerPlayCard implements ActionListener {
                 if(tempCard.getTitle().toLowerCase().contains("geologist")){
                     // if its the geologist get player to select trump
                     controller.frame.showPlayerSelectTrump(controller.game.trumpCards.get(0));
-                    return;
                 }
             } else {
                 //we just selected a trump do not increment player
@@ -62,6 +61,19 @@ public class PlayerPlayCard implements ActionListener {
                 }
             } else {
                 System.out.println(" not a valid card to play");
+            }
+        }
+
+        //check to add player to finished list
+        if (controller.game.currentPlayer.getHand().size() < 2) {
+            controller.game.finishedPlayers.add(controller.game.currentPlayer);
+            controller.game.activePlayers.remove(controller.game.currentPlayer);
+            if (controller.game.finishedPlayers.size() + 1 == controller.game.players.size()) {
+                controller.game.winner = controller.game.finishedPlayers.get(0);
+                controller.game.loser = controller.game.currentPlayer;
+                controller.frame.showFinishedGame();
+            } else {
+                controller.frame.showPlayerFinishedHand();
             }
         }
 

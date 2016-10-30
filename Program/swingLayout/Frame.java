@@ -55,7 +55,7 @@ public class Frame extends JFrame {
 
         topPanelLeft = new TopPanelLeft();
         topPanelCenter = new TopPanelCenter();
-        topPanelRight = new TopPanelRight();
+        topPanelRight = new TopPanelRight(controller);
 
 
         //setup top panel
@@ -82,11 +82,15 @@ public class Frame extends JFrame {
         topPanelLeft.setBottomPanel(controller.game.currentPlayer);
         topPanelCenter.setPlayers(controller.game.players);
         topPanelRedraw();
+        this.pack();
     }
 
     public void refreshCurrentPlayer(){
         topPanelLeft.setBottomPanel(controller.game.currentPlayer);
+        topPanelCenter.setPlayers(controller.game.players);
+        topPanelRight = new TopPanelRight(controller);
         topPanelRedraw();
+        this.pack();
     }
 
 
@@ -134,14 +138,18 @@ public class Frame extends JFrame {
 
     //TODO: add player details and make sure it passes them down the line
     public void showPlayerFinishedHand(){
+        refreshCurrentPlayer();
         bottomPanel.removeAll();
-        bottomPanel.add(new BottomPanelFinishedHand(), BorderLayout.CENTER);
+        bottomPanel.add(new BottomPanelFinishedHand(controller), BorderLayout.CENTER);
+        this.pack();
     }
 
     //TODO: add player details and make sure it passes them down the line
     public void showFinishedGame(){
+        refreshCurrentPlayer();
         bottomPanel.removeAll();
         bottomPanel.add(new BottomPanelFinishedGame());
+        this.pack();
     }
 
 

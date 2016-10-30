@@ -1,5 +1,8 @@
-package swingLayout;//import gamePackage.Player;
+package swingLayout;
 
+
+import gamePackage.Game;
+import gamePackage.Player;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -14,14 +17,16 @@ public class TopPanelRightFinishedPlayers extends JPanel {
     int gameHeight = (int) (Math.round(Frame.ySize * .3));
     int gameWidth = (int) (Math.round(Frame.xSize * .16));
 
+    Controller controller;
+
     public JLabel title;
     public JList finishedPlayerList;
-    public ArrayList<String> listNames = new ArrayList<>();
     public DefaultListModel listModel = new DefaultListModel();
 
 
-    public TopPanelRightFinishedPlayers() {
+    public TopPanelRightFinishedPlayers(Controller controller) {
         super(new BorderLayout());
+        this.controller = controller;
 
         title = new JLabel("Finished Players", SwingConstants.CENTER);
         title.setFont(Frame.largeFont);
@@ -30,6 +35,8 @@ public class TopPanelRightFinishedPlayers extends JPanel {
 
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
         this.setBorder(new LineBorder(Color.GREEN, 2));
+
+        setFinishedPlayers();
 
         this.add(title, BorderLayout.PAGE_START);
         this.add(finishedPlayerList, BorderLayout.CENTER);
@@ -42,20 +49,20 @@ public class TopPanelRightFinishedPlayers extends JPanel {
         this.listModel.addElement(name);
     }
 
-    /*
-    public void setFinishedPlayers(ArrayList<Player> players){
 
-        for(Player player : players){
+    public void setFinishedPlayers(){
+
+        for(Player player : controller.game.finishedPlayers){
             this.listModel.addElement(player.getName());
         }
 
     }
-    */
+
 
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("TestingTopPanelCenterPlayer");
-        TopPanelRightFinishedPlayers finishedPlayers = new TopPanelRightFinishedPlayers();
+        TopPanelRightFinishedPlayers finishedPlayers = new TopPanelRightFinishedPlayers(new Controller(new Game()));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());

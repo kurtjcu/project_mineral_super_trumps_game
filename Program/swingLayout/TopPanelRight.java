@@ -1,5 +1,7 @@
 package swingLayout;//import gamePackage.Player;
 
+import gamePackage.Game;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -12,12 +14,18 @@ public class TopPanelRight extends JPanel {
 
     int gameHeight = (int) (Math.round(Frame.ySize * .333));
     int gameWidth = (int) (Math.round(Frame.xSize * .333));
+    Controller controller;
 
-    TopPanelRightFinishedPlayers finishedPlayersPanel = new TopPanelRightFinishedPlayers();
-    JButton showRulesButton = new JButton("Show Rules");
 
-    public TopPanelRight() {
+    TopPanelRightFinishedPlayers finishedPlayersPanel;
+    JButton showRulesButton;
+
+    public TopPanelRight(Controller controller) {
         super(new FlowLayout());
+        this.controller = controller;
+
+        finishedPlayersPanel = new TopPanelRightFinishedPlayers(controller);
+        showRulesButton = new JButton("Show Rules");
 
         this.add(finishedPlayersPanel);
         this.add(showRulesButton);
@@ -36,7 +44,7 @@ public class TopPanelRight extends JPanel {
 
     public static void main(String[] args) {
 
-        TopPanelRight topPanelCenter = new TopPanelRight();
+        TopPanelRight topPanelCenter = new TopPanelRight(new Controller(new Game()));
         topPanelCenter.setBorder(new LineBorder(Color.GREEN, 2));
 
         JFrame frame = new JFrame("Testing");
