@@ -2,11 +2,11 @@ package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
+import gamePackage.Game;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class BottomPanelFinishedGame extends JPanel {
 
@@ -15,8 +15,12 @@ public class BottomPanelFinishedGame extends JPanel {
     JPanel text = new JPanel(new BorderLayout());
     JPanel buttons = new JPanel(new BorderLayout());
 
-    public BottomPanelFinishedGame() {
+    Controller controller;
+
+
+    public BottomPanelFinishedGame(Controller controller) {
         super(new BorderLayout());
+        this.controller = controller;
         int gameHeight = (int) (Math.round(Frame.ySize * .666));
         int gameWidth = (int) (Math.round(Frame.xSize));
         this.setPreferredSize(new Dimension(gameWidth, gameHeight));
@@ -24,20 +28,17 @@ public class BottomPanelFinishedGame extends JPanel {
         this.add(text, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.PAGE_END);
         this.setVisible(true);
-    }
 
-    public BottomPanelFinishedGame(ArrayList<String> players) {
-        this();
-        //ArrayList<String> listNames = new ArrayList<>();
         JList finishedPlayerList;
         DefaultListModel listModel = new DefaultListModel();
         finishedPlayerList = new JList(listModel);
         finishedPlayerList.setLayoutOrientation(JList.VERTICAL);
-        JLabel winner = new JLabel("Winner: " + players.get(0), SwingConstants.CENTER);
+        JLabel winner = new JLabel("Winner: " + controller.game.winner.getName(), SwingConstants.CENTER);
         int i ;
-        for (i = 1; i < players.size(); i++){
-            listModel.addElement(players.get(i));
+        for (i = 1; i < controller.game.finishedPlayers.size(); i++) {
+            listModel.addElement((i + 1) + ": " + controller.game.finishedPlayers.get(i).getName());
         }
+        listModel.addElement("Loser: " + controller.game.loser.getName());
         //TODO: refactor into "addText"
         winner.setBorder(new EmptyBorder(30,30,30,30));
         winner.setFont(Frame.extraLargeFont);
@@ -59,11 +60,8 @@ public class BottomPanelFinishedGame extends JPanel {
 
     public static void main(String[] args) {
 
-        ArrayList<String> names = new ArrayList<>();
-        for(int i = 0; i <= 5; i++){
-            names.add("Player " + (1+i));
-        }
-        BottomPanelFinishedGame bottomPanel = new BottomPanelFinishedGame(names);
+
+        BottomPanelFinishedGame bottomPanel = new BottomPanelFinishedGame(new Controller(new Game()));
         bottomPanel.setBorder(new LineBorder(Color.GREEN, 2));
 
         JFrame frame = new JFrame("Testing");

@@ -1,7 +1,6 @@
 package swingLayout;
 
 import cardsPackage.BaseCard;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

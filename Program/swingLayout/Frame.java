@@ -1,12 +1,9 @@
 package swingLayout;
 
-import gamePackage.Game;
-import cardsPackage.*;
-import gamePackage.Player;
-
+import cardsPackage.BaseCard;
+import cardsPackage.TrumpCard;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by kurt.Schoenhoff on 29/10/2016.
@@ -148,7 +145,7 @@ public class Frame extends JFrame {
     public void showFinishedGame(){
         refreshCurrentPlayer();
         bottomPanel.removeAll();
-        bottomPanel.add(new BottomPanelFinishedGame());
+        bottomPanel.add(new BottomPanelFinishedGame(controller));
         this.pack();
     }
 

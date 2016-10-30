@@ -6,14 +6,12 @@ package gamePackage;
  */
 
 import cardsPackage.BaseCard;
-
 import java.util.ArrayList;
 
 public class Player {
 
     private String name;
     private ArrayList<BaseCard> hand;
-
 
     public Player(String name) {
         this.name = name;

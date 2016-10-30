@@ -1,6 +1,5 @@
 package cardsPackage;
 
-
 import java.util.Arrays;
 
 /**
@@ -49,8 +48,8 @@ public class MineralCard extends BaseCard {
             error = error + 1;
         }
 
-        if (CardStatic.crustalAbundance.get(crustalAbundance.replaceAll("\\s", "")) != null) {
-            this.crustalAbundance = crustalAbundance.trim();
+        if (CardStatic.crustalAbundance.get(crustalAbundance) != null) {
+            this.crustalAbundance = crustalAbundance;
         } else {
             errorLoadingCard("crustalAbundance not supported " + crustalAbundance);
             error = error + 1;

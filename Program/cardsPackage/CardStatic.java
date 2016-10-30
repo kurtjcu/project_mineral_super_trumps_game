@@ -29,7 +29,7 @@ public class CardStatic {
         tempHashTable.put("low", 2);
         tempHashTable.put("moderate", 3);
         tempHashTable.put("high", 4);
-        tempHashTable.put("veryhigh", 5);
+        tempHashTable.put("very high", 5);
         crustalAbundance = tempHashTable;
     }
 

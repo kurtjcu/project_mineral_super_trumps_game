@@ -4,7 +4,6 @@ import cardsPackage.BaseCard;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
 import gamePackage.Game;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -43,7 +42,8 @@ public class BottomPanelTopLeft extends JPanel {
         rightDetails = new JPanel();
 
         selectedCard = controller.game.currentPlayer.getHand().get(0);
-        System.out.println(selectedCard.getTitle());
+        controller.game.currentlySelectedCard = selectedCard;
+        //System.out.println(selectedCard.getTitle());
 
 
 
@@ -77,8 +77,9 @@ public class BottomPanelTopLeft extends JPanel {
     public BottomPanelTopLeft(Controller controller, BaseCard card) {
         this(controller);
         selectedCard = card;
+        controller.game.currentlySelectedCard = card;
         setSelectedCardImage(card);
-        selectedCardImage = new CardPanelNormal(selectedCard, Frame.filePrefix);
+        //selectedCardImage = new CardPanelNormal(selectedCard, Frame.filePrefix);
         setupLabels();
         createPanels();
         this.removeAll();

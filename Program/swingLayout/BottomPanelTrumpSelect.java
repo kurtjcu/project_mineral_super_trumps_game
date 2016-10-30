@@ -2,10 +2,8 @@ package swingLayout; /**
  * Created by kurt.Schoenhoff on 18/10/2016.
  */
 
-import cardsPackage.BaseCard;
 import cardsPackage.TrumpCard;
 import gamePackage.Game;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

@@ -1,7 +1,6 @@
 package swingLayout;
 
 import gamePackage.Player;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

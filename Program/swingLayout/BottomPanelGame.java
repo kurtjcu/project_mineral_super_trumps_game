@@ -3,14 +3,10 @@ package swingLayout; /**
  */
 
 import cardsPackage.BaseCard;
-import cardsPackage.TrumpCard;
 import gamePackage.Game;
-import gamePackage.Player;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class BottomPanelGame extends JPanel {
 

@@ -1,7 +1,6 @@
 package gamePackage;
 
 import cardsPackage.BaseCard;
-
 import java.util.Stack;
 
 /**

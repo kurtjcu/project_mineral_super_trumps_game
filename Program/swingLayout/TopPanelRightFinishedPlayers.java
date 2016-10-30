@@ -6,7 +6,6 @@ import gamePackage.Player;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by kurt.Schoenhoff on 18/10/2016.

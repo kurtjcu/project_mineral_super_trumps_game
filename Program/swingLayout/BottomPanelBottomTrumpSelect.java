@@ -2,7 +2,6 @@ package swingLayout;
 
 import cardsPackage.BaseCard;
 import cardsPackage.TrumpCard;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

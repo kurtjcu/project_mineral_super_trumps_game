@@ -9,13 +9,10 @@ import cardsPackage.BaseCard;
 import cardsPackage.CardStatic;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
-
 import swingLayout.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
-
 
 public class Game {
 

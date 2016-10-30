@@ -1,7 +1,5 @@
 package swingLayout;
 
-import gamePackage.Game;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

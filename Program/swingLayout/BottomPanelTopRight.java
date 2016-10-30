@@ -4,7 +4,6 @@ import cardsPackage.BaseCard;
 import cardsPackage.MineralCard;
 import cardsPackage.TrumpCard;
 import gamePackage.Game;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

@@ -2,7 +2,6 @@ package swingLayout;
 
 import cardsPackage.BaseCard;
 import cardsPackage.TrumpCard;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

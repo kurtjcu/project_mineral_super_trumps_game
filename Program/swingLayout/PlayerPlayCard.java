@@ -2,7 +2,6 @@ package swingLayout;
 
 import cardsPackage.BaseCard;
 import cardsPackage.TrumpCard;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,13 +31,18 @@ public class PlayerPlayCard implements ActionListener {
                 if(tempCard.getTitle().toLowerCase().contains("geologist")){
                     // if its the geologist get player to select trump
                     controller.frame.showPlayerSelectTrump(controller.game.trumpCards.get(0));
+                } else {
+                    if (checkFinishedHand()) {
+                        controller.frame.showPlayerGameHand();
+                    }
                 }
             } else {
                 //we just selected a trump do not increment player
                 controller.selectTrump = false;
+                controller.game.lastPlayedCard = controller.game.currentlySelectedCard;
                 controller.frame.showPlayerGameHand();
             }
-            controller.frame.showPlayerGameHand();
+
         } else {
             System.out.println("not a trump");
             System.out.println(controller.game.currentlySelectedCard.getTitle() + " is not beer");
@@ -51,13 +55,15 @@ public class PlayerPlayCard implements ActionListener {
                         controller.game.currentPlayer.getHand().indexOf(controller.game.currentlySelectedCard));
                 controller.game.playedCards.add(tempCard);
                 controller.game.lastPlayedCard = tempCard;
-                if(controller.runGameLogic()){
-                    System.out.println("rungame logic returned true");
-                    controller.game.getNextActivePlayer();
-                    controller.game.checkForDeckShuffle();
-                    controller.frame.showNextPlayer();
-                } else {
-                    System.out.println("rungame logic returned false");
+                if (checkFinishedHand()) {
+                    if (controller.runGameLogic()) {
+                        System.out.println("rungame logic returned true");
+                        controller.game.getNextActivePlayer();
+                        controller.game.checkForDeckShuffle();
+                        controller.frame.showNextPlayer();
+                    } else {
+                        System.out.println("rungame logic returned false");
+                    }
                 }
             } else {
                 System.out.println(" not a valid card to play");
@@ -65,17 +71,26 @@ public class PlayerPlayCard implements ActionListener {
         }
 
         //check to add player to finished list
-        if (controller.game.currentPlayer.getHand().size() < 2) {
+
+
+    }
+
+    private boolean checkFinishedHand() {
+        if (controller.game.currentPlayer.getHand().size() < 1) {
             controller.game.finishedPlayers.add(controller.game.currentPlayer);
             controller.game.activePlayers.remove(controller.game.currentPlayer);
             if (controller.game.finishedPlayers.size() + 1 == controller.game.players.size()) {
                 controller.game.winner = controller.game.finishedPlayers.get(0);
+                controller.game.resetActivePlayers();
+                controller.game.getNextActivePlayer();
                 controller.game.loser = controller.game.currentPlayer;
                 controller.frame.showFinishedGame();
+                return false;
             } else {
                 controller.frame.showPlayerFinishedHand();
+                return false;
             }
         }
-
+        return true;
     }
 }

@@ -1,9 +1,7 @@
 package swingLayout;
 
 import gamePackage.Game;
-
 import javax.swing.*;
-
 
 /**
  * Created by kurt.Schoenhoff on 29/10/2016.
@@ -47,8 +45,9 @@ public class Controller extends JFrame{
 
     public boolean runGameLogic(){
         if (game.activePlayers.size() == 1 && (game.finishedPlayers.size() + 1) < game.players.size()) {
-            if (game.currentPlayer.getHand().size() > 1) {
+            if (game.currentPlayer.getHand().size() > 0) {
                 game.resetActivePlayers();
+                game.getNextActivePlayer();
                 frame.showPlayerSelectTrump(game.trumpCards.get(0));
                 return false;
             } else {
